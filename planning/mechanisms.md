@@ -1,8 +1,12 @@
 # Drive Train types
 
-- Tank Drive
+Tank Drive:
+- Heavy, has either four or six traction wheels. Six wheels provides extra turning capabilities by lowering middle wheels.
+- Simple to build, control, and is very reliable. Can be defensive or offensive.
 
-- Forklift Drive
+Forklift Drive:
+- Similar to a Tank Drive, except has four total wheels with two front omni wheels in the front.
+- Can be offensive or defensive
 
 - Mecanum Drive
 
