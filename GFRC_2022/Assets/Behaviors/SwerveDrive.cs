@@ -86,29 +86,19 @@ public class SwerveDrive : MonoBehaviour
 
 			wheels[i].drive_activation += wheel_to_rotation.magnitude * Mathf.Abs(steering); // @TODO@ Remove magic number!
 			wheel_directions[i]         = dampen(wheel_directions[i], new Vector2(perpendicular.x, perpendicular.z) * steering, 0.0001f);
-		}
 
-		//
-		// Apply corresponding forces.
-		//
-
-		for (int i = 0; i < 4; i += 1)
-		{
 			if (wheel_directions[i].magnitude > 0.001f)
 			{
 				wheels[i].transform.rotation = robot_base.transform.rotation;
-				wheels[i].transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), 90.0f - Mathf.Atan2(wheel_directions[i].y, wheel_directions[i].x) * 180.0f / Mathf.PI);
+				wheels[i].transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), 90.0f - argument(wheel_directions[i]) * 180.0f / Mathf.PI);
 			}
-
-			wheels[i].drive_activation = Mathf.Clamp(wheels[i].drive_activation, -1.0f, 1.0f);
-			Vector3 force = (wheels[i].transform.forward + wheels[i].transform.right * wheels[i].strafe_k) * wheels[i].drive_activation * wheels[i].drive_force;
-			rigid_body.AddForce (force                                                                              / 4.0f); // @NOTE@ Division by amount of wheels.
-			rigid_body.AddTorque(Vector3.Cross(wheels[i].transform.position - robot_base.transform.position, force) / 4.0f); // @NOTE@ Division by amount of wheels.
 		}
 
 		//
 		// Misc.
 		//
+
+		apply_wheel_physics(rigid_body, wheels);
 
 		pivot_indicator.transform.position = pivot_indicator_position;
 	}

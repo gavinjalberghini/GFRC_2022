@@ -64,15 +64,9 @@ public class MechanumDrive : MonoBehaviour
 		wheels[3].drive_activation += -steering;
 
 		//
-		// Apply corresponding forces.
+		// Misc.
 		//
 
-		foreach (Wheel wheel in wheels)
-		{
-			wheel.drive_activation = Mathf.Clamp(wheel.drive_activation, -1.0f, 1.0f);
-			Vector3 force = (wheel.transform.forward + wheel.transform.right * wheel.strafe_k) * wheel.drive_activation * wheel.drive_force;
-			rigid_body.AddForce (force                                                               / wheels.Length); // @NOTE@ Division by amount of wheels.
-			rigid_body.AddTorque(Vector3.Cross(wheel.transform.position - transform.position, force) / wheels.Length); // @NOTE@ Division by amount of wheels.
-		}
+		apply_wheel_physics(rigid_body, wheels);
 	}
 }

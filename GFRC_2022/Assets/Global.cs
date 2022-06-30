@@ -61,4 +61,20 @@ static class Global
 	{
 		return Gamepad.current == null ? new Vector2(0.0f, 0.0f) : Gamepad.current.rightStick.ReadValue();
 	}
+
+	static public float argument(Vector2 v)
+	{
+		return v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
+	}
+
+	static public void apply_wheel_physics(Rigidbody rigid_body, Wheel[] wheels)
+	{
+		foreach (Wheel wheel in wheels)
+		{
+			wheel.drive_activation = Mathf.Clamp(wheel.drive_activation, -1.0f, 1.0f);
+			Vector3 force = (wheel.transform.forward + wheel.transform.right * wheel.strafe_k) * wheel.drive_activation * wheel.drive_force;
+			rigid_body.AddForce (force                                                                          / wheels.Length);
+			rigid_body.AddTorque(Vector3.Cross(wheel.transform.position - rigid_body.transform.position, force) / wheels.Length);
+		}
+	}
 }
