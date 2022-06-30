@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Global;
 
 public class mechanum_drive_wheeled : MonoBehaviour
 {
@@ -10,8 +11,9 @@ public class mechanum_drive_wheeled : MonoBehaviour
 
 	GameObject robot_base;
 	Rigidbody  rigid_body;
-	Wheel[]    wheels = new Wheel[4];
-	Vector2    pivot_offset;
+	Wheel[]    wheels   = new Wheel[4];
+	Vector2    movement = new Vector2(0.0f, 0.0f);
+	float      steering = 0.0f;
 
 	void Start()
 	{
@@ -25,50 +27,49 @@ public class mechanum_drive_wheeled : MonoBehaviour
 
 	void Update()
 	{
-		float[] wheel_target_activations = new float[4];
-
 		//
 		// Cardinal movement.
 		//
 
-
 		{
-			Vector2 movement = Gamepad.current == null ? new Vector2(0.0f, 0.0f) : Gamepad.current.leftStick.ReadValue();
-			if (movement == new Vector2(0.0f, 0.0f))
+			Vector2 target_movement = Gamepad.current == null ? new Vector2(0.0f, 0.0f) : Gamepad.current.leftStick.ReadValue();
+			if (target_movement == new Vector2(0.0f, 0.0f))
 			{
-				if (Keyboard.current[Key.A].isPressed) { movement.x -= 1.0f; }
-				if (Keyboard.current[Key.D].isPressed) { movement.x += 1.0f; }
-				if (Keyboard.current[Key.S].isPressed) { movement.y -= 1.0f; }
-				if (Keyboard.current[Key.W].isPressed) { movement.y += 1.0f; }
-				if (movement != new Vector2(0.0f, 0.0f))
+				if (Keyboard.current[Key.A].isPressed) { target_movement.x -= 1.0f; }
+				if (Keyboard.current[Key.D].isPressed) { target_movement.x += 1.0f; }
+				if (Keyboard.current[Key.S].isPressed) { target_movement.y -= 1.0f; }
+				if (Keyboard.current[Key.W].isPressed) { target_movement.y += 1.0f; }
+				if (target_movement != new Vector2(0.0f, 0.0f))
 				{
-					movement = Vector3.Normalize(movement);
+					target_movement = Vector3.Normalize(target_movement);
 				}
 			}
-			movement *= Mathf.Max(max_movement_speed - rigid_body.velocity.magnitude, 0.0f); // @TODO@ Stops from forever accelerating. Could be better...
-
-			wheel_target_activations[0] = wheel_target_activations[3] = movement.y - movement.x;
-			wheel_target_activations[1] = wheel_target_activations[2] = movement.x + movement.y;
+			target_movement *= (max_movement_speed - rigid_body.velocity.magnitude) * 0.2f;
+			movement = dampen(movement, target_movement, 0.00001f);
 		}
+
+		wheels[0].drive_activation = wheels[3].drive_activation = movement.y - movement.x;
+		wheels[1].drive_activation = wheels[2].drive_activation = movement.x + movement.y;
 
 		//
 		// Rotational movement.
 		//
 
 		{
-			float steering = Gamepad.current == null ? 0.0f : Gamepad.current.rightStick.ReadValue().x;
-			if (steering == 0.0f)
+			float target_steering = Gamepad.current == null ? 0.0f : Gamepad.current.rightStick.ReadValue().x;
+			if (target_steering == 0.0f)
 			{
-				if (Keyboard.current[Key.Q].isPressed) { steering -= 1.0f; }
-				if (Keyboard.current[Key.E].isPressed) { steering += 1.0f; }
+				if (Keyboard.current[Key.Q].isPressed) { target_steering -= 1.0f; }
+				if (Keyboard.current[Key.E].isPressed) { target_steering += 1.0f; }
 			}
-			steering *= Mathf.Max(max_steering_speed - rigid_body.angularVelocity.magnitude, 0.0f); // @TODO@ Stops from forever accelerating. Could be better...
-
-			wheel_target_activations[0] +=  steering;
-			wheel_target_activations[1] += -steering;
-			wheel_target_activations[2] +=  steering;
-			wheel_target_activations[3] += -steering;
+			target_steering *= (max_steering_speed - rigid_body.angularVelocity.magnitude) * 0.1f;
+			steering         = dampen(steering, target_steering, 0.000001f);
 		}
+
+		wheels[0].drive_activation +=  steering;
+		wheels[1].drive_activation += -steering;
+		wheels[2].drive_activation +=  steering;
+		wheels[3].drive_activation += -steering;
 
 		//
 		// Apply corresponding forces.
@@ -76,10 +77,7 @@ public class mechanum_drive_wheeled : MonoBehaviour
 
 		for (int i = 0; i < 4; i += 1)
 		{
-			const float DAMPENING_CONSTANT = 0.0001f; // @TODO@ Make this adjustable?
-			wheel_target_activations[i] = Mathf.Clamp(wheel_target_activations[i], -1.0f, 1.0f);
-			wheels[i].drive_activation  = wheel_target_activations[i] + (wheels[i].drive_activation - wheel_target_activations[i]) * Mathf.Pow(DAMPENING_CONSTANT, Time.deltaTime); // @TODO@ Extract framerate independent dampening into a global function.
-
+			wheels[i].drive_activation = Mathf.Clamp(wheels[i].drive_activation, -1.0f, 1.0f);
 			Vector3 force = (wheels[i].transform.forward + wheels[i].transform.right * wheels[i].strafe_k) * wheels[i].drive_activation * wheels[i].drive_force;
 			rigid_body.AddForce (force                                                                   / 4.0f); // @NOTE@ Division by amount of wheels.
 			rigid_body.AddTorque(Vector3.Cross(wheels[i].transform.position - transform.position, force) / 4.0f); // @NOTE@ Division by amount of wheels.

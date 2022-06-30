@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Wheel : MonoBehaviour
 {
-	public float drive_force      = 6.0f; // @TODO@ Make this depend on the parent.
-	public float drive_activation = 0.0f;
-	public float strafe_k         = 0.0f;
+	public float drive_force      = 6.0f; // @NOTE@ Amount of force driving the wheel forward/backwards.
+	public float drive_activation = 0.0f; // @NOTE@ Amount of "spinning" the wheel is doing.
+	public float strafe_k         = 0.0f; // @NOTE@ Ratio of the strafe force to the drive force.
 
 	Transform tire;
 	Transform drive_force_indicator;
