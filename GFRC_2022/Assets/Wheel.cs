@@ -43,13 +43,20 @@ public class Wheel : MonoBehaviour
 		// Scale and rotate the net force indicator.
 		//
 
-		Vector2 net_force = new Vector2(drive_activation * drive_force * strafe_k, drive_activation * drive_force);
-		net_force_indicator.localScale = new Vector3(0.05f, net_force.magnitude * FORCE_INDICATOR_SCALAR, 0.05f);
-		net_force_indicator.position   = tire.position + transform.right * net_force_indicator.localScale.y;
-		net_force_indicator.rotation   = transform.rotation * Quaternion.Euler(0.0f, 0.0f, 90.0f);
-		if (net_force.magnitude > 0.001f)
+		if (strafe_k != 0.0f)
 		{
-			net_force_indicator.RotateAround(tire.position, transform.up, -Mathf.Atan2(net_force.y, net_force.x) * 180.0f / Mathf.PI);
+			Vector2 net_force = new Vector2(drive_activation * drive_force * strafe_k, drive_activation * drive_force);
+			net_force_indicator.localScale = new Vector3(0.05f, net_force.magnitude * FORCE_INDICATOR_SCALAR, 0.05f);
+			net_force_indicator.position   = tire.position + transform.right * net_force_indicator.localScale.y;
+			net_force_indicator.rotation   = transform.rotation * Quaternion.Euler(0.0f, 0.0f, 90.0f);
+			if (net_force.magnitude > 0.001f)
+			{
+				net_force_indicator.RotateAround(tire.position, transform.up, -Mathf.Atan2(net_force.y, net_force.x) * 180.0f / Mathf.PI);
+			}
+		}
+		else
+		{
+			net_force_indicator.localScale = new Vector3(0.0f, 0.0f, 0.0f);
 		}
 	}
 }
