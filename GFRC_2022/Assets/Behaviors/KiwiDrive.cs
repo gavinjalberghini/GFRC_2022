@@ -30,20 +30,13 @@ public class KiwiDrive : MonoBehaviour
 		//
 
 		{
-			Vector2 target_movement = Gamepad.current == null ? new Vector2(0.0f, 0.0f) : Gamepad.current.leftStick.ReadValue();
+			Vector2 target_movement = left_stick();
 			if (target_movement == new Vector2(0.0f, 0.0f))
 			{
-				if (Keyboard.current[Key.A].isPressed) { target_movement.x -= 1.0f; }
-				if (Keyboard.current[Key.D].isPressed) { target_movement.x += 1.0f; }
-				if (Keyboard.current[Key.S].isPressed) { target_movement.y -= 1.0f; }
-				if (Keyboard.current[Key.W].isPressed) { target_movement.y += 1.0f; }
-				if (target_movement != new Vector2(0.0f, 0.0f))
-				{
-					target_movement = Vector3.Normalize(target_movement);
-				}
+				target_movement = wasd_normalized();
 			}
 			target_movement *= (max_movement_speed - rigid_body.velocity.magnitude) * 0.2f;
-			movement = dampen(movement, target_movement, 0.00001f);
+			movement         = dampen(movement, target_movement, 0.00001f);
 		}
 
 		foreach (Wheel wheel in wheels)
@@ -56,7 +49,7 @@ public class KiwiDrive : MonoBehaviour
 		//
 
 		{
-			float target_steering = Gamepad.current == null ? 0.0f : Gamepad.current.rightStick.ReadValue().x;
+			float target_steering = right_stick().x;
 			if (target_steering == 0.0f)
 			{
 				if (Keyboard.current[Key.Q].isPressed) { target_steering -= 1.0f; }

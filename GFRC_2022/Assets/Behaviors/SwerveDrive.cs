@@ -35,14 +35,9 @@ public class SwerveDrive : MonoBehaviour
 		// Pivot change.
 		//
 
-		// @TODO@ Make the pivot change depending on the orientation of the camera (e.g. pressing "up" would make the pivot go up, even when it is going lower on the base).
-		const float PIVOT_MOVE_SPEED = 4.0f;
-		if (Keyboard.current[Key.LeftArrow ].isPressed || Gamepad.current.buttonWest .isPressed) { pivot_offset.x -= PIVOT_MOVE_SPEED * Time.deltaTime; }
-		if (Keyboard.current[Key.RightArrow].isPressed || Gamepad.current.buttonEast .isPressed) { pivot_offset.x += PIVOT_MOVE_SPEED * Time.deltaTime; }
-		if (Keyboard.current[Key.DownArrow ].isPressed || Gamepad.current.buttonSouth.isPressed) { pivot_offset.y -= PIVOT_MOVE_SPEED * Time.deltaTime; }
-		if (Keyboard.current[Key.UpArrow   ].isPressed || Gamepad.current.buttonNorth.isPressed) { pivot_offset.y += PIVOT_MOVE_SPEED * Time.deltaTime; }
-		pivot_offset.x = Mathf.Clamp(pivot_offset.x, -1.0f, 1.0f);
-		pivot_offset.y = Mathf.Clamp(pivot_offset.y, -1.0f, 1.0f);
+		pivot_offset   += (arrow_keys() + gamepad_buttons()).normalized * 4.0f * Time.deltaTime;
+		pivot_offset.x  = Mathf.Clamp(pivot_offset.x, -1.0f, 1.0f);
+		pivot_offset.y  = Mathf.Clamp(pivot_offset.y, -1.0f, 1.0f);
 
 		Vector3 pivot_indicator_position =
 			robot_base.transform.position
@@ -54,28 +49,19 @@ public class SwerveDrive : MonoBehaviour
 		//
 
 		{
-			Vector2 target_movement = Gamepad.current == null ? new Vector2(0.0f, 0.0f) : Gamepad.current.leftStick.ReadValue();
+			Vector2 target_movement = left_stick();
 			if (target_movement == new Vector2(0.0f, 0.0f))
 			{
-				if (Keyboard.current[Key.A].isPressed) { target_movement.x -= 1.0f; }
-				if (Keyboard.current[Key.D].isPressed) { target_movement.x += 1.0f; }
-				if (Keyboard.current[Key.S].isPressed) { target_movement.y -= 1.0f; }
-				if (Keyboard.current[Key.W].isPressed) { target_movement.y += 1.0f; }
-				if (target_movement != new Vector2(0.0f, 0.0f))
-				{
-					target_movement = Vector3.Normalize(target_movement);
-				}
+				target_movement = wasd_normalized();
 			}
 			target_movement *= (max_movement_speed - rigid_body.velocity.magnitude) * 0.2f;
-			movement = dampen(movement, target_movement, 0.00001f);
+			movement         = dampen(movement, target_movement, 0.00001f);
 		}
-
-		wheels[0].drive_activation = wheels[3].drive_activation = movement.magnitude;
-		wheels[1].drive_activation = wheels[2].drive_activation = movement.magnitude;
 
 		for (int i = 0; i < 4; i += 1)
 		{
-			wheel_directions[i] = dampen(wheel_directions[i], movement, 0.001f);
+			wheels[i].drive_activation = movement.magnitude;
+			wheel_directions[i]        = dampen(wheel_directions[i], movement, 0.001f);
 		}
 
 		//
@@ -83,7 +69,7 @@ public class SwerveDrive : MonoBehaviour
 		//
 
 		{
-			float target_steering = Gamepad.current == null ? 0.0f : Gamepad.current.rightStick.ReadValue().x;
+			float target_steering = right_stick().x;
 			if (target_steering == 0.0f)
 			{
 				if (Keyboard.current[Key.Q].isPressed) { target_steering -= 1.0f; }
