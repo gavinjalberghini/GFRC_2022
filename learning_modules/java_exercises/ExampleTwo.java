@@ -2,7 +2,7 @@ package learning_modules.java_exercises;
 
 public class ExampleTwo {
     public static void main(String[] args){
-        int currentYear=781;
+        int currentYear=1962;
         boolean leapYear=false;
 
         if(currentYear%4==0)

@@ -2,7 +2,7 @@ package learning_modules.java_exercises;
 
 public class ExampleThree {
     public static void main(String[] args){
-    String currentDay="thursday";
+    String currentDay="monday";
     
     switch(currentDay){
         case "monday":
@@ -25,7 +25,7 @@ public class ExampleThree {
             break;
     }
 
-    int month=9;
+    int month=6;
     String stMonth="January";
 
     switch(month){
