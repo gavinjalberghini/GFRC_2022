@@ -354,11 +354,14 @@
 "Assets/Behaviors/ForkliftDrive.cs"
 "Assets/Behaviors/HDrive.cs"
 "Assets/Behaviors/KiwiDrive.cs"
-"Assets/Behaviors/MechanumDrive.cs"
+"Assets/Behaviors/MecanumDrive.cs"
+"Assets/Behaviors/MechanumDrive_DEPRECATED.cs"
 "Assets/Behaviors/SwerveDrive.cs"
+"Assets/Behaviors/SwerveDrive_DEPRECATED.cs"
 "Assets/Behaviors/TankDrive.cs"
 "Assets/Global.cs"
 "Assets/Wheel.cs"
+"Assets/Wheel_DEPRECATED.cs"
 -langversion:9.0
 
 /deterministic

@@ -5,18 +5,18 @@ using static Global;
 
 public class TankDrive : MonoBehaviour
 {
-	Wheel[] wheels   = new Wheel[6];
+	Wheel_DEPRECATED[] wheels   = new Wheel_DEPRECATED[6];
 	Vector2 movement = new Vector2(0.0f, 0.0f);
 	float   steering = 0.0f;
 
 	void Start()
 	{
-		wheels[0] = transform.Find("Wheel L0").gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1] = transform.Find("Wheel L1").gameObject.GetComponent<Wheel>();
-		wheels[2] = transform.Find("Wheel L2").gameObject.GetComponent<Wheel>();
-		wheels[3] = transform.Find("Wheel R0").gameObject.GetComponent<Wheel>();
-		wheels[4] = transform.Find("Wheel R1").gameObject.GetComponent<Wheel>();
-		wheels[5] = transform.Find("Wheel R2").gameObject.GetComponent<Wheel>();
+		wheels[0] = transform.Find("Wheel L0").gameObject.GetComponent<Wheel_DEPRECATED>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
+		wheels[1] = transform.Find("Wheel L1").gameObject.GetComponent<Wheel_DEPRECATED>();
+		wheels[2] = transform.Find("Wheel L2").gameObject.GetComponent<Wheel_DEPRECATED>();
+		wheels[3] = transform.Find("Wheel R0").gameObject.GetComponent<Wheel_DEPRECATED>();
+		wheels[4] = transform.Find("Wheel R1").gameObject.GetComponent<Wheel_DEPRECATED>();
+		wheels[5] = transform.Find("Wheel R2").gameObject.GetComponent<Wheel_DEPRECATED>();
 	}
 
 	void Update()

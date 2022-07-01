@@ -6,17 +6,17 @@ using static Global;
 
 public class CarDrive : MonoBehaviour
 {
-	Wheel[]    wheels           = new Wheel[4];
+	Wheel_DEPRECATED[]    wheels           = new Wheel_DEPRECATED[4];
 	Vector2[]  wheel_directions = new Vector2[4]; // @NOTE@ First two unused. // @TODO@ Use angles for better animation.
 	Vector2    movement         = new Vector2(0.0f, 0.0f);
 	float      steering         = 0.0f;
 
 	void Start()
 	{
-		wheels[0] = transform.Find("Wheel BL").gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1] = transform.Find("Wheel BR").gameObject.GetComponent<Wheel>();
-		wheels[2] = transform.Find("Wheel FL").gameObject.GetComponent<Wheel>();
-		wheels[3] = transform.Find("Wheel FR").gameObject.GetComponent<Wheel>();
+		wheels[0] = transform.Find("Wheel BL").gameObject.GetComponent<Wheel_DEPRECATED>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
+		wheels[1] = transform.Find("Wheel BR").gameObject.GetComponent<Wheel_DEPRECATED>();
+		wheels[2] = transform.Find("Wheel FL").gameObject.GetComponent<Wheel_DEPRECATED>();
+		wheels[3] = transform.Find("Wheel FR").gameObject.GetComponent<Wheel_DEPRECATED>();
 	}
 
 	void Update()

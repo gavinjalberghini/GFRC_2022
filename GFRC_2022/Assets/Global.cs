@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 static class Global
 {
+	static public float TAU = 2.0f * Mathf.PI;
+
 	// @NOTE@ Framrate independent dampening. Use this to gradually move one value to other smoothly over each update tick.
 	// `friction` of 0.0f will cause an instanteous transition from `start` to `end`.
 	// `friction` of 0.5f will close the gap between `start` and `end` by half after one second.
@@ -68,8 +70,10 @@ static class Global
 	}
 
 	// @TODO@ Make wheel exert force when touching ground.
-	static public void apply_wheel_physics(Rigidbody rigidbody, Wheel[] wheels)
+	static public void apply_wheel_physics(Rigidbody rigidbody, Wheel_DEPRECATED[] wheels)
 	{
+		// @NOTICE@ DEPRECATED.
+		/*
 		foreach (Wheel wheel in wheels)
 		{
 			wheel.drive_activation = Mathf.Clamp(wheel.drive_activation, -1.0f, 1.0f);
@@ -81,5 +85,32 @@ static class Global
 			rigidbody.AddForce (force                                                                         / wheels.Length);
 			rigidbody.AddTorque(Vector3.Cross(wheel.transform.position - rigidbody.transform.position, force) / wheels.Length);
 		}
+		*/
+	}
+
+	static public Vector3 v2_on_plane(Vector3 axis_x, Vector3 axis_y, Vector2 position)
+	{
+		return axis_x * position.x + axis_y * position.y;
+	}
+
+	static public Vector2 rotate(Vector2 v, float degrees)
+	{
+		return new Vector2
+			(
+				v.x * Mathf.Cos(degrees / 180.0f * Mathf.PI) - v.y * Mathf.Sin(degrees / 180.0f * Mathf.PI),
+				v.x * Mathf.Sin(degrees / 180.0f * Mathf.PI) + v.y * Mathf.Cos(degrees / 180.0f * Mathf.PI)
+			);
+	}
+
+	static public float mod(float a, float b)
+	{
+		return (a % b + b) % b;
+	}
+
+	static public float min_degree_arc(float a, float b)
+	{
+		float delta_0 = mod(b, 360.0f) - mod(a, 360.0f);
+		float delta_1 = delta_0 - Mathf.Sign(delta_0) * 360.0f;
+		return Mathf.Abs(delta_0) < Mathf.Abs(delta_1) ? delta_0 : delta_1;
 	}
 }
