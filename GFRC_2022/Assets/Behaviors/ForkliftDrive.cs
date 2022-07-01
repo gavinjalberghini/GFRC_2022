@@ -64,4 +64,3 @@ public class ForkliftDrive : MonoBehaviour
 		apply_wheel_physics(GetComponent<Rigidbody>(), wheels);
 	}
 }
-
