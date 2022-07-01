@@ -193,13 +193,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: max_speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 3683b87fd4dc25d44aad3f25bf4b557a, type: 2}
+      objectReference: {fileID: 13400000, guid: 99d08f0446fcfba4aa374e01841dab72, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!1 &145903974
@@ -232,8 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89626ec9dd5e91640a25b279338b056e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_movement_speed: 8
-  max_steering_speed: 8
 --- !u!54 &145903976
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -335,9 +337,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: max_speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b81d7ed7adf0099408c7eec1f2770bb4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!1 &152933182
@@ -483,13 +493,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: max_speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 3683b87fd4dc25d44aad3f25bf4b557a, type: 2}
+      objectReference: {fileID: 13400000, guid: 99d08f0446fcfba4aa374e01841dab72, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!4 &221106099 stripped
@@ -839,9 +853,17 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: max_speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b81d7ed7adf0099408c7eec1f2770bb4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!1001 &395606520
@@ -1266,7 +1288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
-      value: 4
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
@@ -1712,12 +1738,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: max_speed
-      value: 32
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b81d7ed7adf0099408c7eec1f2770bb4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!1001 &881576361
@@ -1846,7 +1876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: max_speed
-      value: 32
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
@@ -1855,7 +1885,7 @@ PrefabInstance:
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 3683b87fd4dc25d44aad3f25bf4b557a, type: 2}
+      objectReference: {fileID: 13400000, guid: 99d08f0446fcfba4aa374e01841dab72, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!1 &963194225
@@ -2085,13 +2115,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: max_speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 3683b87fd4dc25d44aad3f25bf4b557a, type: 2}
+      objectReference: {fileID: 13400000, guid: 99d08f0446fcfba4aa374e01841dab72, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!4 &1140241958 stripped
@@ -2243,11 +2277,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: max_speed
-      value: 32
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
-      value: 4
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
@@ -2277,7 +2315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1341199385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2290,8 +2328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6dd0f0caac7f104280ae4c289b1489f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_movement_speed: 8
-  max_steering_speed: 8
 --- !u!54 &1341199386
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2465,8 +2501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546f4a76f3b2e3048a1e0692adad4365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_movement_speed: 6
-  max_steering_speed: 16
 --- !u!1001 &1395768508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2527,9 +2561,17 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: max_speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b81d7ed7adf0099408c7eec1f2770bb4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!1 &1406969752
@@ -2773,7 +2815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: max_speed
-      value: 32
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
@@ -2782,7 +2824,7 @@ PrefabInstance:
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 3683b87fd4dc25d44aad3f25bf4b557a, type: 2}
+      objectReference: {fileID: 13400000, guid: 99d08f0446fcfba4aa374e01841dab72, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
 --- !u!1001 &1626423217
@@ -2846,7 +2888,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
-      value: 4
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
@@ -2915,7 +2961,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569883222369453169, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: drive_force
-      value: 4
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7071454187787276171, guid: 6718df672461a884f92a70c5f4f1de66, type: 3}
       propertyPath: m_Material
@@ -2940,7 +2990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1756215882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2953,8 +3003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de6cd5e904aee647957ee68a169a952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_movement_speed: 8
-  max_steering_speed: 8
 --- !u!4 &1756215883
 Transform:
   m_ObjectHideFlags: 0

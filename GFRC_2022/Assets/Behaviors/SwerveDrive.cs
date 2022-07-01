@@ -6,13 +6,6 @@ using static Global;
 
 public class SwerveDrive : MonoBehaviour
 {
-	public float max_movement_speed = 8.0f;
-	public float max_steering_speed = 8.0f;
-
-	GameObject robot_base;
-	Rigidbody  rigid_body;
-	GameObject pivot_indicator;
-	Vector2    pivot_offset;
 	Wheel[]    wheels           = new Wheel[4];
 	Vector2[]  wheel_directions = new Vector2[4]; // @TODO@ Use angles for better animation.
 	Vector2    movement         = new Vector2(0.0f, 0.0f);
@@ -20,29 +13,15 @@ public class SwerveDrive : MonoBehaviour
 
 	void Start()
 	{
-		robot_base      = transform.Find("Base"           ).gameObject;
-		pivot_indicator = transform.Find("Pivot Indicator").gameObject;
-		wheels[0]       = transform.Find("Wheel BL"       ).gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1]       = transform.Find("Wheel BR"       ).gameObject.GetComponent<Wheel>();
-		wheels[2]       = transform.Find("Wheel FL"       ).gameObject.GetComponent<Wheel>();
-		wheels[3]       = transform.Find("Wheel FR"       ).gameObject.GetComponent<Wheel>();
-		rigid_body      = GetComponent<Rigidbody>();
+		wheels[0] = transform.Find("Wheel BL").gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
+		wheels[1] = transform.Find("Wheel BR").gameObject.GetComponent<Wheel>();
+		wheels[2] = transform.Find("Wheel FL").gameObject.GetComponent<Wheel>();
+		wheels[3] = transform.Find("Wheel FR").gameObject.GetComponent<Wheel>();
 	}
 
 	void Update()
 	{
-		//
-		// Pivot change.
-		//
-
-		pivot_offset   += (arrow_keys() + gamepad_buttons()).normalized * 4.0f * Time.deltaTime;
-		pivot_offset.x  = Mathf.Clamp(pivot_offset.x, -1.0f, 1.0f);
-		pivot_offset.y  = Mathf.Clamp(pivot_offset.y, -1.0f, 1.0f);
-
-		Vector3 pivot_indicator_position =
-			robot_base.transform.position
-				+ robot_base.transform.right   * robot_base.transform.localScale.x * 0.5f * pivot_offset.x
-				+ robot_base.transform.forward * robot_base.transform.localScale.z * 0.5f * pivot_offset.y;
+		const float GREASE = 0.000001f; // @NOTE@ How quickly the movement and steering changes.
 
 		//
 		// Cardinal movement.
@@ -54,14 +33,7 @@ public class SwerveDrive : MonoBehaviour
 			{
 				target_movement = wasd_normalized();
 			}
-			target_movement *= (max_movement_speed - rigid_body.velocity.magnitude) * 0.2f;
-			movement         = dampen(movement, target_movement, 0.00001f);
-		}
-
-		for (int i = 0; i < 4; i += 1)
-		{
-			wheels[i].drive_activation = movement.magnitude;
-			wheel_directions[i]        = dampen(wheel_directions[i], movement, 0.001f);
+			movement = dampen(movement, target_movement, GREASE);
 		}
 
 		//
@@ -75,31 +47,28 @@ public class SwerveDrive : MonoBehaviour
 				if (Keyboard.current[Key.Q].isPressed) { target_steering -= 1.0f; }
 				if (Keyboard.current[Key.E].isPressed) { target_steering += 1.0f; }
 			}
-			target_steering *= (max_steering_speed - rigid_body.angularVelocity.magnitude) * 0.1f;
-			steering         = dampen(steering, target_steering, 0.0001f);
-		}
-
-		for (int i = 0; i < 4; i += 1)
-		{
-			Vector3 wheel_to_rotation = pivot_indicator.transform.position - wheels[i].transform.position;
-			Vector3 perpendicular     = Quaternion.Inverse(robot_base.transform.rotation) * Vector3.Cross(wheel_to_rotation, robot_base.transform.up);
-
-			wheels[i].drive_activation += wheel_to_rotation.magnitude * Mathf.Abs(steering); // @TODO@ Remove magic number!
-			wheel_directions[i]         = dampen(wheel_directions[i], new Vector2(perpendicular.x, perpendicular.z) * steering, 0.0001f);
-
-			if (wheel_directions[i].magnitude > 0.001f)
-			{
-				wheels[i].transform.rotation = robot_base.transform.rotation;
-				wheels[i].transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), 90.0f - argument(wheel_directions[i]) * 180.0f / Mathf.PI);
-			}
+			steering = dampen(steering, target_steering * 4.0f, GREASE); // @TODO@ Remove magic number?
 		}
 
 		//
 		// Misc.
 		//
 
-		apply_wheel_physics(rigid_body, wheels);
+		for (int i = 0; i < 4; i += 1)
+		{
+			Vector3 wheel_to_rotation = transform.position - wheels[i].transform.position;
+			Vector3 perpendicular     = Quaternion.Inverse(transform.rotation) * Vector3.Cross(wheel_to_rotation, transform.up);
 
-		pivot_indicator.transform.position = pivot_indicator_position;
+			wheels[i].drive_activation = movement.magnitude + wheel_to_rotation.magnitude * Mathf.Abs(steering);
+			wheel_directions[i]        = movement + new Vector2(perpendicular.x, perpendicular.z) * steering;
+
+			if (wheel_directions[i].magnitude > 0.001f)
+			{
+				wheels[i].transform.rotation = transform.rotation;
+				wheels[i].transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), 90.0f - argument(wheel_directions[i]) * 180.0f / Mathf.PI);
+			}
+		}
+
+		apply_wheel_physics(GetComponent<Rigidbody>(), wheels);
 	}
 }

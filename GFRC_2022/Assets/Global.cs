@@ -67,14 +67,18 @@ static class Global
 		return v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
 	}
 
-	static public void apply_wheel_physics(Rigidbody rigid_body, Wheel[] wheels)
+	static public void apply_wheel_physics(Rigidbody rigidbody, Wheel[] wheels)
 	{
 		foreach (Wheel wheel in wheels)
 		{
 			wheel.drive_activation = Mathf.Clamp(wheel.drive_activation, -1.0f, 1.0f);
-			Vector3 force = (wheel.transform.forward + wheel.transform.right * wheel.strafe_k) * wheel.drive_activation * wheel.drive_force;
-			rigid_body.AddForce (force                                                                          / wheels.Length);
-			rigid_body.AddTorque(Vector3.Cross(wheel.transform.position - rigid_body.transform.position, force) / wheels.Length);
+			Vector3 force =
+				(wheel.transform.forward + wheel.transform.right * wheel.strafe_k)
+					* wheel.drive_activation
+					* wheel.drive_force
+					* Mathf.Max(1.0f - rigidbody.velocity.magnitude / wheel.max_speed, 0.0f);
+			rigidbody.AddForce (force                                                                         / wheels.Length);
+			rigidbody.AddTorque(Vector3.Cross(wheel.transform.position - rigidbody.transform.position, force) / wheels.Length);
 		}
 	}
 }
