@@ -67,6 +67,7 @@ static class Global
 		return v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
 	}
 
+	// @TODO@ Make wheel exert force when touching ground.
 	static public void apply_wheel_physics(Rigidbody rigidbody, Wheel[] wheels)
 	{
 		foreach (Wheel wheel in wheels)

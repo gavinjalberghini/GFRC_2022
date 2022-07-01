@@ -232,6 +232,7 @@ MonoBehaviour:
   drive_force: 0
   drive_activation: 0
   strafe_k: 0
+  max_speed: 4
 --- !u!1 &4669598813245162034
 GameObject:
   m_ObjectHideFlags: 0

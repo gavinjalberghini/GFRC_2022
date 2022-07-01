@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Global;
 
-// @TODO@ Check the wheels work in weird orientations.
 public class KiwiDrive : MonoBehaviour
 {
 	Wheel[] wheels   = new Wheel[3];
