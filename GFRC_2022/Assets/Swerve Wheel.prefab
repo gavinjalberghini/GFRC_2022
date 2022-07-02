@@ -176,8 +176,8 @@ WheelCollider:
   m_SidewaysFriction:
     m_ExtremumSlip: 64
     m_ExtremumValue: 64
-    m_AsymptoteSlip: 32
-    m_AsymptoteValue: 32
+    m_AsymptoteSlip: 64
+    m_AsymptoteValue: 64
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &2889337032745951870

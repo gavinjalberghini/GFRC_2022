@@ -56,9 +56,22 @@ public class SwerveDrive : MonoBehaviour
 		{
 			Vector3 to_pivot        = pivot.position - wheels[i].transform.position;
 			Vector2 pivot_direction = new Vector2(Vector3.Dot(to_pivot, transform.right), Vector3.Dot(to_pivot, transform.forward)) * steering;
-			wheels[i].angle      += dampen(0.0f, min_degree_arc(wheels[i].angle, -360.0f / TAU * ((pivot_direction.magnitude > 0.0001f ? argument(pivot_direction) : 0.0f) + argument(rotate(movement, -90.0f)))), GREASE);
+			if (movement != new Vector2(0.0f, 0.0f) || steering != 0.0f)
+			{
+				wheels[i].angle +=
+					dampen
+					(
+						0.0f,
+						min_degree_arc
+						(
+							wheels[i].angle,
+							-360.0f / TAU * ((pivot_direction.magnitude > 0.0001f ? argument(pivot_direction) : 0.0f) + argument(rotate(movement, -90.0f)))
+						),
+						GREASE
+					);
+			}
 			wheels[i].angle       = mod(wheels[i].angle, 360.0f);
-			wheels[i].activation  = dampen(wheels[i].activation, Mathf.Clamp(movement.magnitude + Mathf.Abs(steering), -1.0f, 1.0f), GREASE);
+			wheels[i].activation  = dampen(wheels[i].activation, Mathf.Clamp(movement.magnitude + Mathf.Abs(steering) * to_pivot.magnitude, -1.0f, 1.0f), GREASE);
 		}
 	}
 }

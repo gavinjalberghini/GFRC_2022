@@ -350,18 +350,10 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
-"Assets/Behaviors/CarDrive.cs"
-"Assets/Behaviors/ForkliftDrive.cs"
-"Assets/Behaviors/HDrive.cs"
-"Assets/Behaviors/KiwiDrive.cs"
 "Assets/Behaviors/MecanumDrive.cs"
-"Assets/Behaviors/MechanumDrive_DEPRECATED.cs"
 "Assets/Behaviors/SwerveDrive.cs"
-"Assets/Behaviors/SwerveDrive_DEPRECATED.cs"
-"Assets/Behaviors/TankDrive.cs"
 "Assets/Global.cs"
 "Assets/Wheel.cs"
-"Assets/Wheel_DEPRECATED.cs"
 -langversion:9.0
 
 /deterministic

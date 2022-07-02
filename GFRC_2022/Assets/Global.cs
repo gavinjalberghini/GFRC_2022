@@ -69,25 +69,6 @@ static class Global
 		return v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
 	}
 
-	// @TODO@ Make wheel exert force when touching ground.
-	static public void apply_wheel_physics(Rigidbody rigidbody, Wheel_DEPRECATED[] wheels)
-	{
-		// @NOTICE@ DEPRECATED.
-		/*
-		foreach (Wheel wheel in wheels)
-		{
-			wheel.drive_activation = Mathf.Clamp(wheel.drive_activation, -1.0f, 1.0f);
-			Vector3 force =
-				(wheel.transform.forward + wheel.transform.right * wheel.strafe_k)
-					* wheel.drive_activation
-					* wheel.drive_force
-					* Mathf.Max(1.0f - rigidbody.velocity.magnitude / wheel.max_speed, 0.0f);
-			rigidbody.AddForce (force                                                                         / wheels.Length);
-			rigidbody.AddTorque(Vector3.Cross(wheel.transform.position - rigidbody.transform.position, force) / wheels.Length);
-		}
-		*/
-	}
-
 	static public Vector3 v2_on_plane(Vector3 axis_x, Vector3 axis_y, Vector2 position)
 	{
 		return axis_x * position.x + axis_y * position.y;
