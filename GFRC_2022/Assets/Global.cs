@@ -94,4 +94,9 @@ static class Global
 		float delta_1 = delta_0 - Mathf.Sign(delta_0) * 360.0f;
 		return Mathf.Abs(delta_0) < Mathf.Abs(delta_1) ? delta_0 : delta_1;
 	}
+
+	static public float hypot(float a, float b)
+	{
+		return Mathf.Sqrt(a * a + b * b);
+	}
 }
