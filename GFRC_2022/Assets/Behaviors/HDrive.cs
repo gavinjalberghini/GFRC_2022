@@ -6,15 +6,33 @@ using static Global;
 
 public class HDrive : MonoBehaviour
 {
-	Wheel[] wheels = new Wheel[5];
+	public Transform drive_base   = null;
+	public Transform drive_side_l = null;
+	public Transform drive_side_r = null;
+	public Transform drive_head   = null; // @TODO@ What if there was more parts than just the head?
+	public Wheel     wheel_bl     = null;
+	public Wheel     wheel_br     = null;
+	public Wheel     wheel_fl     = null;
+	public Wheel     wheel_fr     = null;
+	public Wheel     wheel_c      = null;
+	public Vector2   dims         = new Vector2(0.5f, 0.5f);
+	public float     bar_width    = 0.1f;
 
-	void Start()
+	void OnValidate()
 	{
-		wheels[0] = transform.Find("Wheel BL").gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1] = transform.Find("Wheel BR").gameObject.GetComponent<Wheel>();
-		wheels[2] = transform.Find("Wheel FL").gameObject.GetComponent<Wheel>();
-		wheels[3] = transform.Find("Wheel FR").gameObject.GetComponent<Wheel>();
-		wheels[4] = transform.Find("Wheel C" ).gameObject.GetComponent<Wheel>();
+		dims.x                      = Mathf.Clamp(dims.x, 0.25f, 1.0f);
+		dims.y                      = Mathf.Clamp(dims.y, 0.25f, 1.0f);
+		bar_width                   = Mathf.Clamp(bar_width, 0.05f, 0.10f);
+		drive_base  .localScale     = new Vector3(dims.x - bar_width, 0.05f, bar_width);
+		drive_side_l.localScale     =
+		drive_side_r.localScale     = new Vector3(bar_width, drive_base.localScale.y, dims.y);
+		drive_head.position         = drive_base.position + drive_base.forward * (bar_width + drive_head.localScale.z) * 0.5f;
+		drive_side_l.localPosition  = new Vector3(-dims.x / 2.0f, 0.0f, 0.0f);
+		drive_side_r.localPosition  = new Vector3( dims.x / 2.0f, 0.0f, 0.0f);
+		wheel_bl.transform.position = drive_base.position + drive_base.right * dims.x * -0.5f + drive_base.forward * dims.y * -0.5f;
+		wheel_br.transform.position = drive_base.position + drive_base.right * dims.x *  0.5f + drive_base.forward * dims.y * -0.5f;
+		wheel_fl.transform.position = drive_base.position + drive_base.right * dims.x * -0.5f + drive_base.forward * dims.y *  0.5f;
+		wheel_fr.transform.position = drive_base.position + drive_base.right * dims.x *  0.5f + drive_base.forward * dims.y *  0.5f;
 	}
 
 	void Update()
@@ -34,10 +52,10 @@ public class HDrive : MonoBehaviour
 			if (Keyboard.current[Key.E].isPressed) { steering +=  1.0f; }
 		}
 
-		wheels[0].activation = dampen(wheels[0].activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
-		wheels[1].activation = dampen(wheels[1].activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
-		wheels[2].activation = dampen(wheels[2].activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
-		wheels[3].activation = dampen(wheels[3].activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
-		wheels[4].activation = dampen(wheels[4].activation, Mathf.Clamp(movement.x           , -1.0f, 1.0f), GREASE);
+		wheel_bl.activation = dampen(wheel_bl.activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
+		wheel_br.activation = dampen(wheel_br.activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
+		wheel_fl.activation = dampen(wheel_fl.activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
+		wheel_fr.activation = dampen(wheel_fr.activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
+		wheel_c .activation = dampen(wheel_c .activation, Mathf.Clamp(movement.x           , -1.0f, 1.0f), GREASE);
 	}
 }

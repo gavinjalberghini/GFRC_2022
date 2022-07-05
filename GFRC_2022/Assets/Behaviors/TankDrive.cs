@@ -6,16 +6,22 @@ using static Global;
 
 public class TankDrive : MonoBehaviour
 {
-	Wheel[] wheels = new Wheel[6];
+	public Transform drive_base = null;
+	public Transform drive_head = null; // @TODO@ What if there was more parts than just the head?
+	public Wheel[]   wheels     = new Wheel[6];
+	public Vector2   dims       = new Vector2(0.5f, 0.7f);
 
-	void Start()
+	void OnValidate()
 	{
-		wheels[0] = transform.Find("Wheel L0").gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1] = transform.Find("Wheel L1").gameObject.GetComponent<Wheel>();
-		wheels[2] = transform.Find("Wheel L2").gameObject.GetComponent<Wheel>();
-		wheels[3] = transform.Find("Wheel R0").gameObject.GetComponent<Wheel>();
-		wheels[4] = transform.Find("Wheel R1").gameObject.GetComponent<Wheel>();
-		wheels[5] = transform.Find("Wheel R2").gameObject.GetComponent<Wheel>();
+		dims.x                      = Mathf.Clamp(dims.x, 0.25f, 1.0f);
+		dims.y                      = Mathf.Clamp(dims.y, 0.25f, 1.0f);
+		drive_base.localScale       = new Vector3(dims.x, 0.05f, dims.y);
+		drive_head.position         = drive_base.position + drive_base.forward * (dims.y + drive_head.localScale.z) * 0.5f;
+
+		for (int i = 0; i < wheels.Length; i += 1)
+		{
+			wheels[i].transform.position = drive_base.position + drive_base.right * dims.x * (i / (wheels.Length / 2) - 0.5f) + drive_base.forward * dims.y * (i % (wheels.Length / 2) / (wheels.Length / 2 - 1.0f) - 0.5f);
+		}
 	}
 
 	void Update()

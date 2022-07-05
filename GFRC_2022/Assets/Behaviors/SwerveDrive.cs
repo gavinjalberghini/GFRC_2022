@@ -6,19 +6,24 @@ using static Global;
 
 public class SwerveDrive : MonoBehaviour
 {
-	Transform pivot;
-	Transform robot_base;
-	Wheel[]   wheels       = new Wheel[4];
-	Vector2   pivot_offset = new Vector2(0.0f, 0.0f);
+	public Transform drive_base;
+	public Transform drive_head;
+	public Transform pivot;
+	public Wheel[]   wheels = new Wheel[4];
+	public Vector2   dims   = new Vector2(0.5f, 0.5f);
 
-	void Start()
+	Vector2 pivot_offset = new Vector2(0.0f, 0.0f);
+
+	void OnValidate()
 	{
-		pivot      = transform.Find("Pivot Indicator");
-		robot_base = transform.Find("Base"           );
-		wheels[0]  = transform.Find("Wheel BL"       ).gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1]  = transform.Find("Wheel BR"       ).gameObject.GetComponent<Wheel>();
-		wheels[2]  = transform.Find("Wheel FL"       ).gameObject.GetComponent<Wheel>();
-		wheels[3]  = transform.Find("Wheel FR"       ).gameObject.GetComponent<Wheel>();
+		dims.x                       = Mathf.Clamp(dims.x, 0.25f, 1.0f);
+		dims.y                       = Mathf.Clamp(dims.y, 0.25f, 1.0f);
+		drive_base.localScale        = new Vector3(dims.x, 0.05f, dims.y);
+		drive_head.position          = drive_base.position + drive_base.forward * (dims.y + drive_head.localScale.z) * 0.5f;
+		wheels[0].transform.position = drive_base.position + drive_base.right * dims.x * -0.5f + drive_base.forward * dims.y * -0.5f;
+		wheels[1].transform.position = drive_base.position + drive_base.right * dims.x *  0.5f + drive_base.forward * dims.y * -0.5f;
+		wheels[2].transform.position = drive_base.position + drive_base.right * dims.x * -0.5f + drive_base.forward * dims.y *  0.5f;
+		wheels[3].transform.position = drive_base.position + drive_base.right * dims.x *  0.5f + drive_base.forward * dims.y *  0.5f;
 	}
 
 	void Update()
@@ -33,7 +38,7 @@ public class SwerveDrive : MonoBehaviour
 		pivot_offset   += (arrow_keys() + gamepad_buttons()).normalized * Time.deltaTime;
 		pivot_offset.x  = Mathf.Clamp(pivot_offset.x, -0.5f, 0.5f);
 		pivot_offset.y  = Mathf.Clamp(pivot_offset.y, -0.5f, 0.5f);
-		pivot.position  = transform.position + v2_on_plane(transform.right * robot_base.localScale.x, transform.forward * robot_base.localScale.z, pivot_offset);
+		pivot.position  = transform.position + v2_on_plane(transform.right * drive_base.localScale.x, transform.forward * drive_base.localScale.z, pivot_offset);
 
 		//
 		// Movement.

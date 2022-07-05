@@ -192,6 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f908f17310396934c83c5629823e0606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drive_indicator: {fileID: 3123373181228498100}
+  strafe_indicator: {fileID: 0}
+  net_force_indicator: {fileID: 0}
   angle: 0
   max_torque: 2
   strafe_k: 1

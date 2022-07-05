@@ -6,13 +6,21 @@ using static Global;
 
 public class KiwiDrive : MonoBehaviour
 {
-	Wheel[] wheels = new Wheel[3];
+	public Transform[] sides  = new Transform[3];
+	public Wheel[]     wheels = new Wheel[3];
+	public float       radius = 0.5f;
 
-	void Start()
+	void OnValidate()
 	{
-		wheels[0] = transform.Find("Wheel 0").gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1] = transform.Find("Wheel 1").gameObject.GetComponent<Wheel>();
-		wheels[2] = transform.Find("Wheel 2").gameObject.GetComponent<Wheel>();
+		radius = Mathf.Clamp(radius, 0.2f, 1.0f);
+		for (int i = 0; i < wheels.Length; i += 1)
+		{
+			sides [i].transform.localScale = new Vector3(Mathf.Sqrt(3.0f) * radius, sides[i].transform.localScale.y, sides[i].transform.localScale.z);
+			sides [i].transform.rotation   = Quaternion.AngleAxis(-360.0f * i / wheels.Length, transform.up) * transform.rotation;
+			sides [i].transform.position   =
+			wheels[i].transform.position   = transform.position + v2_on_plane(-transform.forward, transform.right, polar(TAU * i / wheels.Length)) * radius / 2.0f;
+			wheels[i].angle                = -360.0f * i / wheels.Length + 90.0f;
+		}
 	}
 
 	void Update()
@@ -32,18 +40,16 @@ public class KiwiDrive : MonoBehaviour
 			if (Keyboard.current[Key.E].isPressed) { steering +=  1.0f; }
 		}
 
-		float[] MAGIC_SCALARS = new float[] { 1.0f, 1.7f, 1.7f }; // @TODO@ My spidey sense are tingling that we can do some linear algebra to find the right activations to move in a specific direction.
-		for (int i = 0; i < wheels.Length; i += 1)
+		// @TODO@ Make strafing better.
+		foreach (var wheel in wheels)
 		{
-			wheels[i].activation =
+			wheel.activation =
 				dampen
 				(
-					wheels[i].activation,
+					wheel.activation,
 					Mathf.Clamp
 					(
-						Vector3.Dot(wheels[i].transform.forward, transform.position - wheels[i].transform.position + v2_on_plane(transform.right, transform.forward, movement))
-							* MAGIC_SCALARS[i]
-							- steering,
+						Vector3.Dot(wheel.transform.forward, transform.position - wheel.transform.position + v2_on_plane(transform.right, transform.forward, movement)) - steering,
 						-1.0f,
 						1.0f
 					),

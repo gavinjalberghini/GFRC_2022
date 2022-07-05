@@ -99,4 +99,6 @@ static class Global
 	{
 		return Mathf.Sqrt(a * a + b * b);
 	}
+
+	static public Vector2 polar(float rad) => new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 }

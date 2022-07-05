@@ -6,14 +6,24 @@ using static Global;
 
 public class ForkliftDrive : MonoBehaviour
 {
-	Wheel[] wheels = new Wheel[4];
+	public Transform drive_base = null;
+	public Transform drive_head = null; // @TODO@ What if there was more parts than just the head?
+	public Wheel     wheel_bl   = null;
+	public Wheel     wheel_br   = null;
+	public Wheel     wheel_fl   = null;
+	public Wheel     wheel_fr   = null;
+	public Vector2   dims       = new Vector2(0.5f, 0.7f);
 
-	void Start()
+	void OnValidate()
 	{
-		wheels[0] = transform.Find("Wheel BL").gameObject.GetComponent<Wheel>(); // @TODO@ Some Unity engineering to make it where adjusting the size of the base will also adjust the positions of the wheel.
-		wheels[1] = transform.Find("Wheel BR").gameObject.GetComponent<Wheel>();
-		wheels[2] = transform.Find("Wheel FL").gameObject.GetComponent<Wheel>();
-		wheels[3] = transform.Find("Wheel FR").gameObject.GetComponent<Wheel>();
+		dims.x                      = Mathf.Clamp(dims.x, 0.25f, 1.0f);
+		dims.y                      = Mathf.Clamp(dims.y, 0.25f, 1.0f);
+		drive_base.localScale       = new Vector3(dims.x, 0.05f, dims.y);
+		drive_head.position         = drive_base.position + drive_base.forward * (dims.y + drive_head.localScale.z) * 0.5f;
+		wheel_bl.transform.position = drive_base.position + drive_base.right * dims.x * -0.5f + drive_base.forward * dims.y * -0.5f;
+		wheel_br.transform.position = drive_base.position + drive_base.right * dims.x *  0.5f + drive_base.forward * dims.y * -0.5f;
+		wheel_fl.transform.position = drive_base.position + drive_base.right * dims.x * -0.5f + drive_base.forward * dims.y *  0.5f;
+		wheel_fr.transform.position = drive_base.position + drive_base.right * dims.x *  0.5f + drive_base.forward * dims.y *  0.5f;
 	}
 
 	void Update()
@@ -34,9 +44,9 @@ public class ForkliftDrive : MonoBehaviour
 		}
 
 		// @TODO@ How does a forklift move exactly?
-		wheels[0].activation = dampen(wheels[0].activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
-		wheels[1].activation = dampen(wheels[1].activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
-		wheels[2].activation = dampen(wheels[2].activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
-		wheels[3].activation = dampen(wheels[3].activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
+		wheel_bl.activation = dampen(wheel_bl.activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
+		wheel_br.activation = dampen(wheel_br.activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
+		wheel_fl.activation = dampen(wheel_fl.activation, Mathf.Clamp(movement.y + steering, -1.0f, 1.0f), GREASE);
+		wheel_fr.activation = dampen(wheel_fr.activation, Mathf.Clamp(movement.y - steering, -1.0f, 1.0f), GREASE);
 	}
 }
