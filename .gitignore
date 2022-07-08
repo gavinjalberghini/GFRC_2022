@@ -2,16 +2,16 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+/GFRC_2022/[Ll]ibrary/
+/GFRC_2022/[Tt]emp/
+/GFRC_2022/[Oo]bj/
+/GFRC_2022/[Bb]uild/
+/GFRC_2022/[Bb]uilds/
+/GFRC_2022/[Ll]ogs/
+/GFRC_2022/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
-!/[Aa]ssets/**/*.meta
+!/GFRC_2022/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -60,5 +60,3 @@ crashlytics-build.properties
 
 # Ignore VIM swap files.
 *.swp
-
-GFRC_2022/Library/ArtifactDB
