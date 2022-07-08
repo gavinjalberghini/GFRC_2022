@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Inspector
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 86
+  controlID: 91
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 87
+  controlID: 97
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 88
+  controlID: 98
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,21 +317,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/FRC_OBJ_Models
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/FRC_OBJ_Models
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\oofee\GFRC_2022\GFRC_2022
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b6610000
-    m_LastClickedID: 25014
+    m_SelectedIDs: de610000
+    m_LastClickedID: 25054
     m_ExpandedIDs: 00000000b661000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -488,9 +488,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: f8f7ffff36fbffff
+      m_SelectedIDs: 125d0000
+      m_LastClickedID: 23826
+      m_ExpandedIDs: 36fbffffb85c0000f25c0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -547,8 +547,8 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: -100, y: -25.600006}
+      snapOffset: {x: -100, y: -25.600006}
+      snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 3
       id: Tool Settings
       index: 0
@@ -569,7 +569,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 24.8}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-scene-view-toolbar
@@ -623,7 +623,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       floating: 0
       collapsed: 0
-      displayed: 0
+      displayed: 1
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -739,9 +739,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.20335013, y: 0.059057713, z: 0.99681926}
+    m_Target: {x: -0.75048983, y: 2.1865988, z: -1.4713144}
     speed: 2
-    m_Value: {x: 0.20335013, y: 0.059057713, z: 0.99681926}
+    m_Value: {x: -0.75048983, y: 2.1865988, z: -1.4713144}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -764,7 +764,7 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -788,13 +788,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.31886744, y: -0.044051476, z: 0.014837973, w: 0.9466599}
+    m_Target: {x: 0.0377772, y: 0.5749062, z: -0.026565231, w: 0.81695694}
     speed: 2
-    m_Value: {x: 0.31744677, y: -0.044073634, z: 0.014771863, w: 0.94713616}
+    m_Value: {x: 0.037736014, y: 0.5761112, z: -0.026620952, w: 0.81606567}
   m_Size:
-    m_Target: 2.9769983
+    m_Target: 3.8312554
     speed: 2
-    m_Value: 2.9769983
+    m_Value: 3.666273
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -877,10 +877,10 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMin: 1
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
-    m_HSlider: 1
-    m_VSlider: 1
+    m_HSlider: 0
+    m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -891,7 +891,7 @@ MonoBehaviour:
       y: 21
       width: 880.39996
       height: 430.8
-    m_Scale: {x: 1.4216362, y: 1.4216361}
+    m_Scale: {x: 1.4216361, y: 1.4216361}
     m_Translation: {x: 440.19998, y: 215.39998}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -899,9 +899,9 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -309.6432
+      x: -309.64322
       y: -151.51555
-      width: 619.2864
+      width: 619.28644
       height: 303.03113
     m_MinimalGUI: 1
   m_defaultScale: 1
