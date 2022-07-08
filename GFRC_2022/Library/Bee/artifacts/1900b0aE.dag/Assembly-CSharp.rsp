@@ -352,6 +352,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Behaviors/mechanum_drive.cs"
 "Assets/Behaviors/swerve_drive.cs"
+"Assets/Rules/Hub_Behaviors.cs"
+"Assets/Rules/TotalScore.cs"
 -langversion:9.0
 
 /deterministic
