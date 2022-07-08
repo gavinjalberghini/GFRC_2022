@@ -359,8 +359,6 @@
 "Assets/Behaviors/SwerveDrive.cs"
 "Assets/Behaviors/TankDrive.cs"
 "Assets/Global.cs"
-"Assets/Rules/Hub_Behaviors.cs"
-"Assets/Rules/TotalScore.cs"
 "Assets/SQL/Database.cs"
 "Assets/Wheels/Wheel.cs"
 -langversion:9.0
