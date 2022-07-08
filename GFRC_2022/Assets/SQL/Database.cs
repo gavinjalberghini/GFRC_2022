@@ -20,9 +20,6 @@ public class Database : MonoBehaviour
 			connection.Open();
 			using (var command = connection.CreateCommand())
 			{
-				command.CommandText = "DROP TABLE scores;";
-				command.ExecuteNonQuery();
-
 				command.CommandText = "CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, alliance VARCHAR(4), team INT, points INT);";
 				command.ExecuteNonQuery();
 			}
