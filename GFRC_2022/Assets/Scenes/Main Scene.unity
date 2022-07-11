@@ -285,6 +285,8 @@ MonoBehaviour:
   initial_orientation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
   sensitivity: 0.29
   dampening: 0.1
+  is_focused: 1
+  focused_object: {fileID: 1528263604}
 --- !u!1 &245527063
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +973,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1346525281074167044, guid: 8bcebc980fb2fa84285be0fde425d11f, type: 3}
   m_PrefabInstance: {fileID: 1519812984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1528263604 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 391226458770381954, guid: da69ded83105fd84082ed4e450cd0982, type: 3}
+  m_PrefabInstance: {fileID: 764479672}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1609601191
 PrefabInstance:

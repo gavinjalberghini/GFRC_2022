@@ -14,13 +14,19 @@ static class Global
 	static public float   dampen(float   start, float   end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
 	static public Vector2 dampen(Vector2 start, Vector2 end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
 
+	static public bool key_down(Key k) =>
+		Keyboard.current != null && Keyboard.current[k].isPressed;
+
+	static public bool key_now_down(Key k) =>
+		Keyboard.current != null && Keyboard.current[k].wasPressedThisFrame;
+
 	static public Vector2 wasd()
 	{
 		Vector2 v = new Vector2(0.0f, 0.0f);
-		if (Keyboard.current[Key.A].isPressed) { v.x -= 1.0f; }
-		if (Keyboard.current[Key.D].isPressed) { v.x += 1.0f; }
-		if (Keyboard.current[Key.S].isPressed) { v.y -= 1.0f; }
-		if (Keyboard.current[Key.W].isPressed) { v.y += 1.0f; }
+		if (key_down(Key.A)) { v.x -= 1.0f; }
+		if (key_down(Key.D)) { v.x += 1.0f; }
+		if (key_down(Key.S)) { v.y -= 1.0f; }
+		if (key_down(Key.W)) { v.y += 1.0f; }
 		return v;
 	}
 
@@ -31,10 +37,10 @@ static class Global
 	static public Vector2 arrow_keys()
 	{
 		Vector2 v = new Vector2(0.0f, 0.0f);
-		if (Keyboard.current[Key.LeftArrow ].isPressed) { v.x -= 1.0f; }
-		if (Keyboard.current[Key.RightArrow].isPressed) { v.x += 1.0f; }
-		if (Keyboard.current[Key.DownArrow ].isPressed) { v.y -= 1.0f; }
-		if (Keyboard.current[Key.UpArrow   ].isPressed) { v.y += 1.0f; }
+		if (key_down(Key.LeftArrow )) { v.x -= 1.0f; }
+		if (key_down(Key.RightArrow)) { v.x += 1.0f; }
+		if (key_down(Key.DownArrow )) { v.y -= 1.0f; }
+		if (key_down(Key.UpArrow   )) { v.y += 1.0f; }
 		return v;
 	}
 
