@@ -283,9 +283,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 0.29
-  dampening_rot: 0.1
+  dampening_rot: 0.01
   dampening_pos: 0.01
-  is_focused: 1
+  rot_mode: 1
   is_relative_pos: 0
   subject: {fileID: 1528263604}
 --- !u!1 &245527063
