@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 231070403}
   - component: {fileID: 231070402}
   - component: {fileID: 231070401}
-  - component: {fileID: 231070404}
+  - component: {fileID: 231070405}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -270,7 +270,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &231070404
+--- !u!114 &231070405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,15 +279,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 231070400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26daeeb43eeab3741ab37e74014fbfd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 55139a5c94364874e8bc7244accefce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.29
-  dampening_rot: 0.01
-  dampening_pos: 0.01
-  rot_mode: 1
-  is_relative_pos: 0
-  subject: {fileID: 1528263604}
+  mode: 0
+  robot_subject: {fileID: 1528263604}
+  birds_eye_subject: {fileID: 1152170964}
+  outside_pos: {x: -6.44, y: 1.02, z: 0.28}
+  third_person_delta_pos: {x: 0, y: 4, z: -1}
+  birds_eye_pos: {x: 0, y: 8, z: 0}
 --- !u!1 &245527063
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +603,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1152170964 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4433862090255752734, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+  m_PrefabInstance: {fileID: 2016674342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1181565614
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEditor;
 using static Global;
 
 public class Camera : MonoBehaviour
@@ -28,9 +27,8 @@ public class Camera : MonoBehaviour
 
 	void OnValidate()
 	{
-		sensitivity         = Mathf.Clamp(sensitivity, 0.01f, 1.0f);
-		dampening_rot       = Mathf.Clamp(dampening_rot, 0.0f, 1.0f);
-
+		sensitivity   = Mathf.Clamp(sensitivity, 0.01f, 1.0f);
+		dampening_rot = Mathf.Clamp(dampening_rot, 0.0f, 1.0f);
 		if (subject != null)
 		{
 			initial_relative_pos = transform.position - subject.position;
