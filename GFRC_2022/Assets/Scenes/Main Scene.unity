@@ -282,11 +282,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26daeeb43eeab3741ab37e74014fbfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initial_orientation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
   sensitivity: 0.29
-  dampening: 0.1
+  dampening_rot: 0.1
+  dampening_pos: 0.01
   is_focused: 1
-  focused_object: {fileID: 1528263604}
+  is_relative_pos: 0
+  subject: {fileID: 1528263604}
 --- !u!1 &245527063
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ static class Global
 	// `friction` of 1.0f will always make the value stay at `start`, e.g. infinite friction.
 	static public float   dampen(float   start, float   end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
 	static public Vector2 dampen(Vector2 start, Vector2 end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
+	static public Vector3 dampen(Vector3 start, Vector3 end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
+	static public Vector4 dampen(Vector4 start, Vector4 end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
 
 	static public bool key_down(Key k) =>
 		Keyboard.current != null && Keyboard.current[k].isPressed;
