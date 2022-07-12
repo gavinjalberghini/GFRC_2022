@@ -1,0 +1,174 @@
+{
+    "name": "PS4_Controls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "8d5f0ea1-6341-43c1-9af9-0410d5955ffe",
+            "actions": [
+                {
+                    "name": "LeftStick",
+                    "type": "Value",
+                    "id": "3a35a415-2279-444c-b5ad-694656483b94",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RightStick",
+                    "type": "Value",
+                    "id": "902f9f3c-45d9-431e-ad34-661688255c2d",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Load",
+                    "type": "PassThrough",
+                    "id": "bca0c3c9-1a41-4b10-aa58-28376a64a9f3",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Launch",
+                    "type": "Button",
+                    "id": "7e3c1f17-69fa-4ec1-8208-3e1288d0de8f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UpPad",
+                    "type": "Button",
+                    "id": "c3519e73-5121-4657-80bc-c7c53eacde03",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftPad",
+                    "type": "Button",
+                    "id": "52f26388-67fc-4490-9bd7-7d4cc92b3c83",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DownPad",
+                    "type": "Button",
+                    "id": "5530ba73-a05c-48e4-9a79-65aef9f2a05f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightPad",
+                    "type": "Button",
+                    "id": "1a377cce-f766-4e92-9cd5-ff80933ea6f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a4e3f2b5-715a-4ce4-8600-c830defd14e2",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d5929d8-ff5c-49f2-95a1-506ce5899919",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70d2b862-6f47-458d-a5d8-682895f2e98f",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Load",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2590a803-0e2b-4de1-95ff-cff68060e7d2",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Launch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac491eb1-47c2-4423-83cf-a0046550742e",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UpPad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4de6654f-5d06-4c77-bddc-1fc8c46ce83d",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftPad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b83829c9-c74e-45b3-9fff-8a63fb421851",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownPad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93bbe532-1c00-4c61-9caf-8519dea588ab",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightPad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

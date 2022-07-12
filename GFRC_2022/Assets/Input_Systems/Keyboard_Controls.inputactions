@@ -1,0 +1,274 @@
+{
+    "name": "Keyboard_Controls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "4a17c674-26cc-4321-b649-2d870ee97e6c",
+            "actions": [
+                {
+                    "name": "Spacebar",
+                    "type": "PassThrough",
+                    "id": "2520fd36-8ed1-475b-acfd-044a756ced92",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WKey",
+                    "type": "PassThrough",
+                    "id": "5b752c1c-ef9a-45fa-bc18-cfeab5f6ba6f",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AKey",
+                    "type": "PassThrough",
+                    "id": "df801d58-4c56-4c01-8876-804cb57ee995",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SKey",
+                    "type": "PassThrough",
+                    "id": "6ceaba73-857f-45e3-b70a-9c043216fad0",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DKey",
+                    "type": "PassThrough",
+                    "id": "99620a52-ea22-4862-a520-ca4d917a9ed6",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RKey",
+                    "type": "PassThrough",
+                    "id": "b5ed93de-cef3-490b-a81c-7149c22577e5",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseUp",
+                    "type": "PassThrough",
+                    "id": "dcccf9ab-62f6-40ec-900d-d1a9b7a08f50",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "QKey",
+                    "type": "PassThrough",
+                    "id": "ef40c536-a8cb-4a9b-a5f9-7e7515a2a0e0",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EKey",
+                    "type": "PassThrough",
+                    "id": "da219a12-ef41-44a4-a45c-8ba21f73ea02",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UpArrow",
+                    "type": "PassThrough",
+                    "id": "ba3df47f-5e22-4e00-ae7e-987b9626a7d9",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftArrow",
+                    "type": "PassThrough",
+                    "id": "64580754-980c-4595-b4b4-d57737ff5da0",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DownArrow",
+                    "type": "PassThrough",
+                    "id": "00f7f094-d9d7-454f-81d2-446eff1bafa5",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightArrow",
+                    "type": "PassThrough",
+                    "id": "c769ae92-251c-4414-8be0-030df4bb3c07",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bf8beece-0db8-460c-a92c-29e8aa56f2e5",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spacebar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec2a36e4-2593-4762-afcc-0f919457e552",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "853b5c78-06ca-488b-8f6f-f55313d99612",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e32d25e-c460-47db-9908-1e5536a086a1",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6f6350c-871f-42c1-a016-f28a5c370521",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ecdd140-842f-42a6-8f62-4e3090686a39",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5d2ce6d3-7b1e-48be-8448-72b340241ca3",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05273435-fc5e-4b2b-b463-fedd45cd1593",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2081a2f8-11d8-4889-b11c-ad282b2bfc66",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e58c16db-7091-4f7f-8860-f3b2b5adbfc3",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UpArrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75a4f79f-b2d4-45d7-ac2b-3087c0427614",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftArrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11e76f02-2504-42f9-8ec4-dd8eda1105a2",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownArrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f275bc2-500d-40e9-b8cc-0cece2a057a6",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightArrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
