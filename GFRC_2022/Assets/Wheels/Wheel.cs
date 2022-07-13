@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static Global;
 
 public class Wheel : MonoBehaviour
 {
-	public static bool force_vectors_visibility = false;
+	public static bool indicator_visibility = false;
 
 	public Transform drive_indicator;
 	public Transform strafe_indicator;
@@ -14,12 +16,35 @@ public class Wheel : MonoBehaviour
 	public float     strafe_k    = 1.0f;
 	public float     activation  = 0.0f;
 
-	void update_indicators()
+	float dampen_indicator_activation = 0.0f;
+
+	void OnValidate()
 	{
-		float indicator_activation =
-			force_vectors_visibility
-				? activation
+		strafe_k   = Mathf.Clamp(strafe_k  , -1.0f, 1.00f);
+		activation = Mathf.Clamp(activation, -1.0f, 1.00f);
+	}
+
+	void Update()
+	{
+		if (Mathf.Abs(activation) < 0.1f)
+		{
+			GetComponent<WheelCollider>().brakeTorque = 1.0f;
+		}
+		else
+		{
+			GetComponent<WheelCollider>().brakeTorque = 0.0f;
+		}
+
+		GetComponent<WheelCollider>().steerAngle  = angle;
+		GetComponent<WheelCollider>().motorTorque = max_torque * activation;
+
+		dampen_indicator_activation = dampen(dampen_indicator_activation, GetComponent<WheelCollider>().rpm / 60.0f / 8.0f, 0.0001f);
+
+		float effective_indicator_activation =
+			indicator_visibility
+				? dampen_indicator_activation
 				: 0.0f;
+
 		Transform vehicle = GetComponent<WheelCollider>()?.attachedRigidbody?.transform;
 
 		if (vehicle != null)
@@ -27,15 +52,15 @@ public class Wheel : MonoBehaviour
 			transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
 
 			drive_indicator.transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
-			drive_indicator.localScale         = new Vector3(drive_indicator.localScale.x, drive_indicator.localScale.y, indicator_activation);
+			drive_indicator.localScale         = new Vector3(drive_indicator.localScale.x, drive_indicator.localScale.y, effective_indicator_activation);
 
 			if (strafe_indicator != null)
 			{
 				strafe_indicator.transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
-				strafe_indicator.localScale         = new Vector3(strafe_k * indicator_activation, strafe_indicator.localScale.y, strafe_indicator.localScale.z);
+				strafe_indicator.localScale         = new Vector3(strafe_k * effective_indicator_activation, strafe_indicator.localScale.y, strafe_indicator.localScale.z);
 
 				// @NOTE@ Wrong dimensions, but so what?
-				Vector3 net_force = Quaternion.Euler(0.0f, angle, 0.0f) * new Vector3(strafe_k, 0.0f, 1.0f) * indicator_activation;
+				Vector3 net_force = Quaternion.Euler(0.0f, angle, 0.0f) * new Vector3(strafe_k, 0.0f, 1.0f) * effective_indicator_activation;
 				if (net_force.magnitude > 0.0001f)
 				{
 					net_force_indicator.transform.rotation = vehicle.rotation * Quaternion.LookRotation(net_force, vehicle.up);
@@ -47,19 +72,6 @@ public class Wheel : MonoBehaviour
 				}
 			}
 		}
-	}
 
-	void OnValidate()
-	{
-		strafe_k   = Mathf.Clamp(strafe_k  , -1.0f, 1.00f);
-		activation = Mathf.Clamp(activation, -1.0f, 1.00f);
-		update_indicators();
-	}
-
-	void Update()
-	{
-		GetComponent<WheelCollider>().steerAngle  = angle;
-		GetComponent<WheelCollider>().motorTorque = max_torque * activation;
-		update_indicators();
 	}
 }

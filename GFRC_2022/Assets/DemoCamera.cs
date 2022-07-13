@@ -18,11 +18,16 @@ public class DemoCamera : MonoBehaviour
 	public Vector3 birds_eye_delta_pos    = new Vector3(0.0f, 4.0f, 0.0f);
 	public Vector3 third_person_delta_pos = new Vector3(0.0f, 1.0f, -1.0f);
 
+	void Start()
+	{
+		Wheel.indicator_visibility = true;
+	}
+
 	void Update()
 	{
 		if (key_now_down(Key.O))
 		{
-			Wheel.force_vectors_visibility = !Wheel.force_vectors_visibility;
+			Wheel.indicator_visibility = !Wheel.indicator_visibility;
 		}
 
 		if (key_now_down(Key.Tab))
