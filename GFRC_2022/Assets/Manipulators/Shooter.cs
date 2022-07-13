@@ -6,13 +6,13 @@ using static Global;
 
 public class Shooter : MonoBehaviour
 {
-	public float      angle           = 45.0f;
-	public bool       fix             = false;
-	public float      angle_speed     = 90.0f;
-	public float      angle_dampening = 0.01f;
-	public float      shoot_force     = 256.0f;
-	public GameObject ammo            = null;
-	public Transform  cannon          = null;
+	public float            angle            = 45.0f;
+	public bool             fix              = false;
+	public float            angle_speed      = 90.0f;
+	public float            angle_dampening  = 0.01f;
+	public float            shoot_force      = 256.0f;
+	public CargoContainer[] cargo_containers = null;
+	public Transform        cannon           = null;
 
 	float dampen_angle = 0.0f;
 
@@ -46,8 +46,16 @@ public class Shooter : MonoBehaviour
 
 		if (key_now_down(Key.Space))
 		{
-			GameObject bullet = Instantiate(ammo, cannon.position + cannon.forward * cannon.localScale.z / 2.0f, cannon.rotation);
-			bullet.GetComponent<Rigidbody>().AddForce(cannon.forward * shoot_force);
+			foreach (var container in cargo_containers)
+			{
+				GameObject cargo = container.try_unloading();
+				if (cargo != null)
+				{
+					cargo.transform.position = cannon.position + cannon.forward * cannon.localScale.z / 2.0f;
+					cargo.GetComponent<Rigidbody>().AddForce(cannon.forward * shoot_force);
+					break;
+				}
+			}
 		}
 
 		dampen_angle = dampen(dampen_angle, angle, angle_dampening);
