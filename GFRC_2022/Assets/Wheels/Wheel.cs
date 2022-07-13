@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Wheel : MonoBehaviour
 {
+	public static bool force_vectors_visibility = false;
+
 	public Transform drive_indicator;
 	public Transform strafe_indicator;
 	public Transform net_force_indicator;
@@ -14,6 +16,10 @@ public class Wheel : MonoBehaviour
 
 	void update_indicators()
 	{
+		float indicator_activation =
+			force_vectors_visibility
+				? activation
+				: 0.0f;
 		Transform vehicle = GetComponent<WheelCollider>()?.attachedRigidbody?.transform;
 
 		if (vehicle != null)
@@ -21,15 +27,15 @@ public class Wheel : MonoBehaviour
 			transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
 
 			drive_indicator.transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
-			drive_indicator.localScale         = new Vector3(drive_indicator.localScale.x, drive_indicator.localScale.y, activation);
+			drive_indicator.localScale         = new Vector3(drive_indicator.localScale.x, drive_indicator.localScale.y, indicator_activation);
 
 			if (strafe_indicator != null)
 			{
 				strafe_indicator.transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
-				strafe_indicator.localScale         = new Vector3(strafe_k * activation, strafe_indicator.localScale.y, strafe_indicator.localScale.z);
+				strafe_indicator.localScale         = new Vector3(strafe_k * indicator_activation, strafe_indicator.localScale.y, strafe_indicator.localScale.z);
 
 				// @NOTE@ Wrong dimensions, but so what?
-				Vector3 net_force = Quaternion.Euler(0.0f, angle, 0.0f) * new Vector3(strafe_k, 0.0f, 1.0f) * activation;
+				Vector3 net_force = Quaternion.Euler(0.0f, angle, 0.0f) * new Vector3(strafe_k, 0.0f, 1.0f) * indicator_activation;
 				if (net_force.magnitude > 0.0001f)
 				{
 					net_force_indicator.transform.rotation = vehicle.rotation * Quaternion.LookRotation(net_force, vehicle.up);

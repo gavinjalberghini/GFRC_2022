@@ -1261,12 +1261,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26daeeb43eeab3741ab37e74014fbfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.29
-  dampening_rot: 0.01
-  dampening_pos: 0.001
-  rot_mode: 2
-  is_relative_pos: 1
-  subject: {fileID: 1941190277}
+  mode: 0
+  robot_subject: {fileID: 1941190277}
+  birds_eye_delta_pos: {x: 0, y: 4, z: 0}
+  third_person_delta_pos: {x: 0, y: 1, z: -1}
 --- !u!81 &446602229
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3570,6 +3568,10 @@ PrefabInstance:
     - target: {fileID: 391226458770381959, guid: da69ded83105fd84082ed4e450cd0982, type: 3}
       propertyPath: m_Name
       value: Swerve Drive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275549442949304963, guid: da69ded83105fd84082ed4e450cd0982, type: 3}
+      propertyPath: activation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4673619664478849590, guid: da69ded83105fd84082ed4e450cd0982, type: 3}
       propertyPath: m_LocalPosition.z
