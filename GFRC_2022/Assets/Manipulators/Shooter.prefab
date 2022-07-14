@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4802767862399396051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.25}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.16}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.32}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4244371423742007856}
@@ -120,7 +120,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6196146184101936614}
-  m_LocalRotation: {x: -0.38268346, y: 0, z: 0, w: 0.9238795}
+  m_LocalRotation: {x: -0.38856113, y: 0, z: 0, w: 0.92142296}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -174,10 +174,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7240f7106cf445e43824eb79ea9b7be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: 45
-  fix: 0
-  angle_speed: 90
-  angle_dampening: 0.01
+  length: 0.32
+  fix_pitch: 0
+  pitch: 45.73
+  pitch_min: 10
+  pitch_max: 80
+  pitch_speed: 90
+  pitch_dampening: 0.01
+  fix_yaw: 0
+  yaw: 0
+  yaw_range: 360
+  yaw_speed: 180
+  yaw_dampening: 0.001
   shoot_force: 256
-  ammo: {fileID: 0}
+  cargo_containers: []
   cannon: {fileID: 4244371423742007856}
