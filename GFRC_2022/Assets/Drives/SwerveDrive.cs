@@ -34,11 +34,11 @@ public class SwerveDrive : MonoBehaviour
 		// Pivot change.
 		//
 
-		// @TODO@ Change this to presses?
-		pivot_offset   += (arrow_keys() + gamepad_buttons()).normalized * Time.deltaTime;
-		pivot_offset.x  = Mathf.Clamp(pivot_offset.x, -0.5f, 0.5f);
-		pivot_offset.y  = Mathf.Clamp(pivot_offset.y, -0.5f, 0.5f);
-		pivot.position  = transform.position + v2_on_plane(transform.right * drive_base.localScale.x, transform.forward * drive_base.localScale.z, pivot_offset);
+		// @TODO@ Pivot to change depending on movement and direction.
+		// pivot_offset   += (arrow_keys() + gamepad_buttons()).normalized * Time.deltaTime;
+		// pivot_offset.x  = Mathf.Clamp(pivot_offset.x, -0.5f, 0.5f);
+		// pivot_offset.y  = Mathf.Clamp(pivot_offset.y, -0.5f, 0.5f);
+		// pivot.position  = transform.position + v2_on_plane(transform.right * drive_base.localScale.x, transform.forward * drive_base.localScale.z, pivot_offset);
 
 		//
 		// Movement.

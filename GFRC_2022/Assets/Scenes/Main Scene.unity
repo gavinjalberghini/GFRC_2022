@@ -2245,8 +2245,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1528263604}
     m_Modifications:
     - target: {fileID: 4244371423742007856, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92005056
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244371423742007856, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.391581
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244371423742007856, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0120441215
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244371423742007856, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.0051260763
       objectReference: {fileID: 0}
     - target: {fileID: 4995682097408185274, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
       propertyPath: m_RootOrder
@@ -2301,9 +2313,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: yaw
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
       propertyPath: ammo
       value: 
       objectReference: {fileID: 1346525281074167040, guid: 8bcebc980fb2fa84285be0fde425d11f, type: 3}
+    - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: pitch
+      value: 46.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: yaw_range
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: yaw_speed
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
       propertyPath: angle_speed
       value: 90
@@ -2311,6 +2339,10 @@ PrefabInstance:
     - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
       propertyPath: shoot_force
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
+      propertyPath: yaw_dampening
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 7398694955526306175, guid: af8a1684888a2c44d9fbba36d9a106bd, type: 3}
       propertyPath: cargo_container

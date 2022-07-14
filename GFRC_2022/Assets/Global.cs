@@ -11,11 +11,12 @@ static class Global
 	// `friction` of 0.0f will cause an instanteous transition from `start` to `end`.
 	// `friction` of 0.5f will close the gap between `start` and `end` by half after one second.
 	// `friction` of 1.0f will always make the value stay at `start`, e.g. infinite friction.
-	static public float      dampen(float      start, float      end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
-	static public Vector2    dampen(Vector2    start, Vector2    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
-	static public Vector3    dampen(Vector3    start, Vector3    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
-	static public Vector4    dampen(Vector4    start, Vector4    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
-	static public Quaternion dampen(Quaternion start, Quaternion end, float friction) => Quaternion.Slerp(end, start, Mathf.Pow(friction, Time.deltaTime));
+	static public float      dampen      (float      start, float      end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
+	static public Vector2    dampen      (Vector2    start, Vector2    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
+	static public Vector3    dampen      (Vector3    start, Vector3    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
+	static public Vector4    dampen      (Vector4    start, Vector4    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
+	static public Quaternion dampen      (Quaternion start, Quaternion end, float friction) => Quaternion.Slerp(end, start, Mathf.Pow(friction, Time.deltaTime));
+	static public float      dampen_angle(float      start, float      end, float friction) => start + dampen(0.0f, min_degree_arc(start, end), friction);
 
 	static public bool key_down(Key k) =>
 		Keyboard.current != null && Keyboard.current[k].isPressed;
