@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6239268176700687721}
   - component: {fileID: 5861504167405453085}
   m_Layer: 0
-  m_Name: Floor Intake
+  m_Name: Intake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorIntake : MonoBehaviour
+public class Intake : MonoBehaviour
 {
 	public Vector3          dims             = new Vector3(0.3f, 0.15f, 0.05f);
 	public CargoContainer[] cargo_containers = null;
