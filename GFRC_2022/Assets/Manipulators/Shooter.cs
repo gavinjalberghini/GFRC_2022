@@ -28,9 +28,9 @@ public class Shooter : MonoBehaviour
 	void OnValidate()
 	{
 		length                            = Mathf.Clamp(length, 0.1f, 1.0f);
-		pitch                             = Mathf.Clamp(pitch, pitch_min, pitch_max);
 		pitch_min                         = Mathf.Clamp(pitch_min, 0.0f, pitch_max);
 		pitch_max                         = Mathf.Clamp(pitch_max, pitch_min, 90.0f);
+		pitch                             = Mathf.Clamp(pitch, pitch_min, pitch_max);
 		yaw                               = Mathf.Clamp(mod(yaw + 180.0f, 360.0f) - 180.0f, -yaw_range / 2.0f, yaw_range / 2.0f);
 		yaw_range                         = Mathf.Clamp(yaw_range, 0.0f, 360.0f);
 		dampen_pitch                      = pitch;

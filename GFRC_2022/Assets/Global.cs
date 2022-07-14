@@ -74,6 +74,11 @@ static class Global
 		return v;
 	}
 
+	static public float trigger_left()   => Gamepad.current == null ? 0.0f : Gamepad.current.leftTrigger.ReadValue();
+	static public float trigger_right()  => Gamepad.current == null ? 0.0f : Gamepad.current.rightTrigger.ReadValue();
+	static public bool  shoulder_left()  => Gamepad.current == null ? false : Gamepad.current.leftShoulder.ReadValue() != 0.0f;
+	static public bool  shoulder_right() => Gamepad.current == null ? false : Gamepad.current.rightShoulder.ReadValue() != 0.0f;
+
 	static public Vector2 dpad() =>
 		Gamepad.current != null ? Gamepad.current.dpad.ReadValue() : new Vector2(0.0f, 0.0f);
 
