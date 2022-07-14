@@ -61,6 +61,25 @@ static class Global
 		return v;
 	}
 
+	static public Vector2 gamepad_buttons_now_down()
+	{
+		Vector2 v = new Vector2(0.0f, 0.0f);
+		if (Gamepad.current != null)
+		{
+			if (Gamepad.current.buttonWest .wasPressedThisFrame) { v.x -= 1.0f; }
+			if (Gamepad.current.buttonEast .wasPressedThisFrame) { v.x += 1.0f; }
+			if (Gamepad.current.buttonSouth.wasPressedThisFrame) { v.y -= 1.0f; }
+			if (Gamepad.current.buttonNorth.wasPressedThisFrame) { v.y += 1.0f; }
+		}
+		return v;
+	}
+
+	static public Vector2 dpad() =>
+		Gamepad.current != null ? Gamepad.current.dpad.ReadValue() : new Vector2(0.0f, 0.0f);
+
+	static public Vector2 dpad_normalized() =>
+		Gamepad.current != null && Gamepad.current.dpad.ReadValue() != new Vector2(0.0f, 0.0f) ? Gamepad.current.dpad.ReadValue().normalized : new Vector2(0.0f, 0.0f);
+
 	// @TODO@ Is this frame rate independent already?
 	static public Vector2 mouse_delta() =>
 		Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();

@@ -39,20 +39,27 @@ public class Shooter : MonoBehaviour
 	void OnStart()
 	{
 		dampen_pitch = pitch;
+		dampen_yaw   = yaw;
 	}
 
 	void Update()
 	{
+		Vector2 angle_delta = dpad();
+		if (angle_delta == new Vector2(0.0f, 0.0f))
+		{
+			angle_delta = arrow_keys();
+		}
+
 		if (!fix_pitch)
 		{
-			pitch = Mathf.Clamp(pitch + arrow_keys().y * pitch_speed * Time.deltaTime, pitch_min, pitch_max);
+			pitch = Mathf.Clamp(pitch + angle_delta.y * pitch_speed * Time.deltaTime, pitch_min, pitch_max);
 		}
 		if (!fix_yaw)
 		{
-			yaw = Mathf.Clamp(mod(yaw + arrow_keys().x * yaw_speed * Time.deltaTime + 180.0f, 360.0f) - 180.0f, -yaw_range / 2.0f, yaw_range / 2.0f);
+			yaw = Mathf.Clamp(mod(yaw + angle_delta.x * yaw_speed * Time.deltaTime + 180.0f, 360.0f) - 180.0f, -yaw_range / 2.0f, yaw_range / 2.0f);
 		}
 
-		if (key_now_down(Key.Space))
+		if (key_now_down(Key.Space) || gamepad_buttons_now_down().y == -1.0f)
 		{
 			foreach (var container in cargo_containers)
 			{
