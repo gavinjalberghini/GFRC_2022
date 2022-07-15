@@ -22,9 +22,7 @@ public class Arm : MonoBehaviour
 	public float            yaw_range        = 360.0f;
 	public float            yaw_speed        = 180.0f;
 	public float            yaw_dampening    = 0.001f;
-	public CargoContainer[] cargo_containers = null;
-	public Transform        neck             = null;
-	public Transform        holder           = null;
+	public Transform        hand             = null;
 
 	float dampen_length = 0.0f;
 	float dampen_pitch  = 0.0f;
@@ -32,10 +30,15 @@ public class Arm : MonoBehaviour
 
 	void readjust_arm()
 	{
-		neck.localRotation              = Quaternion.Euler(-pitch, yaw, 0.0f);
-		neck.Find("Cube").localScale    = new Vector3(0.05f, 0.05f, dampen_length);
-		neck.Find("Cube").localPosition = new Vector3(0.0f, 0.0f, dampen_length / 2.0f);
-		holder.position                 = transform.position + Quaternion.AngleAxis(dampen_yaw, transform.up) * transform.forward * holder.localScale.z / 2.0f + neck.forward * neck.Find("Cube").localScale.z;
+		transform.Find("Neck").localRotation              = Quaternion.Euler(-dampen_pitch, dampen_yaw, 0.0f);
+		transform.Find("Neck").Find("Cube").localScale    = new Vector3(0.05f, 0.05f, dampen_length);
+		transform.Find("Neck").Find("Cube").localPosition = new Vector3(0.0f, 0.0f, dampen_length / 2.0f);
+
+		if (hand != null)
+		{
+			hand.position = transform.position + transform.Find("Neck").forward * dampen_length;
+			hand.rotation = transform.Find("Neck").rotation;
+		}
 	}
 
 	void OnValidate()
@@ -44,8 +47,8 @@ public class Arm : MonoBehaviour
 		length_max    = Mathf.Clamp(length_max, length_min, 1.0f);
 		length        = Mathf.Clamp(length, length_min, length_max);
 		dampen_length = length;
-		pitch_min     = Mathf.Clamp(pitch_min, 0.0f, pitch_max);
-		pitch_max     = Mathf.Clamp(pitch_max, pitch_min, 80.0f);
+		pitch_min     = Mathf.Min(pitch_min, pitch_max);
+		pitch_max     = Mathf.Max(pitch_max, pitch_min);
 		pitch         = Mathf.Clamp(pitch, pitch_min, pitch_max);
 		yaw           = Mathf.Clamp(mod(yaw + 180.0f, 360.0f) - 180.0f, -yaw_range / 2.0f, yaw_range / 2.0f);
 		yaw_range     = Mathf.Clamp(yaw_range, 0.0f, 360.0f);
@@ -93,22 +96,9 @@ public class Arm : MonoBehaviour
 			yaw = Mathf.Clamp(mod(yaw + angle_delta.x * yaw_speed * Time.deltaTime + 180.0f, 360.0f) - 180.0f, -yaw_range / 2.0f, yaw_range / 2.0f);
 		}
 
-		if (key_now_down(Key.Space) || gamepad_buttons_now_down().y == -1.0f)
-		{
-			foreach (var container in cargo_containers)
-			{
-				GameObject cargo = container.try_unloading();
-				if (cargo != null)
-				{
-					cargo.transform.position = neck.position + neck.forward * neck.localScale.z / 2.0f;
-					break;
-				}
-			}
-		}
-
 		dampen_pitch       = dampen(dampen_pitch, pitch, pitch_dampening);
 		dampen_yaw         = dampen_angle(dampen_yaw, yaw, yaw_dampening);
-		neck.localRotation = Quaternion.Euler(-dampen_pitch, dampen_yaw, 0.0f);
-		holder.position    = transform.position + Quaternion.AngleAxis(dampen_yaw, transform.up) * transform.forward * holder.localScale.z / 2.0f + neck.forward * neck.Find("Cube").localScale.z;
+		transform.Find("Neck").localRotation = Quaternion.Euler(-dampen_pitch, dampen_yaw, 0.0f);
 	}
 }
+

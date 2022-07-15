@@ -34,7 +34,7 @@ public class Holder : MonoBehaviour
 			if (is_grabbed)
 			{
 				delta                    = dampen(delta, new Vector3(0.0f, 0.0f, 0.0f), 0.01f);
-				cargo.transform.position = transform.position + new Vector3(0.0f, cargo.transform.localScale.y, 0.0f) / 2.0f + delta;
+				cargo.transform.position = transform.position + transform.up * cargo.transform.localScale.y / 2.0f + delta;
 			}
 
 			if (key_now_down(Key.Enter) || gamepad_buttons_now_down().x == -1.0f)
