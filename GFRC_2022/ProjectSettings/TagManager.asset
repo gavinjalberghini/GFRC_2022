@@ -7,6 +7,14 @@ TagManager:
   - Ground
   - BlueCargo
   - RedCargo
+  - RedHangar0
+  - RedHangar1
+  - RedHangar2
+  - RedHangar3
+  - BlueHangar0
+  - BlueHangar1
+  - BlueHangar2
+  - BlueHangar3
   layers:
   - Default
   - TransparentFX
