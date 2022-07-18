@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400280173342627037}
   m_LocalRotation: {x: 0, y: 0.54463905, z: 0, w: 0.8386706}
-  m_LocalPosition: {x: 0.13, y: 1.59, z: -0.29}
+  m_LocalPosition: {x: 0.23, y: 1.59, z: -0.514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6721639874337211124}
   m_LocalRotation: {x: 0, y: 0.9781476, z: 0, w: 0.20791169}
-  m_LocalPosition: {x: -0.29, y: 1.59, z: -0.13}
+  m_LocalPosition: {x: -0.382, y: 1.59, z: -0.171}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,7 +86,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7755620910483491701}
   m_LocalRotation: {x: 0, y: 0.8386707, z: -0, w: -0.5446389}
-  m_LocalPosition: {x: -0.16, y: 1.59, z: 0.31}
+  m_LocalPosition: {x: -0.184, y: 1.59, z: 0.364}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -117,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7789098086799874741}
   m_LocalRotation: {x: 0, y: -0.20791169, z: 0, w: 0.9781476}
-  m_LocalPosition: {x: 0.32, y: 1.59, z: 0.14}
+  m_LocalPosition: {x: 0.397, y: 1.59, z: 0.174}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8970475492590685535}
   m_Layer: 0
-  m_Name: StartPosTops
+  m_Name: STartPosTops
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
