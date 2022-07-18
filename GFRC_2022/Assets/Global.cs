@@ -108,8 +108,8 @@ static class Global
 				v.x * Mathf.Sin(degrees / 180.0f * Mathf.PI) + v.y * Mathf.Cos(degrees / 180.0f * Mathf.PI)
 			);
 
-	static public float mod(float a, float b) =>
-		(a % b + b) % b;
+	static public float mod(float a, float b)          => (a % b + b) % b;
+	static public float mod(float a, float b, float c) => mod(a - b, c - b) + b;
 
 	static public float min_degree_arc(float a, float b)
 	{
@@ -118,9 +118,19 @@ static class Global
 		return Mathf.Abs(delta_0) < Mathf.Abs(delta_1) ? delta_0 : delta_1;
 	}
 
-	static public float hypot(float a, float b) =>
-		Mathf.Sqrt(a * a + b * b);
+	static public float hypot(float a, float b) => Mathf.Sqrt(a * a + b * b);
 
-	static public Vector2 polar(float rad) =>
-		new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+	static public Vector2 polar(float rad) => new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+	static public Vector3 set_local_pos_x(Transform t, float x) => t.localPosition = new Vector3(             x, t.localPosition.y, t.localPosition.z);
+	static public Vector3 set_local_pos_y(Transform t, float y) => t.localPosition = new Vector3(t.localPosition.x,              y, t.localPosition.z);
+	static public Vector3 set_local_pos_z(Transform t, float z) => t.localPosition = new Vector3(t.localPosition.x, t.localPosition.y,              z);
+
+	static public Vector3 set_local_scale_x(Transform t, float x) => t.localScale = new Vector3(             x, t.localScale.y, t.localScale.z);
+	static public Vector3 set_local_scale_y(Transform t, float y) => t.localScale = new Vector3(t.localScale.x,              y, t.localScale.z);
+	static public Vector3 set_local_scale_z(Transform t, float z) => t.localScale = new Vector3(t.localScale.x, t.localScale.y,              z);
+
+	static public Quaternion set_euler_angle_x(Quaternion q, float x) => Quaternion.Euler(              x, q.eulerAngles.y, q.eulerAngles.z);
+	static public Quaternion set_euler_angle_y(Quaternion q, float y) => Quaternion.Euler(q.eulerAngles.x,               y, q.eulerAngles.z);
+	static public Quaternion set_euler_angle_z(Quaternion q, float z) => Quaternion.Euler(q.eulerAngles.x, q.eulerAngles.y,               z);
 }
