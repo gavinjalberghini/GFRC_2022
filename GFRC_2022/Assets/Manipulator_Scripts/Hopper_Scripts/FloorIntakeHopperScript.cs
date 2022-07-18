@@ -15,12 +15,8 @@ public class FloorIntakeHopperScript : MonoBehaviour
     public Transform spawnPos_1;//where the cargo is spawned
     public Transform spawnPos_2;
 
-    Basket_Gate_Script bG;
-    Basket_Movement_Script bM;
-    public GameObject basketGate;
-    public GameObject basket;
-    public Transform basketStorage_L;
-    public Transform basketStorage_R;
+    public Transform basketStorage_1;
+    public Transform basketStorage_2;
 
     private GameObject spawnedCargo_1;//instantiated object for scripting
     private GameObject spawnedCargo_2;
@@ -37,10 +33,8 @@ public class FloorIntakeHopperScript : MonoBehaviour
     {
         pControls = new PS4_Controls();
         kControls = new Keyboard_Controls();
-
-        bG = basketGate.GetComponent<Basket_Gate_Script>();
-        bM = basket.GetComponent<Basket_Movement_Script>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -50,6 +44,8 @@ public class FloorIntakeHopperScript : MonoBehaviour
 
         bool isLoadPressed = pControls.Gameplay.Load.ReadValue<float>() > 0.1f;
         bool isLaunchPressed = pControls.Gameplay.Launch.ReadValue<float>() > 0.1f;
+
+
 
         if (hasPickedUp_1)
         {
@@ -63,82 +59,21 @@ public class FloorIntakeHopperScript : MonoBehaviour
             spawnedCargo_2.transform.position = spawnPos_2.position;
         }
 
-        if((isRHeld || isLoadPressed)&& pickupCounter > 0 && !isLoaded)
+        if((isRHeld || Gamepad.current.buttonEast.wasPressedThisFrame) && pickupCounter > 0 && GameObject.Find("GravityBasket") != null)
         {
-            pickupCounter--;
-
-            if(hasPickedUp_2)
-            {
-                if (GameObject.Find("GravityBasket") != null)
-                {
-                    spawnedCargo_2.transform.position = basketStorage_R.position;
-                    spawnedCargo_2.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-                    spawnedCargo_2.GetComponent<Rigidbody>().useGravity = true;
-                    //Destroy(spawnedCargo_2);
-                    //launchableCargo_2 = Instantiate(launchableCargo, basketStorage_R);
-                    hasPickedUp_2 = false;
-                    isLoaded = true;
-                }
-                else
-                {
-                    Destroy(spawnedCargo_2);
-                    hasPickedUp_2 = false;
-                    Debug.Log("cargo loaded");
-                    isLoaded = true;
-                }
-            }
-            else if(hasPickedUp_1 && !isLoaded)
-            {
-                if (GameObject.Find("GravityBasket") != null)
-                {
-                    spawnedCargo_1.transform.position = basketStorage_L.position;
-                    spawnedCargo_1.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-                    spawnedCargo_1.GetComponent<Rigidbody>().useGravity = true;
-                    Debug.Log("gravity");
-                    //Destroy(spawnedCargo_1);
-                    //launchableCargo_1 = Instantiate(launchableCargo, basketStorage_L);
-                    hasPickedUp_1 = false;
-                    isLoaded = true;
-                }
-                else
-                {
-                    Destroy(spawnedCargo_1);
-                    hasPickedUp_1 = false;
-                    Debug.Log("last cargo loaded");
-                    isLoaded = true;
-                }
-
-  
-            }
+            LoadCargoGB();
+        }
+        else if((isRHeld || isLoadPressed) && pickupCounter > 0 && !isLoaded)
+        {
+            LoadCargo();
         }
 
-        
-        if ((isSpaceHeld || isLaunchPressed) && isLoaded && GameObject.Find("GravityBasket") != null && hasPickedUp_1)
-        {
-            Destroy(spawnedCargo_2);
-            launchableCargo_2 = Instantiate(launchableCargo, basketStorage_R);
-            isLoaded = false;
-        }
-        else if((isSpaceHeld || isLaunchPressed) && isLoaded && GameObject.Find("GravityBasket") != null && !hasPickedUp_1)
-        {
-            Destroy(spawnedCargo_1);
-            launchableCargo_1 = Instantiate(launchableCargo, basketStorage_L);
-            isLoaded = false;
-        }
-        else if ((isSpaceHeld || isLaunchPressed) && isLoaded)
+        //methods of 'launching' cargo
+        if ((isSpaceHeld || isLaunchPressed) && isLoaded && GameObject.Find("GravityBasket") == null)
         {
             isLoaded = false;
             Debug.Log("one cargo launched");
         }
-
-        /*if((Gamepad.current.buttonNorth.ReadValue() > 0 || Keyboard.current.upArrowKey.ReadValue() > 0) && GameObject.Find("GravityBasket") != null)
-        {
-            bM.MoveUp();
-        }
-        if ((Gamepad.current.buttonSouth.ReadValue() > 0 || Keyboard.current.downArrowKey.ReadValue() > 0) && GameObject.Find("GravityBasket") != null)
-        {
-            bM.MoveDown();
-        }*/
 
 
     }
@@ -162,6 +97,50 @@ public class FloorIntakeHopperScript : MonoBehaviour
                 hasPickedUp_2 = true;
                 Destroy(collision.gameObject);
             }
+        }
+    }
+
+    public void LoadCargo()
+    {
+        pickupCounter--;
+
+        if (hasPickedUp_2)
+        {
+              Destroy(spawnedCargo_2);
+              hasPickedUp_2 = false;
+             //Debug.Log("cargo loaded");
+             isLoaded = true;
+        }
+        else if (hasPickedUp_1 && !isLoaded)
+        {
+             Destroy(spawnedCargo_1);
+             hasPickedUp_1 = false;
+             //Debug.Log("last cargo loaded");
+             isLoaded = true;
+        }
+    }
+
+    public void LoadCargoGB()
+    {
+        pickupCounter--;
+
+        if (hasPickedUp_2)
+        {
+            //spawns cargo prefab into gravity bucket
+            Destroy(spawnedCargo_2);
+            Vector3 spawnPos1 = new Vector3(basketStorage_2.transform.position.x, basketStorage_2.transform.position.y, basketStorage_2.position.z);
+            launchableCargo_2 = Instantiate(launchableCargo);
+            launchableCargo_2.transform.position = spawnPos1;
+            hasPickedUp_2 = false;
+        }
+        else if (hasPickedUp_1)
+        {
+            //spawns cargo prefab into gravity bucket
+            Destroy(spawnedCargo_1);
+            Vector3 spawnPos = new Vector3(basketStorage_1.transform.position.x, basketStorage_1.transform.position.y, basketStorage_1.position.z);
+            launchableCargo_1 = Instantiate(launchableCargo);
+            launchableCargo_1.transform.position = spawnPos;
+            hasPickedUp_1 = false;
         }
     }
 
