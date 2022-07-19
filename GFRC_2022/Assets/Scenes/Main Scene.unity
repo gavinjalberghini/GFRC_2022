@@ -2547,6 +2547,12 @@ MonoBehaviour:
   hub_bot: {fileID: 1186444375}
   hangar_blue: {fileID: 1770470588}
   hangar_red: {fileID: 489747175}
+  score_hub_top_red: 0
+  score_hub_bot_red: 0
+  score_hangar_red: 0
+  score_hub_top_blue: 0
+  score_hub_bot_blue: 0
+  score_hangar_blue: 0
 --- !u!4 &2135176288
 Transform:
   m_ObjectHideFlags: 0
