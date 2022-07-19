@@ -1,77 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static Global;
 
 public class Wheel : MonoBehaviour
 {
-	public static bool indicator_visibility = false;
+	public static bool show_indicator = false;
 
-	public Transform drive_indicator;
-	public Transform strafe_indicator;
-	public Transform net_force_indicator;
-	public float     angle       = 0.0f;
-	public float     max_torque  = 2.0f;
-	public float     strafe_k    = 1.0f;
-	public float     activation  = 0.0f;
+	public float radius;
+	public float angle;
+	public float drive_torque;
+	public float stall_torque;
+	public float strafe_force;
 
-	float dampen_indicator_activation = 0.0f;
+	[HideInInspector] public float power;
+	[HideInInspector] public float target_angle;
+
+	float dampen_indicator_scalar;
+
+	Transform tire            () => transform.Find("Tire");
+	Transform drive_indicator () => transform.Find("Drive Indicator");
+	Transform strafe_indicator() => transform.Find("Strafe Indicator");
+
+	public Vector3 direction() => tire().forward;
 
 	void OnValidate()
 	{
-		strafe_k   = Mathf.Clamp(strafe_k  , -1.0f, 1.00f);
-		activation = Mathf.Clamp(activation, -1.0f, 1.00f);
+		target_angle = angle;
+		Update();
 	}
 
 	void Update()
 	{
-		if (Mathf.Abs(activation) < 0.1f)
+		radius       = Mathf.Clamp(radius, 0.03f, 0.1f);
+		angle        = mod(       angle, -180.0f, 180.0f);
+		target_angle = mod(target_angle, -180.0f, 180.0f);
+		angle        = dampen_angle(angle, target_angle, 0.0001f);
+		power        = Mathf.Clamp(power, -1.0f, 1.0f);
+		drive_torque = Mathf.Max(drive_torque, 0.0f);
+		stall_torque = Mathf.Max(stall_torque, 0.0f);
+
+		GetComponent<WheelCollider>().radius = radius;
+		set_local_scale_x(tire(), radius * 2.0f);
+		set_local_scale_z(tire(), radius * 2.0f);
+
+		GetComponent<WheelCollider>().steerAngle = angle;
+		set_local_rotation_y(tire(), angle);
+
+		GetComponent<WheelCollider>().motorTorque = power * drive_torque;
+		GetComponent<WheelCollider>().brakeTorque = power == 0.0f ? stall_torque : 0.0f;
+
+		if (GetComponent<WheelCollider>().isGrounded)
 		{
-			GetComponent<WheelCollider>().brakeTorque = 1.0f;
-		}
-		else
-		{
-			GetComponent<WheelCollider>().brakeTorque = 0.0f;
-		}
-
-		GetComponent<WheelCollider>().steerAngle  = angle;
-		GetComponent<WheelCollider>().motorTorque = max_torque * activation;
-
-		dampen_indicator_activation = dampen(dampen_indicator_activation, GetComponent<WheelCollider>().rpm / 60.0f / 8.0f, 0.0001f);
-
-		float effective_indicator_activation =
-			indicator_visibility
-				? dampen_indicator_activation
-				: 0.0f;
-
-		Transform vehicle = GetComponent<WheelCollider>()?.attachedRigidbody?.transform;
-
-		if (vehicle != null)
-		{
-			transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
-
-			drive_indicator.transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
-			drive_indicator.localScale         = new Vector3(drive_indicator.localScale.x, drive_indicator.localScale.y, effective_indicator_activation);
-
-			if (strafe_indicator != null)
-			{
-				strafe_indicator.transform.rotation = vehicle.rotation * Quaternion.Euler(0.0f, angle, 0.0f);
-				strafe_indicator.localScale         = new Vector3(strafe_k * effective_indicator_activation, strafe_indicator.localScale.y, strafe_indicator.localScale.z);
-
-				// @NOTE@ Wrong dimensions, but so what?
-				Vector3 net_force = Quaternion.Euler(0.0f, angle, 0.0f) * new Vector3(strafe_k, 0.0f, 1.0f) * effective_indicator_activation;
-				if (net_force.magnitude > 0.0001f)
-				{
-					net_force_indicator.transform.rotation = vehicle.rotation * Quaternion.LookRotation(net_force, vehicle.up);
-					net_force_indicator.localScale         = new Vector3(net_force_indicator.localScale.x, net_force_indicator.localScale.y, net_force.magnitude);
-				}
-				else
-				{
-					net_force_indicator.localScale         = new Vector3(net_force_indicator.localScale.x, net_force_indicator.localScale.y, 0.0f);
-				}
-			}
+			GetComponent<WheelCollider>().attachedRigidbody?.AddForce(transform.right * strafe_force * power);
 		}
 
+		dampen_indicator_scalar = dampen(dampen_indicator_scalar, power * 0.85f, 0.00001f);
+		drive_indicator ().gameObject.SetActive(show_indicator && Mathf.Abs(dampen_indicator_scalar) > 0.001f);
+		strafe_indicator().gameObject.SetActive(show_indicator && Mathf.Abs(dampen_indicator_scalar) > 0.001f);
+		set_local_rotation_y(drive_indicator (), angle);
+		set_local_rotation_y(strafe_indicator(), angle + 90.0f);
+		set_local_scale_z(drive_indicator (), dampen_indicator_scalar);
+		set_local_scale_z(strafe_indicator(), dampen_indicator_scalar * strafe_force * 0.5f);
 	}
 }

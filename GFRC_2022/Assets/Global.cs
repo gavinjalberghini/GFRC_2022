@@ -130,7 +130,7 @@ static class Global
 	static public Vector3 set_local_scale_y(Transform t, float y) => t.localScale = new Vector3(t.localScale.x,              y, t.localScale.z);
 	static public Vector3 set_local_scale_z(Transform t, float z) => t.localScale = new Vector3(t.localScale.x, t.localScale.y,              z);
 
-	static public Quaternion set_euler_angle_x(Quaternion q, float x) => Quaternion.Euler(              x, q.eulerAngles.y, q.eulerAngles.z);
-	static public Quaternion set_euler_angle_y(Quaternion q, float y) => Quaternion.Euler(q.eulerAngles.x,               y, q.eulerAngles.z);
-	static public Quaternion set_euler_angle_z(Quaternion q, float z) => Quaternion.Euler(q.eulerAngles.x, q.eulerAngles.y,               z);
+	static public Quaternion set_local_rotation_x(Transform t, float x) => t.localRotation = Quaternion.Euler(                            x, t.localRotation.eulerAngles.y, t.localRotation.eulerAngles.z);
+	static public Quaternion set_local_rotation_y(Transform t, float y) => t.localRotation = Quaternion.Euler(t.localRotation.eulerAngles.x,                             y, t.localRotation.eulerAngles.z);
+	static public Quaternion set_local_rotation_z(Transform t, float z) => t.localRotation = Quaternion.Euler(t.localRotation.eulerAngles.x, t.localRotation.eulerAngles.y,                             z);
 }

@@ -20,14 +20,14 @@ public class DemoCamera : MonoBehaviour
 
 	void Start()
 	{
-		Wheel.indicator_visibility = true;
+		Wheel.show_indicator = true;
 	}
 
 	void Update()
 	{
 		if (key_now_down(Key.O))
 		{
-			Wheel.indicator_visibility = !Wheel.indicator_visibility;
+			Wheel.show_indicator = !Wheel.show_indicator;
 		}
 
 		if (key_now_down(Key.Tab))

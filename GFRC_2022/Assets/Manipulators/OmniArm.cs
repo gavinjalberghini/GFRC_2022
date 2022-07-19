@@ -27,10 +27,12 @@ public class OmniArm : MonoBehaviour
 	[Header("Hand")]
 	public Transform  hand;
 	public bool       hand_rel_orientation;
+	[ConditionalHide("hand_rel_orientation", true)] public bool       hand_leveled;
 	[ConditionalHide("hand_rel_orientation", true)] public Quaternion hand_additional_rotation = Quaternion.identity;
 	[HideInInspector]                               public Quaternion target_hand_additional_rotation;
 
-	public Transform arm() => transform.Find("Arm");
+	public Transform arm()     => transform.Find("Arm");
+	public Vector3   arm_end() => transform.position + arm().up * length;
 
 	void OnValidate()
 	{
@@ -49,7 +51,7 @@ public class OmniArm : MonoBehaviour
 		target_length = Mathf.Clamp(target_length, length_min, length_max);
 		length        = dampen(length, target_length, 0.00001f);
 
-		pitch_min    = Mathf.Clamp(pitch_min, 0.0f, pitch_max);
+		pitch_min    = Mathf.Clamp(pitch_min, -90.0f, pitch_max);
 		pitch_max    = Mathf.Clamp(pitch_max, pitch_min, 90.0f);
 		pitch        = Mathf.Clamp(pitch, pitch_min, pitch_max);
 		target_pitch = Mathf.Clamp(target_pitch, pitch_min, pitch_max);
@@ -74,10 +76,10 @@ public class OmniArm : MonoBehaviour
 
 		if (hand)
 		{
-			hand.position = arm().position + arm().up * length / 2.0f;
+			hand.position = transform.position + arm().up * length;
 			if (hand_rel_orientation)
 			{
-				hand.localRotation  = Quaternion.Euler(-pitch, yaw, 0.0f);
+				hand.localRotation  = Quaternion.Euler(hand_leveled ? 0.0f : -pitch, yaw, 0.0f);
 				hand.localRotation *= hand_additional_rotation;
 			}
 		}

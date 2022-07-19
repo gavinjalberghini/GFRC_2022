@@ -26,8 +26,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652991665583571840}
-  m_LocalRotation: {x: 0.2755029, y: -0.030026287, z: 0.0086099, w: 0.96079266}
-  m_LocalPosition: {x: -0.008272329, y: 0.21201201, z: 0.13222131}
+  m_LocalRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
+  m_LocalPosition: {x: 0, y: 0.17677668, z: 0.1767767}
   m_LocalScale: {x: 0.05, y: 0.25, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -147,14 +147,14 @@ MonoBehaviour:
   length_min: 0
   length_max: 1
   target_length: 0.5
-  pitch: 58
+  pitch: 45
   pitch_min: 0
   pitch_max: 90
-  target_pitch: 58
-  yaw: -3.5800018
+  target_pitch: 45
+  yaw: 0
   yaw_min: -180
   yaw_max: 180
-  target_yaw: -3.5800018
+  target_yaw: 0
   hand: {fileID: 0}
   hand_rel_orientation: 1
   hand_additional_rotation: {x: 0, y: 0, z: 0, w: 1}

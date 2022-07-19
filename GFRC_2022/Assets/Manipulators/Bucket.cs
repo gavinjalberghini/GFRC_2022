@@ -6,72 +6,57 @@ using static Global;
 
 public class Bucket : MonoBehaviour
 {
-	public float            height           = 1.0f;
-	public float            min_height       = 0.1f;
-	public float            max_height       = 0.75f;
-	public float            pitch            = 0.0f;
-	public CargoContainer[] cargo_containers = null;
+	[Header("Height")]
+	public float height     = 1.0f;
+	public float height_min = 0.1f;
+	public float height_max = 0.75f;
 
-	public Transform arm()    => transform.Find("Arm");
-	public Transform basket() => transform.Find("Basket");
+	[Header("Pitch")]
+	public float pitch      = 0.0f;
+	public float pitch_min  = 0.0f;
+	public float pitch_max  = 0.0f;
 
-	float dampen_height = 0.0f;
-	float dampen_pitch  = 0.0f;
+	[HideInInspector] public float target_height;
+	[HideInInspector] public float target_pitch;
 
-	void readjust()
+	public bool try_loading(Intake intake)
 	{
-		arm().localScale       = new Vector3(arm().localScale.x, dampen_height, arm().localScale.z);
-		arm().localPosition    = new Vector3(0.0f, dampen_height / 2.0f, 0.0f);
-		basket().localPosition = new Vector3(0.0f, dampen_height, 0.0f);
-		basket().localRotation = Quaternion.Euler(dampen_pitch, 0.0f, 0.0f);
+		if (intake.cargo)
+		{
+			intake.cargo.transform.position = transform.position + transform.up * (height + 0.2f);
+			intake.cargo = null;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	void OnValidate()
 	{
-		height = Mathf.Clamp(height, min_height, max_height);
-		pitch  = Mathf.Clamp(pitch , 0.0f, 90.0f);
-		dampen_height = height;
-		dampen_pitch  = pitch;
-		readjust();
+		target_height = height;
+		target_pitch  = pitch;
+		Update();
 	}
 
 	void Update()
 	{
-		if (key_down(Key.DownArrow))
-		{
-			height -= 1.0f * Time.deltaTime;
-		}
-		if (key_down(Key.UpArrow))
-		{
-			height += 1.0f * Time.deltaTime;
-		}
-		height        = Mathf.Clamp(height, min_height, max_height);
-		dampen_height = dampen(dampen_height, height, 0.0001f);
+		height_min    = Mathf.Clamp(height_min, 0.0f, height_max);
+		height_max    = Mathf.Clamp(height_max, height_min, 4.0f);
+		height        = Mathf.Clamp(       height, height_min, height_max);
+		target_height = Mathf.Clamp(target_height, height_min, height_max);
+		height        = dampen(height, target_height, 0.0001f);
 
-		if (key_down(Key.Comma))
-		{
-			pitch -= 90.0f * Time.deltaTime;
-		}
-		if (key_down(Key.Period))
-		{
-			pitch += 90.0f * Time.deltaTime;
-		}
-		pitch        = Mathf.Clamp(pitch , 0.0f, 90.0f);
-		dampen_pitch = dampen(dampen_pitch, pitch, 0.0001f);
+		pitch_min     = Mathf.Clamp(pitch_min, -90, pitch_max);
+		pitch_max     = Mathf.Clamp(pitch_max, pitch_min, 90);
+		pitch         = Mathf.Clamp(       pitch, pitch_min, pitch_max);
+		target_pitch  = Mathf.Clamp(target_pitch, pitch_min, pitch_max);
+		pitch         = dampen(pitch, target_pitch, 0.0001f);
 
-		if (key_now_down(Key.Enter))
-		{
-			foreach (var container in cargo_containers)
-			{
-				GameObject cargo = container.try_unloading();
-				if (cargo)
-				{
-					cargo.transform.position = basket().position + basket().up * 0.3f;
-					break;
-				}
-			}
-		}
-
-		readjust();
+		set_local_pos_y     (transform.Find("Arm"   ), height / 2.0f);
+		set_local_scale_y   (transform.Find("Arm"   ), height       );
+		set_local_pos_y     (transform.Find("Basket"), height       );
+		set_local_rotation_x(transform.Find("Basket"), pitch        );
 	}
 }

@@ -1,53 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static Global;
 
 public class CargoContainer : MonoBehaviour
 {
-	public GameObject cargo = null;
+	[HideInInspector] public GameObject cargo;
 
-	Vector3 delta = new Vector3(0.0f, 0.0f);
+	Vector3 cargo_delta_pos;
 
-	public bool try_loading(GameObject obj)
+	public bool try_loading(Intake intake)
 	{
-		if (cargo == null)
-		{
-			cargo                                        = obj;
-			delta                                        = cargo.transform.position - transform.position;
-			cargo.GetComponent<SphereCollider>().enabled = false;
-			cargo.GetComponent<Rigidbody>().isKinematic  = true;
-			return true;
-		}
-		else
+		if (cargo || !intake.cargo)
 		{
 			return false;
 		}
+		else
+		{
+			cargo                                        = intake.cargo;
+			cargo_delta_pos                              = cargo.transform.position - transform.position;
+			cargo.GetComponent<SphereCollider>().enabled = false;
+			cargo.GetComponent<Rigidbody>().isKinematic  = true;
+			intake.cargo                                 = null;
+			return true;
+		}
 	}
 
-	public GameObject try_unloading()
+	public GameObject try_unloading(bool reenable_physics)
 	{
-		if (cargo == null)
-		{
-			return null;
-		}
-		else
+		if (cargo && reenable_physics)
 		{
 			cargo.GetComponent<SphereCollider>().enabled = true;
 			cargo.GetComponent<Rigidbody>().isKinematic  = false;
-			GameObject obj = cargo;
-			cargo = null;
-			return obj;
 		}
+		GameObject obj = cargo;
+		cargo = null;
+		return obj;
 	}
 
 	void Update()
 	{
-		if (cargo != null)
+		if (cargo)
 		{
-			delta                    = dampen(delta, new Vector3(0.0f, 0.0f, 0.0f), 0.01f);
-			cargo.transform.position = transform.position + new Vector3(0.0f, cargo.transform.localScale.y, 0.0f) / 2.0f + delta;
+			cargo_delta_pos          = dampen(cargo_delta_pos, new Vector3(0.0f, 0.0f, 0.0f), 0.01f);
+			cargo.transform.position = transform.position + transform.up * cargo.transform.localScale.y / 2.0f + cargo_delta_pos;
 		}
 	}
 }

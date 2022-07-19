@@ -6,42 +6,33 @@ using static Global;
 
 public class DualCane : MonoBehaviour
 {
-	public float     width        = 0.25f;
-	public float     height       = 0.15f;
-	public float     min_height   = 0.05f;
-	public float     max_height   = 1.0f;
-	public float     height_speed = 1.0f;
-	public Transform cane_left    = null;
-	public Transform cane_right   = null;
-	public Transform hook_left    = null;
-	public Transform hook_right   = null;
+	public float spacing;
+	public float height;
+	public float height_min;
+	public float height_max;
 
-	float dampen_height = 0.0f;
-
-	void adjust_canes()
-	{
-		cane_left .localPosition = new Vector3(-width / 2.0f, dampen_height / 2.0f, 0.0f);
-		cane_right.localPosition = new Vector3( width / 2.0f, dampen_height / 2.0f, 0.0f);
-		cane_left .localScale    = new Vector3(cane_left .localScale.x, dampen_height / 2.0f, cane_left .localScale.z);
-		cane_right.localScale    = new Vector3(cane_right.localScale.x, dampen_height / 2.0f, cane_right.localScale.z);
-		hook_left .localPosition = new Vector3(-width / 2.0f, dampen_height, 0.0f);
-		hook_right.localPosition = new Vector3( width / 2.0f, dampen_height, 0.0f);
-	}
+	[HideInInspector] public float target_height;
 
 	void OnValidate()
 	{
-		width         = Mathf.Clamp(width, 0.01f, 0.5f);
-		height        = Mathf.Clamp(height, min_height, max_height);
-		dampen_height = height;
-		adjust_canes();
+		target_height = height;
+		Update();
 	}
 
 	void Update()
 	{
-		height -= key_down(Key.J) ? height_speed * Time.deltaTime : 0.0f;
-		height += key_down(Key.K) ? height_speed * Time.deltaTime : 0.0f;
-		height  = Mathf.Clamp(height, min_height, max_height);
-		dampen_height = dampen(dampen_height, height, 0.0001f);
-		adjust_canes();
+		spacing       = Mathf.Max(spacing, 0.0f);
+		height_min    = Mathf.Clamp(height_min, 0.0f, height_max);
+		height_max    = Mathf.Clamp(height_max, height_min, 4.0f);
+		height        = Mathf.Clamp(       height, height_min, height_max);
+		target_height = Mathf.Clamp(target_height, height_min, height_max);
+		height        = dampen(height, target_height, 0.0001f);
+
+		set_local_scale_y(transform.Find("Cylinder L"), height / 2.0f);
+		set_local_scale_y(transform.Find("Cylinder R"), height / 2.0f);
+		transform.Find("Cylinder L").localPosition = new Vector3(-spacing / 2.0f, height / 2.0f, 0.0f);
+		transform.Find("Cylinder R").localPosition = new Vector3( spacing / 2.0f, height / 2.0f, 0.0f);
+		transform.Find("Hook L")    .localPosition = new Vector3(-spacing / 2.0f, height       , 0.0f);
+		transform.Find("Hook R")    .localPosition = new Vector3( spacing / 2.0f, height       , 0.0f);
 	}
 }
