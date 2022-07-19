@@ -2,32 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 using Mono.Data.Sqlite;
 using static Global;
 
 public class Main : MonoBehaviour
 {
-	public Hub    hub_top;
-	public Hub    hub_bot;
-	public Hangar hangar_blue;
-	public Hangar hangar_red;
-
-	//[Header("Debug Display")]
-	//[SerializeField] int score_hub_top_red;
-	//[SerializeField] int score_hub_bot_red;
-	//[SerializeField] int score_hangar_red;
-	//[SerializeField] int score_hub_top_blue;
-	//[SerializeField] int score_hub_bot_blue;
-	//[SerializeField] int score_hangar_blue;
+	public Hub             hub_top;
+	public Hub             hub_bot;
+	public Hangar          hangar_blue;
+	public Hangar          hangar_red;
+	public TextMeshProUGUI debug;
 
 	void Update()
 	{
-		//score_hub_top_red  = hub_top.redScore;
-		//score_hub_bot_red  = hub_bot.redScore;
-		//score_hangar_red   = hangar_red.calc_score();
-		//score_hub_top_blue = hub_top.blueScore;
-		//score_hub_bot_blue = hub_bot.blueScore;
-		//score_hangar_blue  = hangar_blue.calc_score();
+		debug.text =
+			"score_hub_top_red  : " + hub_top.redScore + "\n" +
+			"score_hub_bot_red  : " + hub_bot.redScore + "\n" +
+			"score_hangar_red   : " + hangar_red.calc_score() + "\n" +
+			"score_hub_top_blue : " + hub_top.blueScore + "\n" +
+			"score_hub_bot_blue : " + hub_bot.blueScore + "\n" +
+			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n";
 	}
 
 	const string DATABASE_URI_NAME = "URI=file:scores.db";
