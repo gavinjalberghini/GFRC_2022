@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Linq;
 using TMPro;
 using Mono.Data.Sqlite;
 using UnityEngine.EventSystems;
@@ -10,18 +12,35 @@ using static Global;
 
 public class Main : MonoBehaviour
 {
+	[Header("Scores")]
 	public Hub             hub_top;
 	public Hub             hub_bot;
 	public Hangar          hangar_blue;
 	public Hangar          hangar_red;
+
+	[Header("UI")]
 	public TextMeshProUGUI debug;
 	public TMP_InputField  input;
 	public GameObject[]    test_images;
+
+	[Header("Robot Spawns")]
+	public bool         randomized_robot_spawn;
+	public GameObject[] RobotReds;
+	public GameObject[] RobotBlues;
+
+	[Header("Camera")]
+	public PlayCamera play_camera;
+	public bool       focused_robot_on_red_alliance;
+	public int        focused_robot_team;
 
 	string output_string;
 
 	void Start()
 	{
+		//
+		// Input field.
+		//
+
 		input.onEndEdit.AddListener(delegate {
 			output_string = "";
 
@@ -84,6 +103,10 @@ public class Main : MonoBehaviour
 			}
 		});
 
+		//
+		// Test images.
+		//
+
 		foreach (var img in test_images)
 		{
 			img.SetActive(false);
@@ -92,6 +115,48 @@ public class Main : MonoBehaviour
 				{
 					img.GetComponent<Outline>().effectColor = new Color(0.0f, 0.0f, 0.0f, 1.0f - img.GetComponent<Outline>().effectColor.a);
 				};
+		}
+
+		//
+		// Spawn robots.
+		//
+
+		{
+			Action<GameObject[], List<Transform>> spawn_robots =
+				(robots, spawn_points) =>
+				{
+					for (int i = 0; i < robots.Length; i += 1)
+					{
+						int spawn_index = randomized_robot_spawn ? UnityEngine.Random.Range(0, spawn_points.Count) : 0;
+						robots[i] = Instantiate(robots[i]);
+						robots[i].transform.position = spawn_points[spawn_index].position;
+						robots[i].transform.rotation = spawn_points[spawn_index].rotation;
+						robots[i].GetComponent<Rigidbody>().isKinematic = true; // @NOTE@ Disables the movement of the robots by fixing their physics.
+						spawn_points.RemoveAt(spawn_index);
+					}
+				};
+
+			if (randomized_robot_spawn)
+			{
+				var spawn_points = transform.Find("RandomSpawn").Cast<Transform>().ToList();
+				spawn_robots(RobotReds , spawn_points);
+				spawn_robots(RobotBlues, spawn_points);
+			}
+			else
+			{
+				spawn_robots(RobotReds , transform.Find("RedSpawn" ).Cast<Transform>().ToList());
+				spawn_robots(RobotBlues, transform.Find("BlueSpawn").Cast<Transform>().ToList());
+			}
+		}
+
+		//
+		// Set camera.
+		//
+
+		{
+			GameObject focused_robot = (focused_robot_on_red_alliance ? RobotReds : RobotBlues)[focused_robot_team];
+			play_camera.robot_subject = focused_robot.GetComponent<Transform>();
+			focused_robot.GetComponent<Rigidbody>().isKinematic = false;
 		}
 	}
 
@@ -106,6 +171,10 @@ public class Main : MonoBehaviour
 			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n" +
 			output_string;
 	}
+
+	//
+	// Database.
+	//
 
 	const string DATABASE_URI_NAME = "URI=file:scores.db";
 
