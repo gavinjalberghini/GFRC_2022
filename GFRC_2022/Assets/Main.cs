@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
 using Mono.Data.Sqlite;
 using UnityEngine.EventSystems;
@@ -15,6 +16,7 @@ public class Main : MonoBehaviour
 	public Hangar          hangar_red;
 	public TextMeshProUGUI debug;
 	public TMP_InputField  input;
+	public GameObject[]    test_images;
 
 	string output_string;
 
@@ -41,6 +43,14 @@ public class Main : MonoBehaviour
 					{
 						print("alliance : " + x.alliance + " | team #" + x.team + " | scored : " + x.points);
 					}
+				}
+			}
+			else if (input.text == "ralph")
+			{
+				output_string = "Pick your Ralphs";
+				foreach (var img in test_images)
+				{
+					img.SetActive(true);
 				}
 			}
 			else if (input.text.StartsWith("set"))
@@ -73,6 +83,16 @@ public class Main : MonoBehaviour
 				}
 			}
 		});
+
+		foreach (var img in test_images)
+		{
+			img.SetActive(false);
+
+			img.GetComponent<ClickDetector>().click = delegate
+				{
+					img.GetComponent<Outline>().effectColor = new Color(0.0f, 0.0f, 0.0f, 1.0f - img.GetComponent<Outline>().effectColor.a);
+				};
+		}
 	}
 
 	void Update()
