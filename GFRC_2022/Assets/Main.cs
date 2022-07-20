@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using Mono.Data.Sqlite;
+using UnityEngine.EventSystems;
 using static Global;
 
 public class Main : MonoBehaviour
@@ -13,6 +14,66 @@ public class Main : MonoBehaviour
 	public Hangar          hangar_blue;
 	public Hangar          hangar_red;
 	public TextMeshProUGUI debug;
+	public TMP_InputField  input;
+
+	string output_string;
+
+	void Start()
+	{
+		input.onEndEdit.AddListener(delegate {
+			output_string = "";
+
+			if (input.text == "wipe")
+			{
+				db_wipe();
+			}
+			else if (input.text == "print")
+			{
+				output_string = "Points printed.";
+				var xs = db_get_table();
+				if (xs.Count == 0)
+				{
+					print("No data.");
+				}
+				else
+				{
+					foreach (var x in xs)
+					{
+						print("alliance : " + x.alliance + " | team #" + x.team + " | scored : " + x.points);
+					}
+				}
+			}
+			else if (input.text.StartsWith("set"))
+			{
+				string[] components = input.text.Split(" ")[1..];
+				int      team;
+				int      points;
+				if (components.Length == 3 && int.TryParse(components[1], out team) && int.TryParse(components[2], out points))
+				{
+					output_string = "Points set : " + input.text;
+					db_set_points(components[0], team, points);
+				}
+				else
+				{
+					output_string = "Failed to set points.";
+				}
+			}
+			else
+			{
+				string[] components = input.text.Split(" ");
+				int      team;
+				int      points;
+				if (components.Length == 2 && int.TryParse(components[1], out team) && db_try_get_points(components[0], team, out points))
+				{
+					output_string = input.text + " : " + points;
+				}
+				else
+				{
+					output_string = "Invalid search up  : \"" + input.text + "\"";
+				}
+			}
+		});
+	}
 
 	void Update()
 	{
@@ -22,7 +83,8 @@ public class Main : MonoBehaviour
 			"score_hangar_red   : " + hangar_red.calc_score() + "\n" +
 			"score_hub_top_blue : " + hub_top.blueScore + "\n" +
 			"score_hub_bot_blue : " + hub_bot.blueScore + "\n" +
-			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n";
+			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n" +
+			output_string;
 	}
 
 	const string DATABASE_URI_NAME = "URI=file:scores.db";
@@ -59,11 +121,8 @@ public class Main : MonoBehaviour
 		}
 	}
 
-	public (bool, int) db_try_get_points(string alliance, int team)
+	public bool db_try_get_points(string alliance, int team, out int points)
 	{
-		bool success = false;
-		int  points  = 0;
-
 		using (var connection = new SqliteConnection(DATABASE_URI_NAME))
 		{
 			connection.Open();
@@ -74,8 +133,8 @@ public class Main : MonoBehaviour
 				{
 					if (reader.Read())
 					{
-						success = true;
-						points  = int.Parse(reader["points"].ToString());
+						points = int.Parse(reader["points"].ToString());
+						return true; // @TODO@ Memory leak? Meh...
 					}
 					reader.Close();
 				}
@@ -83,13 +142,14 @@ public class Main : MonoBehaviour
 			connection.Close();
 		}
 
-		return (success, points);
+		points = 0;
+		return false;
 	}
 
 	public void db_add_points(string alliance, int team, int addend)
 	{
-		(bool success, int points) = db_try_get_points(alliance, team);
-		if (success)
+		int points;
+		if (db_try_get_points(alliance, team, out points))
 		{
 			db_set_points(alliance, team, points + addend);
 		}
@@ -99,8 +159,9 @@ public class Main : MonoBehaviour
 		}
 	}
 
-	public void db_print_points()
+	public List<(string alliance, int team, int points)> db_get_table()
 	{
+		var list = new List<(string, int, int)>();
 		using (var connection = new SqliteConnection(DATABASE_URI_NAME))
 		{
 			connection.Open();
@@ -111,12 +172,13 @@ public class Main : MonoBehaviour
 				{
 					while (reader.Read())
 					{
-						print(":: " + reader["alliance"] + " " + reader["team"] + " " + reader["points"]);
+						list.Add((reader["alliance"].ToString(), int.Parse(reader["team"].ToString()), int.Parse(reader["points"].ToString())));
 					}
 					reader.Close();
 				}
 			}
 			connection.Close();
 		}
+		return list;
 	}
 }

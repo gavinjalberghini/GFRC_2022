@@ -18,11 +18,9 @@ static class Global
 	static public Quaternion dampen      (Quaternion start, Quaternion end, float friction) => Quaternion.Slerp(end, start, Mathf.Pow(friction, Time.deltaTime));
 	static public float      dampen_angle(float      start, float      end, float friction) => start + dampen(0.0f, min_degree_arc(start, end), friction);
 
-	static public bool key_down(Key k) =>
-		Keyboard.current != null && Keyboard.current[k].isPressed;
-
-	static public bool key_now_down(Key k) =>
-		Keyboard.current != null && Keyboard.current[k].wasPressedThisFrame;
+	static public bool key_down    (Key k) => Keyboard.current != null && Keyboard.current[k].isPressed;
+	static public bool key_now_down(Key k) => Keyboard.current != null && Keyboard.current[k].wasPressedThisFrame;
+	static public bool key_now_up  (Key k) => Keyboard.current != null && Keyboard.current[k].wasReleasedThisFrame;
 
 	static public Vector2 wasd()
 	{
