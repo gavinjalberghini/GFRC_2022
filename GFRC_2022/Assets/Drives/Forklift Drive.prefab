@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 2097415697537349432}
   - component: {fileID: 2097415697537349435}
   - component: {fileID: 2097415697537349433}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Forklift Drive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 2097415697713152473}
   - component: {fileID: 2097415697713152472}
   - component: {fileID: 2097415697713152475}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
