@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Global;
 
-public class DualCane : MonoBehaviour
+public class DualCane : SecondaryManipulator
 {
 	public float spacing;
 	public float height;

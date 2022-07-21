@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Global;
 
-public class Bucket : MonoBehaviour
+public class Bucket : PrimaryManipulator
 {
 	[Header("Height")]
 	public float height     = 1.0f;

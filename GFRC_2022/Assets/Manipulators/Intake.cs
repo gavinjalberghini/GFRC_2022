@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Intake : MonoBehaviour
+public class Intake : TertiaryManipulator
 {
 	public CargoContainer[] cargo_containers;
 

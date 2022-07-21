@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Global;
 
-public class Grapple : MonoBehaviour
+public class Grapple : SecondaryManipulator
 {
 	public enum GrappleState
 	{
