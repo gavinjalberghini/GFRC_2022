@@ -30,6 +30,10 @@ public class RobotBrain : MonoBehaviour
 			if (key_down(Key.Q)) { qe -= 1.0f; }
 			if (key_down(Key.E)) { qe += 1.0f; }
 			drive_controller.control(wasd(), qe);
+
+
+
+			drive_controller.control(left_stick(), left_stick().x);
 		}
 
 		//
@@ -44,13 +48,20 @@ public class RobotBrain : MonoBehaviour
 		{
 			Shooter shooter = primary as Shooter;
 
-			if (key_now_down(Key.Enter))
+			if (Gamepad.current == null && key_now_down(Key.Enter))
 			{
+				shooter.try_shooting(cargo_container);
+			}
+			else if(Gamepad.current != null && trigger_right() > 0.0f)
+            {
 				shooter.try_shooting(cargo_container);
 			}
 
 			shooter.omniarm.target_yaw   += arrow_keys().x * 90.0f * Time.deltaTime;
 			shooter.omniarm.target_pitch += arrow_keys().y * 90.0f * Time.deltaTime;
+
+			shooter.omniarm.target_yaw += right_stick().x * 90.0f * Time.deltaTime;
+			shooter.omniarm.target_pitch += right_stick().y * 90.0f * Time.deltaTime;
 		}
 		else if (subtype<ArmClaw>(primary))
 		{
