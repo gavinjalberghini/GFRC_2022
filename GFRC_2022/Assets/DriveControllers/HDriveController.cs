@@ -12,7 +12,6 @@ public class HDriveController : DriveController
 
 	public override void control(Vector2 translation, float steering)
 	{
-		Wheel.show_indicator = true;
 		translation = translation.magnitude > 1.0f ? translation.normalized : translation;
 		steering    = Mathf.Clamp(steering, -1.0f, 1.0f);
 

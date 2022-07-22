@@ -205,6 +205,9 @@ public class RobotBrain : MonoBehaviour
 				dual_cane.target_height -= 1.0f * Time.deltaTime;
 			}
 		}
+		else if (subtype<Intake>(secondary))
+		{
+		}
 		else
 		{
 			print("UNSUPPORTED SECONDARY MANIPULATOR");
