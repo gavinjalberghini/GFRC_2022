@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Global;
 
-public class CargoContainer : InternalManipulator
+public class CargoContainer : MonoBehaviour
 {
 	[HideInInspector] public GameObject cargo;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Global;
 
-public class Bucket : PrimaryManipulator
+public class BucketManipulator : PrimaryManipulator
 {
 	[Header("Height")]
 	public float height     = 1.0f;
@@ -23,7 +23,7 @@ public class Bucket : PrimaryManipulator
 	{
 		if (intake.cargo)
 		{
-			intake.cargo.transform.position = transform.position + transform.up * (height + 0.2f);
+			load(intake.cargo);
 			intake.cargo = null;
 			return true;
 		}
@@ -31,6 +31,25 @@ public class Bucket : PrimaryManipulator
 		{
 			return false;
 		}
+	}
+
+	public bool try_loading(CargoContainer container)
+	{
+		GameObject obj = container.try_unloading(true);
+		if (obj)
+		{
+			load(obj);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	void load(GameObject cargo)
+	{
+		cargo.transform.position = transform.position + transform.up * (height + 0.2f);
 	}
 
 	void OnValidate()

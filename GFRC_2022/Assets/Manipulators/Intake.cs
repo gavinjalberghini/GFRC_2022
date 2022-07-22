@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Intake : TertiaryManipulator
+public class Intake : SecondaryManipulator
 {
-	public CargoContainer[] cargo_containers;
-
 	[HideInInspector] public GameObject cargo;
 
 	void OnTriggerEnter(Collider collider)

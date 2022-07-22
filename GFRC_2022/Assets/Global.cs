@@ -18,11 +18,8 @@ static class Global
 	static public Quaternion dampen      (Quaternion start, Quaternion end, float friction) => Quaternion.Slerp(end, start, Mathf.Pow(friction, Time.deltaTime));
 	static public float      dampen_angle(float      start, float      end, float friction) => start + dampen(0.0f, min_degree_arc(start, end), friction);
 
-	static public bool key_down(Key k) =>
-		Keyboard.current != null && Keyboard.current[k].isPressed;
-
-	static public bool key_now_down(Key k) =>
-		Keyboard.current != null && Keyboard.current[k].wasPressedThisFrame;
+	static public bool key_down    (Key k) => Keyboard.current != null && Keyboard.current[k].isPressed;
+	static public bool key_now_down(Key k) => Keyboard.current != null && Keyboard.current[k].wasPressedThisFrame;
 
 	static public Vector2 wasd()
 	{
@@ -48,55 +45,34 @@ static class Global
 		return v;
 	}
 
-	static public Vector2 gamepad_buttons()
-	{
-		Vector2 v = new Vector2(0.0f, 0.0f);
-		if (Gamepad.current != null)
-		{
-			if (Gamepad.current.buttonWest .isPressed) { v.x -= 1.0f; }
-			if (Gamepad.current.buttonEast .isPressed) { v.x += 1.0f; }
-			if (Gamepad.current.buttonSouth.isPressed) { v.y -= 1.0f; }
-			if (Gamepad.current.buttonNorth.isPressed) { v.y += 1.0f; }
-		}
-		return v;
-	}
+	static public bool    btn_west_down          (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonWest .isPressed;
+	static public bool    btn_east_down          (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonEast .isPressed;
+	static public bool    btn_south_down         (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonSouth.isPressed;
+	static public bool    btn_north_down         (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonNorth.isPressed;
+	static public bool    btn_west_now_down      (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonWest .wasPressedThisFrame;
+	static public bool    btn_east_now_down      (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonEast .wasPressedThisFrame;
+	static public bool    btn_south_now_down     (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonSouth.wasPressedThisFrame;
+	static public bool    btn_north_now_down     (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].buttonNorth.wasPressedThisFrame;
+	static public float   trigger_left           (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null ?  Gamepad.all[index].leftTrigger.ReadValue() : 0.0f;
+	static public float   trigger_right          (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null ?  Gamepad.all[index].rightTrigger.ReadValue() : 0.0f;
+	static public bool    trigger_left_now_down  (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].leftTrigger.wasPressedThisFrame;
+	static public bool    trigger_right_now_down (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].rightTrigger.wasPressedThisFrame;
+	static public bool    shoulder_left_down     (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].leftShoulder .isPressed;
+	static public bool    shoulder_right_down    (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].rightShoulder.isPressed;
+	static public bool    shoulder_left_now_down (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].leftShoulder .wasPressedThisFrame;
+	static public bool    shoulder_right_now_down(int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].rightShoulder.wasPressedThisFrame;
+	static public Vector2 left_stick             (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null ?  Gamepad.all[index].leftStick .ReadValue() : new Vector2(0.0f, 0.0f);
+	static public Vector2 right_stick            (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null ?  Gamepad.all[index].rightStick.ReadValue() : new Vector2(0.0f, 0.0f);
+	static public bool    left_stick_down        (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].leftStickButton.isPressed;
+	static public bool    right_stick_down       (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].rightStickButton.isPressed;
+	static public bool    left_stick_now_down    (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].leftStickButton.wasPressedThisFrame;
+	static public bool    right_stick_now_down   (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].rightStickButton.wasPressedThisFrame;
+	static public Vector2 dpad                   (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null ?  Gamepad.all[index].dpad.ReadValue() :  new Vector2(0.0f, 0.0f);
+	static public Vector2 dpad_normalized        (int index = 0) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.ReadValue() != new Vector2(0.0f, 0.0f) ? Gamepad.all[index].dpad.ReadValue().normalized : new Vector2(0.0f, 0.0f);
 
-	static public Vector2 gamepad_buttons_now_down()
-	{
-		Vector2 v = new Vector2(0.0f, 0.0f);
-		if (Gamepad.current != null)
-		{
-			if (Gamepad.current.buttonWest .wasPressedThisFrame) { v.x -= 1.0f; }
-			if (Gamepad.current.buttonEast .wasPressedThisFrame) { v.x += 1.0f; }
-			if (Gamepad.current.buttonSouth.wasPressedThisFrame) { v.y -= 1.0f; }
-			if (Gamepad.current.buttonNorth.wasPressedThisFrame) { v.y += 1.0f; }
-		}
-		return v;
-	}
+	static public Vector2 mouse_delta() => Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();
 
-	static public float trigger_left()   => Gamepad.current == null ? 0.0f : Gamepad.current.leftTrigger.ReadValue();
-	static public float trigger_right()  => Gamepad.current == null ? 0.0f : Gamepad.current.rightTrigger.ReadValue();
-	static public bool  shoulder_left()  => Gamepad.current == null ? false : Gamepad.current.leftShoulder.ReadValue() != 0.0f;
-	static public bool  shoulder_right() => Gamepad.current == null ? false : Gamepad.current.rightShoulder.ReadValue() != 0.0f;
-
-	static public Vector2 dpad() =>
-		Gamepad.current != null ? Gamepad.current.dpad.ReadValue() : new Vector2(0.0f, 0.0f);
-
-	static public Vector2 dpad_normalized() =>
-		Gamepad.current != null && Gamepad.current.dpad.ReadValue() != new Vector2(0.0f, 0.0f) ? Gamepad.current.dpad.ReadValue().normalized : new Vector2(0.0f, 0.0f);
-
-	// @TODO@ Is this frame rate independent already?
-	static public Vector2 mouse_delta() =>
-		Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();
-
-	static public Vector2 left_stick() =>
-		Gamepad.current == null ? new Vector2(0.0f, 0.0f) : Gamepad.current.leftStick.ReadValue();
-
-	static public Vector2 right_stick() =>
-		Gamepad.current == null ? new Vector2(0.0f, 0.0f) : Gamepad.current.rightStick.ReadValue();
-
-	static public float argument(Vector2 v) =>
-		v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
+	static public float argument(Vector2 v) => v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
 
 	static public Vector3 v2_on_plane(Vector3 axis_x, Vector3 axis_y, Vector2 position) =>
 		axis_x * position.x + axis_y * position.y;

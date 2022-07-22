@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : PrimaryManipulator
+public class Shooter : MonoBehaviour
 {
 	public OmniArm omniarm;
 	public float   force;

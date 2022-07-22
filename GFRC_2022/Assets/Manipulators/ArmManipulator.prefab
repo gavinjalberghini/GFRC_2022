@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 831352086288978340}
   - component: {fileID: 831352086288978347}
-  - component: {fileID: 7944514564974558179}
+  - component: {fileID: 2823091406498478214}
   m_Layer: 0
-  m_Name: TelescopicArmClaw
+  m_Name: ArmManipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   hand_leveled: 1
   hand_additional_rotation: {x: 0, y: 0, z: 0, w: 1}
   target_hand_additional_rotation: {x: 0, y: 0, z: 0, w: 1}
---- !u!114 &7944514564974558179
+--- !u!114 &2823091406498478214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,9 +73,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 831352086288978341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddbf95ba7d9c5614ea5f1c943edb873d, type: 3}
+  m_Script: {fileID: 11500000, guid: cace3b4e00c18ae498ab7328e6242f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  omniarm: {fileID: 831352086288978347}
+  claw: {fileID: 2493207443234854967}
 --- !u!1 &831352086791031174
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +233,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65a9c3cb7155cdd408663fdf2fef2bdb, type: 3}
+--- !u!114 &2493207443234854967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2314793933496759085, guid: 65a9c3cb7155cdd408663fdf2fef2bdb, type: 3}
+  m_PrefabInstance: {fileID: 181949540810763034}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad33f25b3df676440aee9d6e8fbf3c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3140770909083492861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2958909643912334055, guid: 65a9c3cb7155cdd408663fdf2fef2bdb, type: 3}

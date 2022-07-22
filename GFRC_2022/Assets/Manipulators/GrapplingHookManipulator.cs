@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TelescopicArmClaw : PrimaryManipulator
+public class GrapplingHookManipulator : SecondaryManipulator
 {
 	public OmniArm omniarm;
-	public Claw    claw;
+	public Grapple grapple;
 }
 

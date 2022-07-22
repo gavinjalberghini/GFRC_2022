@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3935957843550322740}
   - component: {fileID: 3935957843550322747}
   - component: {fileID: 4580355140546777731}
+  - component: {fileID: 9100387155721450979}
   m_Layer: 0
-  m_Name: Shooter
+  m_Name: TurretMountedShooterManipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,11 +76,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618a5ebd073d2ff48b9c2aefe6d08311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cargo_containers:
-  - {fileID: 0}
-  - {fileID: 0}
   omniarm: {fileID: 3935957843550322747}
   force: 6
+--- !u!114 &9100387155721450979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3935957843550322741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e344d132549298d49a51b552e2320f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shooter: {fileID: 4580355140546777731}
 --- !u!1 &3935957844046092310
 GameObject:
   m_ObjectHideFlags: 0
