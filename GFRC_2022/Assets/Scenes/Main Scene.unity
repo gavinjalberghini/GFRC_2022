@@ -3096,6 +3096,11 @@ MonoBehaviour:
     volume: 0.25
     pitch: 1
     source: {fileID: 0}
+  - name: Beep
+    clip: {fileID: 8300000, guid: 4c712738b1dd05346b354f90fb59b046, type: 3}
+    volume: 0.5
+    pitch: 2.5
+    source: {fileID: 0}
 --- !u!1001 &1901824882
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -75,6 +75,10 @@ public class Shooter : MonoBehaviour
 					cargo.GetComponent<Rigidbody>().AddForce(cannon.forward * shoot_force);
 					break;
 				}
+				else 
+				{
+					FindObjectOfType<AudioManager>().Sound("Beep");
+				}
 			}
 		}
 
