@@ -3091,6 +3091,11 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     source: {fileID: 0}
+  - name: Theme
+    clip: {fileID: 8300000, guid: 22c2347c5b5673a4f851fedff4013a83, type: 3}
+    volume: 0.25
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1001 &1901824882
 PrefabInstance:
   m_ObjectHideFlags: 0

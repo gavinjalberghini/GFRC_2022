@@ -65,7 +65,6 @@ public class Shooter : MonoBehaviour
 
 		if (key_now_down(Key.Space) || gamepad_buttons_now_down().y == -1.0f)
 		{
-			FindObjectOfType<AudioManager>().Sound("Shoot");
 			foreach (var container in cargo_containers)
 			{
 				GameObject cargo = container.try_unloading();

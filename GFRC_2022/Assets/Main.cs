@@ -40,7 +40,7 @@ public class Main : MonoBehaviour
 		//
 		// Input field.
 		//
-
+		FindObjectOfType<AudioManager>().Sound("Theme");
 		input.onEndEdit.AddListener(delegate {
 			output_string = "";
 
