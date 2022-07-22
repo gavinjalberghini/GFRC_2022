@@ -10,6 +10,7 @@ public class TankDrive : MonoBehaviour
 	public Transform drive_head = null; // @TODO@ What if there was more parts than just the head?
 	public Wheel[]   wheels     = new Wheel[6];
 	public Vector2   dims       = new Vector2(0.5f, 0.7f);
+	public bool IsDriving;
 
 	void OnValidate()
 	{
@@ -17,7 +18,6 @@ public class TankDrive : MonoBehaviour
 		dims.y                      = Mathf.Clamp(dims.y, 0.25f, 1.0f);
 		drive_base.localScale       = new Vector3(dims.x, 0.05f, dims.y);
 		drive_head.position         = drive_base.position + drive_base.forward * (dims.y + drive_head.localScale.z) * 0.5f;
-
 		for (int i = 0; i < wheels.Length; i += 1)
 		{
 			wheels[i].transform.position = drive_base.position + drive_base.right * dims.x * (i / (wheels.Length / 2) - 0.5f) + drive_base.forward * dims.y * (i % (wheels.Length / 2) / (wheels.Length / 2 - 1.0f) - 0.5f);
@@ -38,8 +38,9 @@ public class TankDrive : MonoBehaviour
 		if (steering == 0.0f)
 		{
 			if (Keyboard.current[Key.Q].isPressed) { steering += -1.0f; }
-			if (Keyboard.current[Key.E].isPressed) { steering +=  1.0f; }
+			if (Keyboard.current[Key.E].isPressed) { steering += 1.0f; }
 		}
+		IsDriving = (movement != new Vector2(0.0f, 0.0f) || steering != 0);
 
 		foreach (var wheel in wheels)
 		{
