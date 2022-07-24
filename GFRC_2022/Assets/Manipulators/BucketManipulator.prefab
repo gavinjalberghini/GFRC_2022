@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2554300731925905122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5382854149454669512}
+  m_Layer: 0
+  m_Name: Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5382854149454669512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2554300731925905122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.172, z: 0.153}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3692421171217812257}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3692421169668777082
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,14 +465,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e789ac7941efd4b92410609c8fb54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawn_point: {fileID: 5382854149454669512}
   height: 0.25
   height_min: 0.1
   height_max: 0.75
+  height_speed: 1
   pitch: -10
   pitch_min: -10
   pitch_max: 40
-  target_height: 0.25
-  target_pitch: -10
+  pitch_speed: 90
 --- !u!1 &3692421171217812258
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +506,7 @@ Transform:
   - {fileID: 3692421169668777081}
   - {fileID: 3692421170175362449}
   - {fileID: 3692421170159365873}
+  - {fileID: 5382854149454669512}
   m_Father: {fileID: 3692421171125391868}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -35.12, y: 0, z: 0}

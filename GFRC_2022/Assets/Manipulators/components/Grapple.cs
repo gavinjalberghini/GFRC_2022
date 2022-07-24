@@ -132,7 +132,7 @@ public class Grapple : SecondaryManipulator
 						joint.massScale                             = 4.5f;
 						joint.minDistance                           = 0.0f;
 						joint.maxDistance                           =
-						length_max                                  = Mathf.Clamp(length_max, 0.0f, 3.0f);
+						length_max                                  = Mathf.Clamp(Vector3.Distance(transform.position, hook.transform.position), 0.0f, 3.0f);
 					}
 				}
 				else

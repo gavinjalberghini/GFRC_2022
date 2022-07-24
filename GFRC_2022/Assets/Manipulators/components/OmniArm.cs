@@ -10,19 +10,19 @@ public class OmniArm : MonoBehaviour
 	public float length;
 	public float length_min;
 	public float length_max;
-	[HideInInspector] public float target_length;
+	public float length_speed;
 
 	[Header("Pitch")]
 	public float pitch;
 	public float pitch_min;
 	public float pitch_max;
-	[HideInInspector] public float target_pitch;
+	public float pitch_speed;
 
 	[Header("Yaw")]
 	public float yaw;
 	public float yaw_min;
 	public float yaw_max;
-	[HideInInspector] public float target_yaw;
+	public float yaw_speed;
 
 	[Header("Hand")]
 	public Transform  hand;
@@ -31,8 +31,17 @@ public class OmniArm : MonoBehaviour
 	[ConditionalHide("hand_rel_orientation", true)] public Quaternion hand_additional_rotation = Quaternion.identity;
 	[HideInInspector]                               public Quaternion target_hand_additional_rotation;
 
+	float target_length;
+	float target_pitch;
+	float target_yaw;
+
 	public Transform arm()     => transform.Find("Arm");
 	public Vector3   arm_end() => transform.position + arm().up * length;
+
+	public float change_pitch (float amount) => target_pitch   = Mathf.Clamp(target_pitch  + Mathf.Clamp(amount, -1.0f, 1.0f) * pitch_speed  * Time.deltaTime, pitch_min , pitch_max );
+	public float change_length(float amount) => target_length  = Mathf.Clamp(target_length + Mathf.Clamp(amount, -1.0f, 1.0f) * length_speed * Time.deltaTime, length_min, length_max);
+	public float change_yaw   (float amount) => target_yaw    +=                             Mathf.Clamp(amount, -1.0f, 1.0f) * yaw_speed    * Time.deltaTime                         ;
+
 
 	void OnValidate()
 	{

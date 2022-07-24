@@ -146,16 +146,17 @@ MonoBehaviour:
   length: 0.5
   length_min: 0
   length_max: 1
-  target_length: 0.5
+  length_speed: 1
   pitch: 45
   pitch_min: 0
   pitch_max: 90
-  target_pitch: 45
+  pitch_speed: 90
   yaw: 0
   yaw_min: -180
   yaw_max: 180
-  target_yaw: 0
+  yaw_speed: 90
   hand: {fileID: 0}
   hand_rel_orientation: 1
+  hand_leveled: 0
   hand_additional_rotation: {x: 0, y: 0, z: 0, w: 1}
   target_hand_additional_rotation: {x: 0, y: 0, z: 0, w: 1}
