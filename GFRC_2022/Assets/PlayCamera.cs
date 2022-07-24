@@ -23,7 +23,7 @@ public class PlayCamera : MonoBehaviour
 
 	void Update()
 	{
-		if (key_now_down(Key.Tab) || gamepad_buttons_now_down().x == 1.0f)
+		if (key_now_down(Key.Tab))
 		{
 			mode = (Mode)(((int) mode + 1) % System.Enum.GetNames(typeof(Mode)).Length);
 		}

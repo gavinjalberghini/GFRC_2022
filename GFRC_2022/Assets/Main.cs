@@ -40,6 +40,7 @@ public class Main : MonoBehaviour
 		//
 		// Input field.
 		//
+
 		FindObjectOfType<AudioManager>().Sound("Theme");
 		input.onEndEdit.AddListener(delegate {
 			output_string = "";
@@ -131,7 +132,7 @@ public class Main : MonoBehaviour
 						robots[i] = Instantiate(robots[i]);
 						robots[i].transform.position = spawn_points[spawn_index].position;
 						robots[i].transform.rotation = spawn_points[spawn_index].rotation;
-						robots[i].GetComponent<Rigidbody>().isKinematic = true; // @NOTE@ Disables the movement of the robots by fixing their physics.
+						robots[i].GetComponent<RobotBrain>().enabled = false;
 						spawn_points.RemoveAt(spawn_index);
 					}
 				};
@@ -156,7 +157,7 @@ public class Main : MonoBehaviour
 		{
 			GameObject focused_robot = (focused_robot_on_red_alliance ? RobotReds : RobotBlues)[focused_robot_team];
 			play_camera.robot_subject = focused_robot.GetComponent<Transform>();
-			focused_robot.GetComponent<Rigidbody>().isKinematic = false;
+			focused_robot.GetComponent<RobotBrain>().enabled = true;
 		}
 	}
 
