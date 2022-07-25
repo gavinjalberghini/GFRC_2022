@@ -36,11 +36,11 @@ public class Card {
     public static void main(String[] args){
 
         Card c1 = new Card("KING", "SPADES");
-        System.out.println(c1.getRank()+":"+isValidRank(c1.getrank()));
-        System.out.println(c1.getSuit()+":"+isValidSuit(c1.getsuit()));
+        System.out.println(c1.getRank()+":"+isValidRank(c1.getRank()));
+        System.out.println(c1.getSuit()+":"+isValidSuit(c1.getSuit()));
 
         Card c2 = new Card("Joker", "Ball");
-        System.out.println(c2.getRank()+":"+isValidRank(c2.getrank()));
-        System.out.println(c2.getSuit()+":"+isValidSuit(c2.getsuit()));
+        System.out.println(c2.getRank()+":"+isValidRank(c2.getRank()));
+        System.out.println(c2.getSuit()+":"+isValidSuit(c2.getSuit()));
     }
 }
