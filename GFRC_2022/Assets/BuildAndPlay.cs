@@ -16,6 +16,7 @@ public class BuildAndPlay : MonoBehaviour
 	public Button       btn_play_test;
 	public Button       btn_play_simulation;
 	public TMP_Dropdown drp_drive;
+	public TMP_Text     txt_drive;
 	public TMP_Dropdown drp_primary;
 	public TMP_Text     txt_primary;
 	public TMP_Dropdown drp_secondary;
@@ -32,7 +33,43 @@ public class BuildAndPlay : MonoBehaviour
 		});
 
 		drp_drive.onValueChanged.AddListener(delegate {
-			print("selected " + drp_drive.value);
+			switch (drp_drive.value)
+			{
+				case 0:
+				{
+					txt_drive.text = "The mecanum drive uses specialized wheels that incurs a sideways force when driving. Allows for direct strafing.";
+				} break;
+
+				case 1:
+				{
+					txt_drive.text = "The swerve drive has wheels that can be turned independently of each other. Allows easy strafing and steering.";
+				} break;
+
+				case 2:
+				{
+					txt_drive.text = "The tank drive has six traction wheels with the middle wheel slightly lower to allow better turning.";
+				} break;
+
+				case 3:
+				{
+					txt_drive.text = "The car drive uses the front wheels to steer like an actual car. Poor turning angles however.";
+				} break;
+
+				case 4:
+				{
+					txt_drive.text = "The kiwi drive uses a triangular frame with each side having its own wheel. Generally offensive due to movement capabilities.";
+				} break;
+
+				case 5:
+				{
+					txt_drive.text = "Similar to a Tank Drive, except has four total wheels with two front omni wheels in the front.";
+				} break;
+
+				case 6:
+				{
+					txt_drive.text = "The H-drive uses a wheel perpendicular to the four main wheels to allow direct strafing.";
+				} break;
+			}
 		});
 
 		drp_primary.onValueChanged.AddListener(delegate {
