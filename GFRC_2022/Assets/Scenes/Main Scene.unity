@@ -3284,15 +3284,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1734481105786570358, guid: 156cb9e3c58cf654680501278c0a7130, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.05
+      value: -2.46
       objectReference: {fileID: 0}
     - target: {fileID: 1734481105786570358, guid: 156cb9e3c58cf654680501278c0a7130, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.668
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 1734481105786570358, guid: 156cb9e3c58cf654680501278c0a7130, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.07
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 1734481105786570358, guid: 156cb9e3c58cf654680501278c0a7130, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3398,46 +3398,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1114258383, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint1
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1114258383, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint2
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1114258383, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint3
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1114258383, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint4
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1114258385, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint1
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1114258385, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint2
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1114258385, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint3
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1114258385, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: SpawnPoint4
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1076453161084608639, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1523536269742237510, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4433862090255752733, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Name
       value: ArenaPref
@@ -3485,10 +3445,6 @@ PrefabInstance:
     - target: {fileID: 4433862090255752734, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8801431737991145079, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}

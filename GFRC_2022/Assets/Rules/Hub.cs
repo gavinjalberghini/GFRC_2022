@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Hub : MonoBehaviour
 {
-	public int autoScoreRange;
 	public int scoreAddend;
 
 	[HideInInspector] public int blueScore;
@@ -12,8 +11,7 @@ public class Hub : MonoBehaviour
 
 	void Start()
 	{
-		blueScore = Random.Range(0, autoScoreRange);
-		redScore  = Random.Range(0, autoScoreRange);
+		
 	}
 
 	void OnTriggerEnter(Collider cargo)

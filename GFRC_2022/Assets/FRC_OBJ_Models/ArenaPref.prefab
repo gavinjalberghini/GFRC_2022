@@ -531,7 +531,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1 &989436121045254030
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +587,7 @@ MonoBehaviour:
   - {fileID: 2112143660890084525}
   - {fileID: 8579658135604583757}
   - {fileID: 7536702795766815169}
+  isRed: 1
 --- !u!1 &2271784022175960579
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1 &3328082207638063079
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,6 +905,7 @@ MonoBehaviour:
   - {fileID: 3853491175432619595}
   - {fileID: 132745856336227184}
   - {fileID: 5404586860458395112}
+  isRed: 0
 --- !u!1 &4433862089247780344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1539,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1 &5248497076524411908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,7 +1818,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1 &6000662237370596444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,7 +2037,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1 &7493484186042482449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,7 +2211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1 &8253341954479747517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,7 +2340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1 &9184704086183408667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,7 +2469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6fcf4d1352108c40b9a253463a098bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotHanging: 0
+  robotHangingRed: 0
+  robotHangingBlue: 0
+  isRed: 0
 --- !u!1001 &4433862088793830052
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4383,7 +4401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3641b058e3974cd4aa952a5abe20a150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoScoreRange: 30
   scoreAddend: 1
   blueScore: 0
   redScore: 0
@@ -5053,7 +5070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3641b058e3974cd4aa952a5abe20a150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoScoreRange: 30
   scoreAddend: 2
   blueScore: 0
   redScore: 0

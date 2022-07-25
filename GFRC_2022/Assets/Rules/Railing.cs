@@ -4,21 +4,38 @@ using UnityEngine;
 
 public class Railing : MonoBehaviour
 {
-	[HideInInspector] public bool robotHanging; // @TODO@ This doesn't say what robot is hanging, or how many. Could lead to ambigious cases.
+	[HideInInspector] public bool robotHangingRed; // @TODO@ This doesn't say what robot is hanging, or how many. Could lead to ambigious cases.
+	[HideInInspector] public bool robotHangingBlue;
+	[HideInInspector] public bool isRed;
+
+	void Start() 
+	{
+		isRed = gameObject.GetComponentInParent<Hangar>().isRed;
+	}
 
 	void OnTriggerEnter(Collider robot)
 	{
-		if (robot.gameObject.layer == 8)
+		if (robot.gameObject.layer == 8 && isRed)
 		{
-			robotHanging = true;
+			robotHangingRed = true;
+		}
+
+		if (robot.gameObject.layer == 9 && isRed)
+		{
+			robotHangingBlue = true;
 		}
 	}
 
 	void OnTriggerExit(Collider robot)
 	{
-		if (robot.gameObject.layer == 8)
+		if (robot.gameObject.layer == 8 && isRed)
 		{
-			robotHanging = false;
+			robotHangingRed = false;
+		}
+
+		if (robot.gameObject.layer == 9 && isRed)
+		{
+			robotHangingBlue = false;
 		}
 	}
 }
