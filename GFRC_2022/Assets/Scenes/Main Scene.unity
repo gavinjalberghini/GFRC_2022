@@ -3101,6 +3101,11 @@ MonoBehaviour:
     volume: 0.5
     pitch: 2.5
     source: {fileID: 0}
+  - name: Drive
+    clip: {fileID: 8300000, guid: 02cfe485592afaa458e2fc31b8e284ba, type: 3}
+    volume: 0.249
+    pitch: 2.5
+    source: {fileID: 0}
 --- !u!1001 &1901824882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3833,11 +3838,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.23
+      value: -6.15
       objectReference: {fileID: 0}
     - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
       propertyPath: m_LocalPosition.z

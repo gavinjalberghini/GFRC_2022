@@ -35,7 +35,7 @@ public class RobotBrain : MonoBehaviour
 					steering    : (using_assistant ? right_stick(0).x : left_stick(0).x) + qe
 				);
 
-			if (translation == new Vector2(0.0f, 0.0f))
+			if (translation == new Vector2(0.0f, 0.0f) && qe == 0.0f)
 			{
 				GetComponent<AudioSource>().Stop();
 			}
