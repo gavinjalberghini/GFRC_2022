@@ -8,6 +8,7 @@ using System.Linq;
 using TMPro;
 using Mono.Data.Sqlite;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using static Global;
 
 public class TitleMenu : MonoBehaviour
@@ -19,15 +20,15 @@ public class TitleMenu : MonoBehaviour
 	void Start()
 	{
 		build_and_play.onClick.AddListener(delegate {
-			print("build and play");
+			SceneManager.LoadScene("Scenes/BuildAndPlay");
 		});
 
 		show_leaderboard.onClick.AddListener(delegate {
-			print("show leaderboard");
+			SceneManager.LoadScene("Scenes/Leaderboard");
 		});
 
 		exit.onClick.AddListener(delegate {
-			print("exit");
+			Application.Quit();
 		});
 	}
 }
