@@ -723,9 +723,15 @@ MonoBehaviour:
   mode: 0
   robot_subject: {fileID: 1112703849}
   birds_eye_subject: {fileID: 1152170964}
+  robocam: {fileID: 234081318}
   outside_pos: {x: -6.8, y: 1.02, z: 0.28}
   third_person_delta_pos: {x: 0, y: 3, z: -2}
   birds_eye_pos: {x: 0, y: 8, z: 0}
+--- !u!4 &234081318 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
+  m_PrefabInstance: {fileID: 4470888412630083664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &245527063
 GameObject:
   m_ObjectHideFlags: 0
@@ -3829,20 +3835,12 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.0225
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.15
       objectReference: {fileID: 0}
     - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.79
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4470888412076459983, guid: c65f513e6b251a04a825ff2a7cbf91e0, type: 3}
       propertyPath: m_LocalPosition.z

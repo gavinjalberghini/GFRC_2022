@@ -9,13 +9,15 @@ public class PlayCamera : MonoBehaviour
 	public enum Mode
 	{
 		outside_view,
-		third_person,
-		birds_eye
+		robo_cam,
+		birds_eye,
+		third_person
 	};
 
 	public Mode      mode              = Mode.outside_view;
 	public Transform robot_subject     = null;
 	public Transform birds_eye_subject = null;
+	public Transform robocam = null;
 
 	public Vector3 outside_pos            = new Vector3(-6.44f, 1.02f, 0.28f);
 	public Vector3 third_person_delta_pos = new Vector3(0.0f, 4.0f, -1.0f);
@@ -36,6 +38,13 @@ public class PlayCamera : MonoBehaviour
 				transform.rotation = dampen(transform.rotation, Quaternion.LookRotation(robot_subject.position - outside_pos, new Vector3(0.0f, 1.0f, 0.0f)), 0.01f);
 			} break;
 
+			case Mode.robo_cam:
+			{
+				transform.position = dampen(transform.position, outside_pos, 0.01f);
+				transform.rotation = dampen(transform.rotation, Quaternion.LookRotation(robocam.position - outside_pos, new Vector3(0.0f, 1.0f, 0.0f)), 0.01f);
+			}
+			break;
+			
 			case Mode.third_person:
 			{
 				transform.position = dampen(transform.position, robot_subject.position + third_person_delta_pos, 0.01f);
