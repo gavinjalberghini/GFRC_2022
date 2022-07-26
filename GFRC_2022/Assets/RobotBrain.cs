@@ -16,6 +16,11 @@ public class RobotBrain : MonoBehaviour
 	bool subtype<T>(PrimaryManipulator   x) { return x && typeof(T).IsAssignableFrom(x.GetType()); }
 	bool subtype<T>(SecondaryManipulator x) { return x && typeof(T).IsAssignableFrom(x.GetType()); }
 
+	void Start()
+	{
+		GetComponent<Rigidbody>().centerOfMass = new Vector3(0.0f, 0.0f, 0.0f);
+	}
+
 	void Update()
 	{
 		//

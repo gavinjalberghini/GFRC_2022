@@ -22,6 +22,9 @@ public class BuildAndPlay : MonoBehaviour
 	public TMP_Dropdown drp_secondary;
 	public TMP_Text     txt_secondary;
 
+	public GameObject   base_mecanum;
+	public GameObject   curr_build;
+
 	void Start()
 	{
 		btn_play_test.onClick.AddListener(delegate {
@@ -78,36 +81,43 @@ public class BuildAndPlay : MonoBehaviour
 				case 0:
 				{
 					txt_primary.text = "Optionally pick a primary system to attach to the build.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.none);
 				} break;
 
 				case 1:
 				{
 					txt_primary.text = "A ball launcher system that pivots and rotates.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.turret_mounted_shooter);
 				} break;
 
 				case 2:
 				{
 					txt_primary.text = "A ball launcher system that remains stationary relative to the robot frame.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.fixed_point_shooter);
 				} break;
 
 				case 3:
 				{
 					txt_primary.text = "A single joint appendage that allows for collecting cargo from the game field and scoring with it.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.simple_arm);
 				} break;
 
 				case 4:
 				{
 					txt_primary.text = "A two joint appendage that allows for collecting cargo from the game field and scoring with it.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.jointed_arm);
 				} break;
 
 				case 5:
 				{
 					txt_primary.text = "A two joint extendable appendage that allows for collecting cargo from the game field and scoring with it.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.telescopic_arm);
 				} break;
 
 				case 6:
 				{
 					txt_primary.text = "A simple elevator that raises a game object high enough to be gravity fed into a goal.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.bucket);
 				} break;
 			}
 		});
@@ -118,18 +128,33 @@ public class BuildAndPlay : MonoBehaviour
 				case 0:
 				{
 					txt_secondary.text = "Optionally pick a secondary system to attach to the build.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Secondary.none);
 				} break;
 
 				case 1:
 				{
 					txt_secondary.text = "A climbing system that fires a projectile and ratchets the robot along the cord.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Secondary.grappling_hook);
 				} break;
 
 				case 2:
 				{
 					txt_secondary.text = "A climbing system that extends two hooks that latch onto the bar.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Secondary.dual_canes);
 				} break;
 			}
 		});
+
+		build();
+
+		Wheel.show_indicator = true;
+	}
+
+	void build()
+	{
+		Vector3 pos = curr_build.transform.position;
+		Destroy(curr_build);
+		curr_build                    = Instantiate(base_mecanum);
+		curr_build.transform.position = pos;
 	}
 }
