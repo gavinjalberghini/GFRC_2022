@@ -22,23 +22,26 @@ public class Assembler : MonoBehaviour
 		dual_canes
 	};
 
-	[HideInInspector] public GameObject curr_primary;
-	[HideInInspector] public GameObject curr_secondary;
+	[HideInInspector] public GameObject curr_primary_obj;
+	[HideInInspector] public GameObject curr_secondary_obj;
+	[HideInInspector] public Primary    curr_primary;
+	[HideInInspector] public Secondary  curr_secondary;
 
 	public GameObject[] ordered_primaries;
 	public GameObject[] ordered_secondaries;
 
 	public void pick(Primary new_primary)
 	{
-		if (curr_primary)
+		if (curr_primary_obj)
 		{
-			Destroy(curr_primary);
+			Destroy(curr_primary_obj);
 		}
 
+		curr_primary = new_primary;
 		if (new_primary != Primary.none)
 		{
-			curr_primary = Instantiate(ordered_primaries[(int) new_primary - 1], transform);
-			curr_primary.SetActive(true);
+			curr_primary_obj = Instantiate(ordered_primaries[(int) new_primary - 1], transform);
+			curr_primary_obj.SetActive(true);
 			GetComponent<RobotBrain>().primary = ordered_primaries[(int) new_primary - 1].GetComponent<PrimaryManipulator>();
 		}
 		else
@@ -49,15 +52,16 @@ public class Assembler : MonoBehaviour
 
 	public void pick(Secondary new_secondary)
 	{
-		if (curr_secondary)
+		if (curr_secondary_obj)
 		{
-			Destroy(curr_secondary);
+			Destroy(curr_secondary_obj);
 		}
 
+		curr_secondary = new_secondary;
 		if (new_secondary != Secondary.none)
 		{
-			curr_secondary = Instantiate(ordered_secondaries[(int) new_secondary - 1], transform);
-			curr_secondary.SetActive(true);
+			curr_secondary_obj = Instantiate(ordered_secondaries[(int) new_secondary - 1], transform);
+			curr_secondary_obj.SetActive(true);
 			GetComponent<RobotBrain>().secondary = ordered_primaries[(int) new_secondary - 1].GetComponent<SecondaryManipulator>();
 		}
 		else

@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 8752422207381425533}
   - component: {fileID: 3416608696207382649}
   m_Layer: 0
-  m_Name: Mecanum Base
+  m_Name: Mecanum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,8 +404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93dd1e71b263e6c47baa266bc1abde30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curr_primary: {fileID: 0}
-  curr_secondary: {fileID: 0}
+  curr_primary_obj: {fileID: 0}
+  curr_secondary_obj: {fileID: 0}
+  curr_primary: 0
+  curr_secondary: 0
   ordered_primaries:
   - {fileID: 8703090953282595535}
   - {fileID: 2577974009049662802}

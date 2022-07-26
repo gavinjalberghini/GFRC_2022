@@ -22,8 +22,11 @@ public class BuildAndPlay : MonoBehaviour
 	public TMP_Dropdown drp_secondary;
 	public TMP_Text     txt_secondary;
 
+	public Transform    reset_point;
 	public GameObject   base_mecanum;
-	public GameObject   curr_build;
+	public GameObject   base_swerve;
+
+	[HideInInspector] public GameObject curr_build;
 
 	void Start()
 	{
@@ -41,11 +44,13 @@ public class BuildAndPlay : MonoBehaviour
 				case 0:
 				{
 					txt_drive.text = "The mecanum drive uses specialized wheels that incurs a sideways force when driving. Allows for direct strafing.";
+					build(base_mecanum);
 				} break;
 
 				case 1:
 				{
 					txt_drive.text = "The swerve drive has wheels that can be turned independently of each other. Allows easy strafing and steering.";
+					build(base_swerve);
 				} break;
 
 				case 2:
@@ -145,16 +150,22 @@ public class BuildAndPlay : MonoBehaviour
 			}
 		});
 
-		build();
+		build(base_mecanum);
 
 		Wheel.show_indicator = true;
 	}
 
-	void build()
+	void build(GameObject robot_base)
 	{
-		Vector3 pos = curr_build.transform.position;
+		Vector3             pos       = curr_build ? curr_build.transform.position                       : reset_point.position;
+		Quaternion          rot       = curr_build ? curr_build.transform.rotation                       : reset_point.rotation;
+		Assembler.Primary   primary   = curr_build ? curr_build.GetComponent<Assembler>().curr_primary   : Assembler.Primary  .none;
+		Assembler.Secondary secondary = curr_build ? curr_build.GetComponent<Assembler>().curr_secondary : Assembler.Secondary.none;
 		Destroy(curr_build);
-		curr_build                    = Instantiate(base_mecanum);
+		curr_build                    = Instantiate(robot_base);
 		curr_build.transform.position = pos;
+		curr_build.transform.rotation = rot;
+		curr_build.GetComponent<Assembler>().pick(primary);
+		curr_build.GetComponent<Assembler>().pick(secondary);
 	}
 }

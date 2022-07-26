@@ -840,8 +840,10 @@ MonoBehaviour:
   txt_primary: {fileID: 659512061}
   drp_secondary: {fileID: 1793139086}
   txt_secondary: {fileID: 1740571347}
+  reset_point: {fileID: 1726570865}
   base_mecanum: {fileID: 5740772872544041224, guid: 34d1b11fb3acab34994d333427dc0463, type: 3}
-  curr_build: {fileID: 1726570864}
+  base_swerve: {fileID: 5740772872544041224, guid: 137638f215ed8a34c84ff2c102c53087, type: 3}
+  curr_build: {fileID: 0}
 --- !u!1 &437928261
 GameObject:
   m_ObjectHideFlags: 0
