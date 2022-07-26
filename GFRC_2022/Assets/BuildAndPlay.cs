@@ -80,7 +80,7 @@ public class BuildAndPlay : MonoBehaviour
 				case 5:
 				{
 					txt_drive.text = "Similar to a Tank Drive, except has four total wheels with two front omni wheels in the front.";
-					build(base_tank);
+					build(base_forklift);
 				} break;
 
 				case 6:
@@ -172,15 +172,17 @@ public class BuildAndPlay : MonoBehaviour
 
 	void build(GameObject robot_base)
 	{
-		Vector3             pos       = curr_build ? curr_build.transform.position                       : reset_point.position;
-		Quaternion          rot       = curr_build ? curr_build.transform.rotation                       : reset_point.rotation;
-		Assembler.Primary   primary   = curr_build ? curr_build.GetComponent<Assembler>().curr_primary   : Assembler.Primary  .none;
-		Assembler.Secondary secondary = curr_build ? curr_build.GetComponent<Assembler>().curr_secondary : Assembler.Secondary.none;
+		Vector3             pos          = curr_build ? curr_build.transform.position                       : reset_point.position;
+		Quaternion          rot          = curr_build ? curr_build.transform.rotation                       : reset_point.rotation;
+		Assembler.Primary   primary      = curr_build ? curr_build.GetComponent<Assembler>().curr_primary   : Assembler.Primary  .none;
+		Assembler.Secondary secondary    = curr_build ? curr_build.GetComponent<Assembler>().curr_secondary : Assembler.Secondary.none;
+		bool                floor_intake = curr_build && curr_build.GetComponent<Assembler>().using_floor_intake;
 		Destroy(curr_build);
 		curr_build                    = Instantiate(robot_base);
 		curr_build.transform.position = pos;
 		curr_build.transform.rotation = rot;
 		curr_build.GetComponent<Assembler>().pick(primary);
 		curr_build.GetComponent<Assembler>().pick(secondary);
+		curr_build.GetComponent<Assembler>().set_floor_intake(floor_intake);
 	}
 }

@@ -26,6 +26,7 @@ public class Assembler : MonoBehaviour
 	[HideInInspector] public GameObject curr_secondary_obj;
 	[HideInInspector] public Primary    curr_primary;
 	[HideInInspector] public Secondary  curr_secondary;
+	[HideInInspector] public bool       using_floor_intake;
 
 	public GameObject[] ordered_primaries;
 	public GameObject[] ordered_secondaries;
@@ -73,6 +74,7 @@ public class Assembler : MonoBehaviour
 
 	public void set_floor_intake(bool state)
 	{
+		using_floor_intake = state;
 		floor_intake.SetActive(state);
 		GetComponent<RobotBrain>().floor_intake = state ? floor_intake.GetComponent<Intake>() : null;
 	}

@@ -10,9 +10,8 @@ public class CarDriveController : DriveController
 
 	public override void control(Vector2 translation, float steering)
 	{
-		translation.y += Mathf.Abs(steering);
-		translation    = translation.magnitude > 1.0f ? translation.normalized : translation;
-		steering       = Mathf.Clamp(translation.x + steering, -1.0f, 1.0f);
+		translation = translation.magnitude > 1.0f ? translation.normalized : translation;
+		steering    = Mathf.Clamp(translation.x + steering, -1.0f, 1.0f);
 
 		foreach (var wheel in driving_wheels)
 		{
