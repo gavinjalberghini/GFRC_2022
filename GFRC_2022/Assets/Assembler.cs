@@ -29,6 +29,7 @@ public class Assembler : MonoBehaviour
 
 	public GameObject[] ordered_primaries;
 	public GameObject[] ordered_secondaries;
+	public GameObject   floor_intake;
 
 	public void pick(Primary new_primary)
 	{
@@ -68,5 +69,11 @@ public class Assembler : MonoBehaviour
 		{
 			GetComponent<RobotBrain>().secondary = null;
 		}
+	}
+
+	public void set_floor_intake(bool state)
+	{
+		floor_intake.SetActive(state);
+		GetComponent<RobotBrain>().floor_intake = state ? floor_intake.GetComponent<Intake>() : null;
 	}
 }

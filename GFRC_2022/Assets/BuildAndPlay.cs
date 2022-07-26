@@ -21,10 +21,16 @@ public class BuildAndPlay : MonoBehaviour
 	public TMP_Text     txt_primary;
 	public TMP_Dropdown drp_secondary;
 	public TMP_Text     txt_secondary;
+	public Toggle       tgl_floor_intake;
 
 	public Transform    reset_point;
 	public GameObject   base_mecanum;
 	public GameObject   base_swerve;
+	public GameObject   base_tank;
+	public GameObject   base_car;
+	public GameObject   base_kiwi;
+	public GameObject   base_forklift;
+	public GameObject   base_h;
 
 	[HideInInspector] public GameObject curr_build;
 
@@ -56,26 +62,31 @@ public class BuildAndPlay : MonoBehaviour
 				case 2:
 				{
 					txt_drive.text = "The tank drive has six traction wheels with the middle wheel slightly lower to allow better turning.";
+					build(base_tank);
 				} break;
 
 				case 3:
 				{
 					txt_drive.text = "The car drive uses the front wheels to steer like an actual car. Poor turning angles however.";
+					build(base_car);
 				} break;
 
 				case 4:
 				{
 					txt_drive.text = "The kiwi drive uses a triangular frame with each side having its own wheel. Generally offensive due to movement capabilities.";
+					build(base_kiwi);
 				} break;
 
 				case 5:
 				{
 					txt_drive.text = "Similar to a Tank Drive, except has four total wheels with two front omni wheels in the front.";
+					build(base_tank);
 				} break;
 
 				case 6:
 				{
 					txt_drive.text = "The H-drive uses a wheel perpendicular to the four main wheels to allow direct strafing.";
+					build(base_h);
 				} break;
 			}
 		});
@@ -148,6 +159,10 @@ public class BuildAndPlay : MonoBehaviour
 					curr_build.GetComponent<Assembler>().pick(Assembler.Secondary.dual_canes);
 				} break;
 			}
+		});
+
+		tgl_floor_intake.onValueChanged.AddListener(delegate {
+			curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
 		});
 
 		build(base_mecanum);
