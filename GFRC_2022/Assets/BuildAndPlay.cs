@@ -23,6 +23,7 @@ public class BuildAndPlay : MonoBehaviour
 	public TMP_Text     txt_secondary;
 	public Toggle       tgl_floor_intake;
 	public Toggle       tgl_assistant;
+	public TMP_Dropdown drp_alliance;
 
 	public Transform    reset_point;
 	public GameObject   base_mecanum;
@@ -32,6 +33,7 @@ public class BuildAndPlay : MonoBehaviour
 	public GameObject   base_kiwi;
 	public GameObject   base_forklift;
 	public GameObject   base_h;
+	public Material[]   alliance_mats;
 
 	GameObject curr_build;
 
@@ -168,10 +170,6 @@ public class BuildAndPlay : MonoBehaviour
 			}
 		});
 
-		tgl_floor_intake.onValueChanged.AddListener(delegate {
-			curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
-		});
-
 		build(base_mecanum);
 
 		Wheel.show_indicator = true;
@@ -180,6 +178,8 @@ public class BuildAndPlay : MonoBehaviour
 	void Update()
 	{
 		curr_build.GetComponent<RobotBrain>().using_assistant = tgl_assistant.isOn;
+		curr_build.GetComponent<Assembler>().set_material(alliance_mats[drp_alliance.value]);
+		curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
 	}
 
 	void build(GameObject robot_base)

@@ -79,4 +79,12 @@ public class Assembler : MonoBehaviour
 		floor_intake.SetActive(state);
 		GetComponent<RobotBrain>().floor_intake = state ? floor_intake.GetComponent<Intake>() : null;
 	}
+
+	public void set_material(Material mat)
+	{
+		foreach (Transform transform in transform.Find("Body"))
+		{
+			transform.gameObject.GetComponent<MeshRenderer>().material = mat;
+		}
+	}
 }
