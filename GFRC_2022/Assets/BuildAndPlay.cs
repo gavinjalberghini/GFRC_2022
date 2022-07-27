@@ -22,6 +22,7 @@ public class BuildAndPlay : MonoBehaviour
 	public TMP_Dropdown drp_secondary;
 	public TMP_Text     txt_secondary;
 	public Toggle       tgl_floor_intake;
+	public Toggle       tgl_assistant;
 
 	public Transform    reset_point;
 	public GameObject   base_mecanum;
@@ -32,7 +33,7 @@ public class BuildAndPlay : MonoBehaviour
 	public GameObject   base_forklift;
 	public GameObject   base_h;
 
-	[HideInInspector] public GameObject curr_build;
+	GameObject curr_build;
 
 	void Start()
 	{
@@ -174,6 +175,11 @@ public class BuildAndPlay : MonoBehaviour
 		build(base_mecanum);
 
 		Wheel.show_indicator = true;
+	}
+
+	void Update()
+	{
+		curr_build.GetComponent<RobotBrain>().using_assistant = tgl_assistant.isOn;
 	}
 
 	void build(GameObject robot_base)
