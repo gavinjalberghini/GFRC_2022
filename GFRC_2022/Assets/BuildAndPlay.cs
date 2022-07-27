@@ -158,6 +158,12 @@ public class BuildAndPlay : MonoBehaviour
 					txt_secondary.text = "A climbing system that extends two hooks that latch onto the bar.";
 					curr_build.GetComponent<Assembler>().pick(Assembler.Secondary.dual_canes);
 				} break;
+
+				case 3:
+				{
+					txt_secondary.text = "A secondary intake where cargo can be collected from atop.";
+					curr_build.GetComponent<Assembler>().pick(Assembler.Secondary.human_feed_intake);
+				} break;
 			}
 		});
 

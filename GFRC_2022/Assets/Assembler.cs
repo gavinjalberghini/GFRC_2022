@@ -19,7 +19,8 @@ public class Assembler : MonoBehaviour
 	{
 		none,
 		grappling_hook,
-		dual_canes
+		dual_canes,
+		human_feed_intake
 	};
 
 	[HideInInspector] public GameObject curr_primary_obj;
@@ -64,7 +65,7 @@ public class Assembler : MonoBehaviour
 		{
 			curr_secondary_obj = Instantiate(ordered_secondaries[(int) new_secondary - 1], transform);
 			curr_secondary_obj.SetActive(true);
-			GetComponent<RobotBrain>().secondary = ordered_primaries[(int) new_secondary - 1].GetComponent<SecondaryManipulator>();
+			GetComponent<RobotBrain>().secondary = ordered_secondaries[(int) new_secondary - 1].GetComponent<SecondaryManipulator>();
 		}
 		else
 		{

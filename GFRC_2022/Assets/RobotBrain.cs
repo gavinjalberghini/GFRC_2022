@@ -137,14 +137,11 @@ public class RobotBrain : MonoBehaviour
 		// Automatic handling of intakes.
 		//
 
-		if (floor_intake || subtype<Intake>(secondary))
+		foreach (var container in cargo_containers)
 		{
-			foreach (var container in cargo_containers)
+			if ((floor_intake && container.try_loading(floor_intake)) || (subtype<Intake>(secondary) && container.try_loading(secondary as Intake)))
 			{
-				if (container.try_loading(floor_intake) || (subtype<Intake>(secondary) && container.try_loading(secondary as Intake)))
-				{
-					break;
-				}
+				break;
 			}
 		}
 	}
