@@ -846,7 +846,7 @@ MonoBehaviour:
   base_swerve: {fileID: 5740772872544041224, guid: 137638f215ed8a34c84ff2c102c53087, type: 3}
   base_tank: {fileID: 5740772872544041224, guid: 54531398e71cd114ba591fc4bc045dd4, type: 3}
   base_car: {fileID: 5740772872544041224, guid: f79b01b2396d1c74b9711c3d0c297bb8, type: 3}
-  base_kiwi: {fileID: 0}
+  base_kiwi: {fileID: 5740772872544041224, guid: e6cda24e6b66a884abac73f6a2211604, type: 3}
   base_forklift: {fileID: 5740772872544041224, guid: ee9147ca665e44542a4a015e7de71539, type: 3}
   base_h: {fileID: 0}
   curr_build: {fileID: 0}

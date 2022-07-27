@@ -18,7 +18,7 @@ public class KiwiDriveController : DriveController
 			wheel.power =
 				Mathf.Clamp
 				(
-					Vector3.Dot(wheel.direction(), transform.position - wheel.transform.position + v2_on_plane(transform.right, transform.forward, translation)) * translation.magnitude - steering,
+					Vector3.Dot(wheel.direction(), transform.position - wheel.transform.position + v2_on_plane(transform.right, transform.forward, translation)) * translation.magnitude + steering,
 					-1.0f,
 					1.0f
 				);
