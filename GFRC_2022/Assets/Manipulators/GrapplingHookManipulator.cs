@@ -7,6 +7,10 @@ public class GrapplingHookManipulator : SecondaryManipulator
 	public OmniArm omniarm;
 	public Grapple grapple;
 
+	public override void free()
+	{
+	}
+
 	public void control(bool shoot)
 	{
 		transform.Find("Grapple").GetComponent<Grapple>().anchor = transform.parent.GetComponent<Rigidbody>();

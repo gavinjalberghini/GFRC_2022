@@ -6,6 +6,10 @@ public class FixedPointShooterManipulator : PrimaryManipulator
 {
 	public Shooter shooter;
 
+	public override void free()
+	{
+	}
+
 	public void control(bool shoot, CargoContainer[] cargo_containers)
 	{
 		if (shoot)

@@ -6,6 +6,10 @@ public class Intake : SecondaryManipulator
 {
 	[HideInInspector] public GameObject cargo;
 
+	public override void free()
+	{
+	}
+
 	void OnTriggerEnter(Collider collider)
 	{
 		if (collider.gameObject.CompareTag("BlueCargo") || collider.gameObject.CompareTag("RedCargo"))

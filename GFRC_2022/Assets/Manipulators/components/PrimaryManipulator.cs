@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Global;
 
-public class PrimaryManipulator : MonoBehaviour
+public abstract class PrimaryManipulator : MonoBehaviour
 {
+	public abstract void free();
 }
 

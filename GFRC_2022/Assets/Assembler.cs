@@ -45,7 +45,7 @@ public class Assembler : MonoBehaviour
 		{
 			curr_primary_obj = Instantiate(ordered_primaries[(int) new_primary - 1], transform);
 			curr_primary_obj.SetActive(true);
-			GetComponent<RobotBrain>().primary = ordered_primaries[(int) new_primary - 1].GetComponent<PrimaryManipulator>();
+			GetComponent<RobotBrain>().primary = curr_primary_obj.GetComponent<PrimaryManipulator>();
 		}
 		else
 		{
@@ -65,7 +65,7 @@ public class Assembler : MonoBehaviour
 		{
 			curr_secondary_obj = Instantiate(ordered_secondaries[(int) new_secondary - 1], transform);
 			curr_secondary_obj.SetActive(true);
-			GetComponent<RobotBrain>().secondary = ordered_secondaries[(int) new_secondary - 1].GetComponent<SecondaryManipulator>();
+			GetComponent<RobotBrain>().secondary = curr_secondary_obj.GetComponent<SecondaryManipulator>();
 		}
 		else
 		{
@@ -85,6 +85,16 @@ public class Assembler : MonoBehaviour
 		foreach (Transform transform in transform.Find("Body"))
 		{
 			transform.gameObject.GetComponent<MeshRenderer>().material = mat;
+		}
+	}
+
+	public void free()
+	{
+		if (curr_primary_obj  ) curr_primary_obj  .GetComponent<PrimaryManipulator  >().free();
+		if (curr_secondary_obj) curr_secondary_obj.GetComponent<SecondaryManipulator>().free();
+		foreach (var container in GetComponent<RobotBrain>().cargo_containers)
+		{
+			container.try_unloading(true);
 		}
 	}
 }

@@ -9,6 +9,11 @@ public class WristAndArmManipulator : PrimaryManipulator
 	public Claw    claw;
 	[HideInInspector] public bool using_upper;
 
+	public override void free()
+	{
+		claw.try_releasing();
+	}
+
 	public void control(float yaw, float pitch, bool joint_toggle, bool grab_toggle)
 	{
 		if (joint_toggle)

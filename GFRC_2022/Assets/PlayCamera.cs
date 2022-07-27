@@ -44,7 +44,7 @@ public class PlayCamera : MonoBehaviour
 				transform.rotation = dampen(transform.rotation, Quaternion.LookRotation(robocam.position - outside_pos, new Vector3(0.0f, 1.0f, 0.0f)), 0.01f);
 			}
 			break;
-			
+
 			case Mode.third_person:
 			{
 				transform.position = dampen(transform.position, robot_subject.position + third_person_delta_pos, 0.01f);

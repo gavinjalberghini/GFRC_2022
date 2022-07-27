@@ -26,6 +26,10 @@ public class BucketManipulator : PrimaryManipulator
 	public float change_height(float amount) => target_height = Mathf.Clamp(target_height + Mathf.Clamp(amount, -1.0f, 1.0f) * height_speed * Time.deltaTime, height_min, height_max);
 	public float change_pitch (float amount) => target_pitch  = Mathf.Clamp(target_pitch  + Mathf.Clamp(amount, -1.0f, 1.0f) * pitch_speed  * Time.deltaTime, pitch_min , pitch_max );
 
+	public override void free()
+	{
+	}
+
 	public bool try_loading(Intake intake)
 	{
 		if (intake.cargo)

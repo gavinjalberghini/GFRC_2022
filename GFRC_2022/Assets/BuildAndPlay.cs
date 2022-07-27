@@ -24,6 +24,7 @@ public class BuildAndPlay : MonoBehaviour
 	public Toggle       tgl_floor_intake;
 	public Toggle       tgl_assistant;
 	public TMP_Dropdown drp_alliance;
+	public GameObject   preview_camera;
 
 	public Transform    reset_point;
 	public GameObject   base_mecanum;
@@ -180,6 +181,9 @@ public class BuildAndPlay : MonoBehaviour
 		curr_build.GetComponent<RobotBrain>().using_assistant = tgl_assistant.isOn;
 		curr_build.GetComponent<Assembler>().set_material(alliance_mats[drp_alliance.value]);
 		curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
+
+		preview_camera.transform.position = curr_build.transform.position + new Vector3(1.0f, 1.5f, 1.0f);
+		preview_camera.transform.rotation = Quaternion.LookRotation(curr_build.transform.position - preview_camera.transform.position, new Vector3(0.0f, 1.0f, 0.0f));
 	}
 
 	void build(GameObject robot_base)
@@ -189,6 +193,7 @@ public class BuildAndPlay : MonoBehaviour
 		Assembler.Primary   primary      = curr_build ? curr_build.GetComponent<Assembler>().curr_primary   : Assembler.Primary  .none;
 		Assembler.Secondary secondary    = curr_build ? curr_build.GetComponent<Assembler>().curr_secondary : Assembler.Secondary.none;
 		bool                floor_intake = curr_build && curr_build.GetComponent<Assembler>().using_floor_intake;
+		curr_build?.GetComponent<Assembler>().free();
 		Destroy(curr_build);
 		curr_build                    = Instantiate(robot_base);
 		curr_build.transform.position = pos;
