@@ -182,7 +182,7 @@ public class BuildAndPlay : MonoBehaviour
 		curr_build.GetComponent<Assembler>().set_material(alliance_mats[drp_alliance.value]);
 		curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
 
-		preview_camera.transform.position = curr_build.transform.position + new Vector3(1.0f, 1.5f, 1.0f);
+		preview_camera.transform.position = curr_build.transform.position + new Vector3(1.25f, 1.75f, 1.25f);
 		preview_camera.transform.rotation = Quaternion.LookRotation(curr_build.transform.position - preview_camera.transform.position, new Vector3(0.0f, 1.0f, 0.0f));
 	}
 

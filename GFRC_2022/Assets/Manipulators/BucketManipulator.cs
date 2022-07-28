@@ -63,17 +63,11 @@ public class BucketManipulator : PrimaryManipulator
 		cargo.transform.position = spawn_point.position;
 	}
 
-	public void control(float pitch, float length, bool store, CargoContainer[] cargo_containers)
+	public void control(float pitch, float length, bool store, CargoContainer cargo_container)
 	{
 		if (store)
 		{
-			foreach (var container in cargo_containers)
-			{
-				if (try_loading(container))
-				{
-					break;
-				}
-			}
+			try_loading(cargo_container);
 		}
 		change_height(length);
 		change_pitch (pitch);

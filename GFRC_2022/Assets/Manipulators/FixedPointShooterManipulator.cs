@@ -10,17 +10,11 @@ public class FixedPointShooterManipulator : PrimaryManipulator
 	{
 	}
 
-	public void control(bool shoot, CargoContainer[] cargo_containers)
+	public void control(bool shoot, CargoContainer cargo_container)
 	{
 		if (shoot)
 		{
-			foreach (var container in cargo_containers)
-			{
-				if (shooter.try_shooting(container))
-				{
-					break;
-				}
-			}
+			shooter.try_shooting(cargo_container);
 		}
 	}
 }
