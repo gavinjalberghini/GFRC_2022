@@ -202,10 +202,16 @@ public class BuildAndPlay : MonoBehaviour
 				gamepad_1 +=
 					"Drive/Strafe : (L)\n" +
 					"Steer : (R)\n";
+				gamepad_2 +=
+					"Cycle cargo containers : (Left) / (Right)\n" +
+					"Dismount current cargo container : (L3)\n";
 			}
 			else
 			{
-				gamepad_1 += "Drive/Steer : (L)\n";
+				gamepad_1 +=
+					"Drive/Steer : (L)\n" +
+					"Cycle cargo containers : (Left) / (Right)\n" +
+					"Dismount current cargo container : (L3)\n";
 			}
 
 			if (RobotBrain.subtype<TurretMountedShooterManipulator>(curr_build.GetComponent<RobotBrain>().primary))
