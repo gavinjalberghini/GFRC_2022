@@ -13,8 +13,8 @@ using static Global;
 
 public class BuildAndPlay : MonoBehaviour
 {
-	public Button       btn_play_test;
 	public Button       btn_play_simulation;
+	public Button       btn_view_bindings;
 	public TMP_Dropdown drp_drive;
 	public TMP_Text     txt_drive;
 	public TMP_Dropdown drp_primary;
@@ -40,12 +40,12 @@ public class BuildAndPlay : MonoBehaviour
 
 	void Start()
 	{
-		btn_play_test.onClick.AddListener(delegate {
-			print("play test");
-		});
-
 		btn_play_simulation.onClick.AddListener(delegate {
 			print("play simulation");
+		});
+
+		btn_view_bindings.onClick.AddListener(delegate {
+			print("View bindings");
 		});
 
 		drp_drive.onValueChanged.AddListener(delegate {

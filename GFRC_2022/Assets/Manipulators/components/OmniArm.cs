@@ -58,7 +58,6 @@ public class OmniArm : MonoBehaviour
 
 	void Update()
 	{
-		print(target_pitch);
 		length_min    = Mathf.Clamp(length_min, 0.0f, length_max);
 		length_max    = Mathf.Clamp(length_max, length_min, 1.0f);
 		length        = Mathf.Clamp(length       , length_min, length_max);
