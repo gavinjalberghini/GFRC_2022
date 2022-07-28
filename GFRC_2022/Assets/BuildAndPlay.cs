@@ -13,8 +13,10 @@ using static Global;
 
 public class BuildAndPlay : MonoBehaviour
 {
+	public Canvas       canvas;
 	public Button       btn_play_simulation;
 	public Button       btn_view_bindings;
+	public GameObject   bindings_pop_up;
 	public TMP_Dropdown drp_drive;
 	public TMP_Text     txt_drive;
 	public TMP_Dropdown drp_primary;
@@ -44,8 +46,12 @@ public class BuildAndPlay : MonoBehaviour
 			print("play simulation");
 		});
 
+		canvas.GetComponent<ClickDetector>().click_down = delegate {
+			bindings_pop_up.SetActive(false);
+		};
+
 		btn_view_bindings.onClick.AddListener(delegate {
-			print("View bindings");
+			bindings_pop_up.SetActive(true);
 		});
 
 		drp_drive.onValueChanged.AddListener(delegate {
@@ -174,6 +180,7 @@ public class BuildAndPlay : MonoBehaviour
 		build(base_mecanum);
 
 		Wheel.show_indicator = true;
+		bindings_pop_up.SetActive(false);
 	}
 
 	void Update()
@@ -184,6 +191,102 @@ public class BuildAndPlay : MonoBehaviour
 
 		preview_camera.transform.position = curr_build.transform.position + new Vector3(1.25f, 1.75f, 1.25f);
 		preview_camera.transform.rotation = Quaternion.LookRotation(curr_build.transform.position - preview_camera.transform.position, new Vector3(0.0f, 1.0f, 0.0f));
+
+		if (bindings_pop_up.activeInHierarchy)
+		{
+			String gamepad_1 = "";
+			String gamepad_2 = "";
+
+			if (tgl_assistant.isOn)
+			{
+				gamepad_1 +=
+					"Drive/Strafe : (L)\n" +
+					"Steer : (R)\n";
+			}
+			else
+			{
+				gamepad_1 += "Drive/Steer : (L)\n";
+			}
+
+			if (RobotBrain.subtype<TurretMountedShooterManipulator>(curr_build.GetComponent<RobotBrain>().primary))
+			{
+				var str =
+					"Shooter yaw and pitch : (R)\n" +
+					"Shoot shooter : (R2)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str; }
+				else                    { gamepad_1 += str; }
+			}
+			else if (RobotBrain.subtype<FixedPointShooterManipulator>(curr_build.GetComponent<RobotBrain>().primary))
+			{
+				var str =
+					"Shoot shooter : (R2)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str; }
+				else                    { gamepad_1 += str; }
+			}
+			else if (RobotBrain.subtype<ArmManipulator>(curr_build.GetComponent<RobotBrain>().primary))
+			{
+				var str =
+					"Arm yaw and pitch : (R)\n" +
+					"Arm toggle grab : (R2)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str; }
+				else                    { gamepad_1 += str; }
+			}
+			else if (RobotBrain.subtype<WristAndArmManipulator>(curr_build.GetComponent<RobotBrain>().primary))
+			{
+				var str =
+					"Arm yaw and pitch : (R)\n" +
+					"Arm toggle grab : (R2)\n" +
+					"Arm toggle joint : (R3)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str; }
+				else                    { gamepad_1 += str; }
+			}
+			else if (RobotBrain.subtype<TelescopicArmManipulator>(curr_build.GetComponent<RobotBrain>().primary))
+			{
+				var str =
+					"Arm yaw and pitch : (R)\n" +
+					"Arm toggle grab : (R2)\n" +
+					"Arm toggle joint : (R3)\n" +
+					"Extend/retract arm : (Down) / (Up)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str + "Arm extend/retract : (Ly)\n"; }
+				else                    { gamepad_1 += str; }
+			}
+			else if (RobotBrain.subtype<BucketManipulator>(curr_build.GetComponent<RobotBrain>().primary))
+			{
+				var str =
+					"Tilt bucket : (R2)\n" +
+					"Load bucket : (R3)\n" +
+					"Extend/Retract bucket : (Down) / (Up)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str + "Bucket extend/retract : (Ly)\n"; }
+				else                    { gamepad_1 += str; }
+			}
+
+			if (RobotBrain.subtype<GrapplingHookManipulator>(curr_build.GetComponent<RobotBrain>().secondary))
+			{
+				var str =
+					"Shoot grapple : (L2)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str; }
+				else                    { gamepad_1 += str; }
+			}
+			else if (RobotBrain.subtype<DualCaneManipulator>(curr_build.GetComponent<RobotBrain>().secondary))
+			{
+				var str =
+					"Extend dual canes : (L2)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str; }
+				else                    { gamepad_1 += str; }
+			}
+
+			bindings_pop_up.transform.Find("Gamepad 1").Find("Description").GetComponent<TMP_Text>().text = gamepad_1;
+
+			if (tgl_assistant.isOn)
+			{
+				bindings_pop_up.transform.Find("Gamepad 2").gameObject.SetActive(true);
+				bindings_pop_up.transform.Find("Gamepad 2").Find("Description").GetComponent<TMP_Text>().text = gamepad_2;
+			}
+			else
+			{
+				bindings_pop_up.transform.Find("Gamepad 2").gameObject.SetActive(false);
+			}
+		}
 	}
 
 	void build(GameObject robot_base)
