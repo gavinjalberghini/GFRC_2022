@@ -17,7 +17,7 @@ public class PlayCamera : MonoBehaviour
 	public Mode      mode              = Mode.outside_view;
 	public Transform robot_subject     = null;
 	public Transform birds_eye_subject = null;
-	public Transform robocam = null;
+	public Transform robocam		   = null;
 
 	public Vector3 outside_pos            = new Vector3(-6.44f, 1.02f, 0.28f);
 	public Vector3 third_person_delta_pos = new Vector3(0.0f, 4.0f, -1.0f);
