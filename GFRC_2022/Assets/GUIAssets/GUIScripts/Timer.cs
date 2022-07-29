@@ -20,6 +20,7 @@ public class Timer : MonoBehaviour
     public Text endCountDown;
     private float i; //prompttimer
     private float e; //endtimer
+    private float j = 0f; //warntimer
 
     public GameObject StartScreen;
     public GameObject PromptScreen;
@@ -110,6 +111,15 @@ public class Timer : MonoBehaviour
     {
         gameTime -= Time.deltaTime;
         isTimerStarted = true;
+        if (gameTime < 6f && gameTime > 1f)
+        { 
+            j += Time.deltaTime;
+            if (j >= 1) 
+            {
+                j = j % 1;
+                FindObjectOfType<AudioManager>().Sound("Beep");
+            } 
+        }
     }
 
     void OpenScreen(GameObject Screen, GameObject ScreenToClose, bool isprompt, bool isend)

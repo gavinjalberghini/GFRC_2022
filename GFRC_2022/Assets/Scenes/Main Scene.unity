@@ -3290,9 +3290,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: Song
-    clip: {fileID: 8300000, guid: 077c1b4bf010c1643a53b263e97c0872, type: 3}
-    volume: 0.5
+  - name: Time
+    clip: {fileID: 8300000, guid: 6814ab190edc8a943ae5d79b480c88b4, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
 --- !u!1001 &1901824882
