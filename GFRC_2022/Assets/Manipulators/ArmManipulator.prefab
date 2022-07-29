@@ -51,7 +51,7 @@ MonoBehaviour:
   length_min: 0
   length_max: 1
   length_speed: 0
-  pitch: 45
+  pitch: 45.302826
   pitch_min: 0
   pitch_max: 90
   pitch_speed: 90
@@ -64,6 +64,9 @@ MonoBehaviour:
   hand_leveled: 1
   hand_additional_rotation: {x: 0, y: 0, z: 0, w: 1}
   target_hand_additional_rotation: {x: 0, y: 0, z: 0, w: 1}
+  target_length: 0.5
+  target_pitch: 45.302826
+  target_yaw: 0
 --- !u!114 &2823091406498478214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,8 +107,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831352086791031174}
-  m_LocalRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
-  m_LocalPosition: {x: 0, y: 0.17677668, z: 0.1767767}
+  m_LocalRotation: {x: 0.38024062, y: 0, z: 0, w: 0.9248876}
+  m_LocalPosition: {x: 0, y: 0.17770854, z: 0.17583992}
   m_LocalScale: {x: 0.05, y: 0.25, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -197,11 +200,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2958909643912334055, guid: 65a9c3cb7155cdd408663fdf2fef2bdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.35355335
+      value: 0.35541707
       objectReference: {fileID: 0}
     - target: {fileID: 2958909643912334055, guid: 65a9c3cb7155cdd408663fdf2fef2bdb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3535534
+      value: 0.35167983
       objectReference: {fileID: 0}
     - target: {fileID: 2958909643912334055, guid: 65a9c3cb7155cdd408663fdf2fef2bdb, type: 3}
       propertyPath: m_LocalRotation.w

@@ -16,6 +16,10 @@ public class DualCaneManipulator : SecondaryManipulator
 
 	public float change_height(float amount) => target_height = Mathf.Clamp(target_height + Mathf.Clamp(amount, -1.0f, 1.0f) * height_speed * Time.deltaTime, height_min, height_max);
 
+	public override void free()
+	{
+	}
+
 	public void control(bool extend)
 	{
 		change_height(extend ? 1.0f : -1.0f);

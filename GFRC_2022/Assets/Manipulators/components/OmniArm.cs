@@ -31,9 +31,9 @@ public class OmniArm : MonoBehaviour
 	[ConditionalHide("hand_rel_orientation", true)] public Quaternion hand_additional_rotation = Quaternion.identity;
 	[HideInInspector]                               public Quaternion target_hand_additional_rotation;
 
-	float target_length;
-	float target_pitch;
-	float target_yaw;
+	public float target_length;
+	public float target_pitch;
+	public float target_yaw;
 
 	public Transform arm()     => transform.Find("Arm");
 	public Vector3   arm_end() => transform.position + arm().up * length;

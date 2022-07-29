@@ -5,9 +5,24 @@ using static Global;
 
 public class CargoContainer : MonoBehaviour
 {
+	public Material mat;
+	public Material mat_highlighted;
+
 	[HideInInspector] public GameObject cargo;
 
 	Vector3 cargo_delta_pos;
+
+	public void set_highlight(bool condition)
+	{
+		if (condition)
+		{
+			GetComponent<MeshRenderer>().material = mat_highlighted;
+		}
+		else
+		{
+			GetComponent<MeshRenderer>().material = mat;
+		}
+	}
 
 	public bool try_loading(Intake intake)
 	{

@@ -70,8 +70,11 @@ static class Global
 	static public bool    right_stick_now_down   (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].rightStickButton.wasPressedThisFrame;
 	static public Vector2 dpad                   (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null ?  Gamepad.all[index].dpad.ReadValue() :  new Vector2(0.0f, 0.0f);
 	static public Vector2 dpad_normalized        (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.ReadValue() != new Vector2(0.0f, 0.0f) ? Gamepad.all[index].dpad.ReadValue().normalized : new Vector2(0.0f, 0.0f);
+	static public bool    dpad_left_now_down     (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.left.wasPressedThisFrame;
+	static public bool    dpad_right_now_down    (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.right.wasPressedThisFrame;
 
-	static public Vector2 mouse_delta() => Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();
+	static public Vector2 mouse_delta   () => Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();
+	static public bool    mouse_now_down() => Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
 
 	static public float argument(Vector2 v) => v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
 
@@ -85,6 +88,7 @@ static class Global
 				v.x * Mathf.Sin(degrees / 180.0f * Mathf.PI) + v.y * Mathf.Cos(degrees / 180.0f * Mathf.PI)
 			);
 
+	static public int   mod(int   a, int   b)          => (a % b + b) % b;
 	static public float mod(float a, float b)          => (a % b + b) % b;
 	static public float mod(float a, float b, float c) => mod(a - b, c - b) + b;
 

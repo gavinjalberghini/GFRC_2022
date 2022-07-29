@@ -700,6 +700,10 @@ PrefabInstance:
       propertyPath: pitch
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 2894588351908893534, guid: 3e4d4b4a199a3e543a9cbf43056e936e, type: 3}
+      propertyPath: target_pitch
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2894588352411863920, guid: 3e4d4b4a199a3e543a9cbf43056e936e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.125
