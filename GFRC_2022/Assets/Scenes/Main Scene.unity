@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4b221e80d11d84d8e5d237cd556466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameStartTime: 10
+  gameStartTime: 150
   isTimerStarted: 0
   timerFinished: 0
   promptTime: 10
@@ -4347,7 +4347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7597205889118139710, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7597205889118139710, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4400,6 +4400,10 @@ PrefabInstance:
     - target: {fileID: 7597205889118139710, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597205889118139711, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}
+      propertyPath: m_Text
+      value: 'Teleop: 2:30'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}

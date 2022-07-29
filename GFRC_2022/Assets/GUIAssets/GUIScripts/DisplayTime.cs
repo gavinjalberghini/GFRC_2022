@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DisplayTime : MonoBehaviour
 {
     public Text Time;
+    private string time;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +18,13 @@ public class DisplayTime : MonoBehaviour
     void Update()
     {
         if (FindObjectOfType<Timer>().s >= 10f)
-            Time.text = FindObjectOfType<Timer>().m + ":" + FindObjectOfType<Timer>().s;
+            time = FindObjectOfType<Timer>().m + ":" + FindObjectOfType<Timer>().s;
         else
-            Time.text = FindObjectOfType<Timer>().m + ":0" + FindObjectOfType<Timer>().s;
+            time = FindObjectOfType<Timer>().m + ":0" + FindObjectOfType<Timer>().s;
+
+        if (((FindObjectOfType<Timer>().m * 60f) + FindObjectOfType<Timer>().s) > 135f)
+            Time.text = "Auto: " + time;
+        else
+            Time.text = "TeleOp: " + time;
     }
 }
