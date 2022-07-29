@@ -7,28 +7,35 @@ using static Global;
 
 public class Timer : MonoBehaviour
 {
-    public float gameTime = 150f; //amount of time in seconds
+    private float gameTime = 150f; //amount of time in seconds
+    public float gameStartTime = 150f;
     public bool isTimerStarted = false;
 
     public bool timerFinished;
-    private bool prompt;
+    private bool prompt = false;
+    private bool end = false;
 
     public float promptTime = 10f; //also in seconds
     public Text promptCountDown;
+    public Text endCountDown;
     private float i; //prompttimer
+    private float e; //endtimer
 
     public GameObject StartScreen;
     public GameObject PromptScreen;
     public GameObject DisplayTime;
+    public GameObject EndScreen;
 
     [HideInInspector]
-    public string m, s;
+    public float m, s;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameTime = gameStartTime;
         FindObjectOfType<AudioManager>().Sound("Null");
-        Welcome();
+        EndScreen.SetActive(false);
+        OpenScreen(StartScreen, PromptScreen, false, false);
     }
 
     // Update is called once per frame
@@ -40,37 +47,63 @@ public class Timer : MonoBehaviour
             if (key_now_down(Key.Enter))
             {
                 Begin();
-                FindObjectOfType<AudioManager>().Sound("Shoot");
 
             }
             else if (key_now_down(Key.Backspace))
             {
-                Welcome();
+                OpenScreen(StartScreen, PromptScreen, false, false);
             }
         }
-        else if (isTimerStarted)
+        else if (isTimerStarted && !timerFinished)
             Countdown();
 
         if (key_now_down(Key.Enter) && !isTimerStarted)
         {
-            Prompt();
+            OpenScreen(PromptScreen, StartScreen, true, false);
             FindObjectOfType<AudioManager>().Sound("Beep");
         }
 
         //float mm, ss;
         if (gameTime >= 60)
         {
-            m = Mathf.Floor(gameTime / 60).ToString();
+            m = Mathf.Floor(gameTime / 60);
             //mm = float.Parse(m);
-            s = Mathf.Floor(gameTime % 60).ToString();
+            s = Mathf.Floor(gameTime % 60);
             //ss = float.Parse(s);
         }
         else
         {
-            m = "0";
-            s = Mathf.Floor(gameTime).ToString();
+            m = 0f;
+            s = Mathf.Floor(gameTime);
+            if (s < 0)
+                s = 0;
         }
-        timerFinished = gameTime <= 0f;
+
+        if (end) 
+        {
+            Return();
+            if (key_now_down(Key.Enter))
+            {
+                FindObjectOfType<AudioManager>().Sound("Shoot");
+                Debug.Log("Open main menu :)");
+            }
+            else if (key_now_down(Key.Backspace))
+            {
+                OpenScreen(StartScreen, EndScreen, false, false);
+                FindObjectOfType<AudioManager>().Sound("Shoot");
+                gameTime = gameStartTime;
+                isTimerStarted = false;
+            }
+        }
+        else
+            timerFinished = gameTime <= 0f;
+
+        if (timerFinished) 
+        {
+            OpenScreen(EndScreen, StartScreen, false, true);
+            FindObjectOfType<AudioManager>().Sound("Shoot");
+            timerFinished = false;
+        }
     }
 
     void Countdown()
@@ -79,30 +112,41 @@ public class Timer : MonoBehaviour
         isTimerStarted = true;
     }
 
-    void Welcome()
+    void OpenScreen(GameObject Screen, GameObject ScreenToClose, bool isprompt, bool isend)
     {
-        i = 10f;
-        prompt = false;
-        StartScreen.SetActive(true);
-        PromptScreen.SetActive(false);
+        if(isprompt)
+            i = 10f;
+
+        if (isend)
+            e = 10f;
+
+        prompt = isprompt;
+        end = isend;
+        Screen.SetActive(true);
+        ScreenToClose.SetActive(false);
     }
 
     void Prompt() 
     {
-        StartScreen.SetActive(false);
-        PromptScreen.SetActive(true);
-        prompt = true;
-        
         i -= Time.deltaTime;
         promptCountDown.text = i.ToString("0");
         if(i < 0f)
             Begin();
     }
 
+    void Return()
+    {
+        e -= Time.deltaTime;
+        endCountDown.text = e.ToString("0");
+        if (e < 0f)
+            Debug.Log("Open main menu :)");
+    }
+
     void Begin()
     {
         PromptScreen.SetActive(false);
         prompt = false;
+        FindObjectOfType<AudioManager>().Sound("Shoot");
         Countdown();
     }
 }

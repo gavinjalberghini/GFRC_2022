@@ -16,6 +16,9 @@ public class DisplayTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Time.text = FindObjectOfType<Timer>().m + ":" + FindObjectOfType<Timer>().s;
+        if (FindObjectOfType<Timer>().s >= 10f)
+            Time.text = FindObjectOfType<Timer>().m + ":" + FindObjectOfType<Timer>().s;
+        else
+            Time.text = FindObjectOfType<Timer>().m + ":0" + FindObjectOfType<Timer>().s;
     }
 }
