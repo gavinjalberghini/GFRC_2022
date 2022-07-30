@@ -32,6 +32,8 @@ public class Assembler : MonoBehaviour
 	public GameObject[] ordered_primaries;
 	public GameObject[] ordered_secondaries;
 	public GameObject   floor_intake;
+	public Material     mat_red;
+	public Material     mat_blue;
 
 	public void pick(Primary new_primary)
 	{
@@ -80,11 +82,11 @@ public class Assembler : MonoBehaviour
 		GetComponent<RobotBrain>().floor_intake = state ? floor_intake.GetComponent<Intake>() : null;
 	}
 
-	public void set_material(Material mat)
+	public void set_alliance(bool is_red)
 	{
 		foreach (Transform transform in transform.Find("Body"))
 		{
-			transform.gameObject.GetComponent<MeshRenderer>().material = mat;
+			transform.gameObject.GetComponent<MeshRenderer>().material = is_red ? mat_red : mat_blue;
 		}
 	}
 

@@ -3558,7 +3558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2001539801
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3947,16 +3947,16 @@ MonoBehaviour:
   - {fileID: 1415325584}
   - {fileID: 187254960}
   - {fileID: 217547452}
-  randomized_robot_spawn: 0
-  RobotReds:
-  - {fileID: 5740772872544041224, guid: 01dc549b85356564ca97b37eba8d1e87, type: 3}
-  - {fileID: 5740772872544041224, guid: 5c4edb0500ac1cd4cbdd6564e97a15ee, type: 3}
-  RobotBlues:
-  - {fileID: 1368114745549187933, guid: d326b292a346f0545b1d775d72420fd0, type: 3}
-  - {fileID: 1368114745549187933, guid: c70cf6ddb3b766945b5424f9cd655da5, type: 3}
+  ordered_bases:
+  - {fileID: 5740772872544041224, guid: 34d1b11fb3acab34994d333427dc0463, type: 3}
+  - {fileID: 5740772872544041224, guid: 137638f215ed8a34c84ff2c102c53087, type: 3}
+  - {fileID: 5740772872544041224, guid: 54531398e71cd114ba591fc4bc045dd4, type: 3}
+  - {fileID: 5740772872544041224, guid: f79b01b2396d1c74b9711c3d0c297bb8, type: 3}
+  - {fileID: 5740772872544041224, guid: e6cda24e6b66a884abac73f6a2211604, type: 3}
+  - {fileID: 5740772872544041224, guid: ee9147ca665e44542a4a015e7de71539, type: 3}
+  - {fileID: 5740772872544041224, guid: d3c37a9116680dd489c392f2d9f8999e, type: 3}
   play_camera: {fileID: 231070405}
-  focused_robot_on_red_alliance: 1
-  focused_robot_team: 0
+  test: {fileID: 5740772872544041224, guid: f79b01b2396d1c74b9711c3d0c297bb8, type: 3}
 --- !u!4 &2135176288
 Transform:
   m_ObjectHideFlags: 0

@@ -24,16 +24,21 @@ public class Main : MonoBehaviour
 	public GameObject[]    test_images;
 
 	[Header("Robot Spawns")]
-	public bool         randomized_robot_spawn;
-	public GameObject[] RobotReds;
-	public GameObject[] RobotBlues;
+	public GameObject[] ordered_bases;
 
 	[Header("Camera")]
-	public PlayCamera play_camera;
-	public bool       focused_robot_on_red_alliance;
-	public int        focused_robot_team;
+	public PlayCamera  play_camera;
 
-	string output_string;
+	public static bool                randomized_robot_spawn;
+	public static int                 assmebler_base_index;
+	public static Assembler.Primary   assmebler_curr_primary;
+	public static Assembler.Secondary assmebler_curr_secondary;
+	public static bool                assmebler_using_floor_intake;
+	public static bool                assembler_red_alliance;
+
+	GameObject[] RobotReds;
+	GameObject[] RobotBlues;
+	string       output_string;
 
 	void Start()
 	{
@@ -123,16 +128,41 @@ public class Main : MonoBehaviour
 		//
 
 		{
+			GameObject[] xs = new GameObject[1];
+			xs[0] = Instantiate(ordered_bases[assmebler_base_index]);
+			xs[0].GetComponent<Assembler>().pick(assmebler_curr_primary);
+			xs[0].GetComponent<Assembler>().pick(assmebler_curr_secondary);
+			xs[0].GetComponent<Assembler>().set_floor_intake(assmebler_using_floor_intake);
+			xs[0].GetComponent<Assembler>().set_alliance(assembler_red_alliance);
+
+			{
+				GameObject focused_robot = xs[0];
+				play_camera.robot_subject = focused_robot.GetComponent<Transform>();
+				focused_robot.GetComponent<RobotBrain>().enabled = true;
+			}
+
+			if (assembler_red_alliance)
+			{
+				RobotReds  = xs;
+				RobotBlues = new GameObject[0];
+			}
+			else
+			{
+				RobotReds  = new GameObject[0];
+				RobotBlues = xs;
+			}
+		}
+
+		{
 			Action<GameObject[], List<Transform>> spawn_robots =
 				(robots, spawn_points) =>
 				{
 					for (int i = 0; i < robots.Length; i += 1)
 					{
 						int spawn_index = randomized_robot_spawn ? UnityEngine.Random.Range(0, spawn_points.Count) : 0;
-						robots[i] = Instantiate(robots[i]);
 						robots[i].transform.position = spawn_points[spawn_index].position;
 						robots[i].transform.rotation = spawn_points[spawn_index].rotation;
-						robots[i].GetComponent<RobotBrain>().enabled = false;
+						//robots[i].GetComponent<RobotBrain>().enabled = false;
 						spawn_points.RemoveAt(spawn_index);
 					}
 				};
@@ -148,16 +178,6 @@ public class Main : MonoBehaviour
 				spawn_robots(RobotReds , transform.Find("RedSpawn" ).Cast<Transform>().ToList());
 				spawn_robots(RobotBlues, transform.Find("BlueSpawn").Cast<Transform>().ToList());
 			}
-		}
-
-		//
-		// Set camera.
-		//
-
-		{
-			GameObject focused_robot = (focused_robot_on_red_alliance ? RobotReds : RobotBlues)[focused_robot_team];
-			play_camera.robot_subject = focused_robot.GetComponent<Transform>();
-			focused_robot.GetComponent<RobotBrain>().enabled = true;
 		}
 	}
 

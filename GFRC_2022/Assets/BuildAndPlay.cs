@@ -29,21 +29,20 @@ public class BuildAndPlay : MonoBehaviour
 	public GameObject   preview_camera;
 
 	public Transform    reset_point;
-	public GameObject   base_mecanum;
-	public GameObject   base_swerve;
-	public GameObject   base_tank;
-	public GameObject   base_car;
-	public GameObject   base_kiwi;
-	public GameObject   base_forklift;
-	public GameObject   base_h;
-	public Material[]   alliance_mats;
+	public GameObject[] ordered_bases;
 
 	GameObject curr_build;
 
 	void Start()
 	{
 		btn_play_simulation.onClick.AddListener(delegate {
-			print("play simulation");
+			Main.randomized_robot_spawn       = false;
+			Main.assmebler_base_index         = drp_drive.value;
+			Main.assmebler_curr_primary       = curr_build.GetComponent<Assembler>().curr_primary;
+			Main.assmebler_curr_secondary     = curr_build.GetComponent<Assembler>().curr_secondary;
+			Main.assmebler_using_floor_intake = curr_build.GetComponent<Assembler>().using_floor_intake;
+			Main.assembler_red_alliance       = drp_alliance.value == 0;
+			SceneManager.LoadScene("Scenes/Main Scene");
 		});
 
 		canvas.GetComponent<ClickDetector>().click_down = delegate {
@@ -60,45 +59,39 @@ public class BuildAndPlay : MonoBehaviour
 				case 0:
 				{
 					txt_drive.text = "The mecanum drive uses specialized wheels that incurs a sideways force when driving. Allows for direct strafing.";
-					build(base_mecanum);
 				} break;
 
 				case 1:
 				{
 					txt_drive.text = "The swerve drive has wheels that can be turned independently of each other. Allows easy strafing and steering.";
-					build(base_swerve);
 				} break;
 
 				case 2:
 				{
 					txt_drive.text = "The tank drive has six traction wheels with the middle wheel slightly lower to allow better turning.";
-					build(base_tank);
 				} break;
 
 				case 3:
 				{
 					txt_drive.text = "The car drive uses the front wheels to steer like an actual car. Poor turning angles however.";
-					build(base_car);
 				} break;
 
 				case 4:
 				{
 					txt_drive.text = "The kiwi drive uses a triangular frame with each side having its own wheel. Generally offensive due to movement capabilities.";
-					build(base_kiwi);
 				} break;
 
 				case 5:
 				{
 					txt_drive.text = "Similar to a Tank Drive, except has four total wheels with two front omni wheels in the front.";
-					build(base_forklift);
 				} break;
 
 				case 6:
 				{
 					txt_drive.text = "The H-drive uses a wheel perpendicular to the four main wheels to allow direct strafing.";
-					build(base_h);
 				} break;
 			}
+			build(ordered_bases[drp_drive.value]);
 		});
 
 		drp_primary.onValueChanged.AddListener(delegate {
@@ -177,7 +170,7 @@ public class BuildAndPlay : MonoBehaviour
 			}
 		});
 
-		build(base_mecanum);
+		build(ordered_bases[0]);
 
 		Wheel.show_indicator = true;
 		bindings_pop_up.SetActive(false);
@@ -186,7 +179,7 @@ public class BuildAndPlay : MonoBehaviour
 	void Update()
 	{
 		curr_build.GetComponent<RobotBrain>().using_assistant = tgl_assistant.isOn;
-		curr_build.GetComponent<Assembler>().set_material(alliance_mats[drp_alliance.value]);
+		curr_build.GetComponent<Assembler>().set_alliance(drp_alliance.value == 0);
 		curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
 
 		preview_camera.transform.position = curr_build.transform.position + new Vector3(1.25f, 1.75f, 1.25f);

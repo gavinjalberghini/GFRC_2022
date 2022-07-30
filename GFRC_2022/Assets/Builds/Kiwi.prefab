@@ -638,6 +638,8 @@ MonoBehaviour:
   - {fileID: 143806304189349810}
   - {fileID: 7617963994321514074}
   floor_intake: {fileID: 8451451765730504849}
+  mat_red: {fileID: 2100000, guid: 9d0f697e6083e2745ada73f1cf3783b9, type: 2}
+  mat_blue: {fileID: 2100000, guid: ec58bdca14b6e2b42adf8700e34c6527, type: 2}
 --- !u!114 &6042405956546837343
 MonoBehaviour:
   m_ObjectHideFlags: 0
