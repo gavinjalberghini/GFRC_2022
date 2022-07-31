@@ -2784,7 +2784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1331093358
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4178,6 +4178,12 @@ MonoBehaviour:
   user_icon: {fileID: 1184308248}
   user_pop_up: {fileID: 1331093357}
   user_pop_up_outside: {fileID: 193463633}
+  btn_sign_up: {fileID: 1012194855}
+  btn_log_in: {fileID: 1022776544}
+  fld_username: {fileID: 618728789}
+  fld_pin: {fileID: 108811772}
+  fld_team_number: {fileID: 586627482}
+  fld_team_name: {fileID: 2111242397}
 --- !u!4 &2025614109
 Transform:
   m_ObjectHideFlags: 0

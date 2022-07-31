@@ -13,12 +13,18 @@ using static Global;
 
 public class TitleMenu : MonoBehaviour
 {
-	public Button        build_and_play;
-	public Button        show_leaderboard;
-	public Button        exit;
-	public ClickDetector user_icon;
-	public GameObject    user_pop_up;
-	public ClickDetector user_pop_up_outside;
+	public Button         build_and_play;
+	public Button         show_leaderboard;
+	public Button         exit;
+	public ClickDetector  user_icon;
+	public GameObject     user_pop_up;
+	public ClickDetector  user_pop_up_outside;
+	public Button         btn_sign_up;
+	public Button         btn_log_in;
+	public TMP_InputField fld_username;
+	public TMP_InputField fld_pin;
+	public TMP_InputField fld_team_number;
+	public TMP_InputField fld_team_name;
 
 	void Start()
 	{
@@ -41,5 +47,13 @@ public class TitleMenu : MonoBehaviour
 		user_icon.click_down = delegate {
 			user_pop_up.SetActive(true);
 		};
+
+		btn_sign_up.onClick.AddListener(delegate {
+			print("sign up | " + fld_username.text + " " + fld_pin.text + " " + fld_team_number.text + " " + fld_team_name.text);
+		});
+
+		btn_log_in.onClick.AddListener(delegate {
+			print("log in");
+		});
 	}
 }

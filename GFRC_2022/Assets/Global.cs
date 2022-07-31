@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
+using TMPro;
+using Mono.Data.Sqlite;
 
 static class Global
 {
@@ -114,4 +117,88 @@ static class Global
 	static public Quaternion set_local_rotation_x(Transform t, float x) => t.localRotation = Quaternion.Euler(                            x, t.localRotation.eulerAngles.y, t.localRotation.eulerAngles.z);
 	static public Quaternion set_local_rotation_y(Transform t, float y) => t.localRotation = Quaternion.Euler(t.localRotation.eulerAngles.x,                             y, t.localRotation.eulerAngles.z);
 	static public Quaternion set_local_rotation_z(Transform t, float z) => t.localRotation = Quaternion.Euler(t.localRotation.eulerAngles.x, t.localRotation.eulerAngles.y,                             z);
+
+	//
+	// Database.
+	//
+
+	const string DATABASE_URI_NAME = "URI=file:GFRC.db";
+
+	public struct DB_Entry
+	{
+		public string username;
+		public string pin;
+		public string teamnumber;
+		public string teamname;
+		public string alliance;
+		public int    team;
+		public int    points;
+	};
+
+	static public List<DB_Entry> db_get_entries()
+	{
+		var list = new List<DB_Entry>();
+		using (var connection = new SqliteConnection(DATABASE_URI_NAME))
+		{
+			connection.Open();
+			using (var command = connection.CreateCommand())
+			{
+				command.CommandText = "SELECT * FROM users;";
+				using (var reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						list.Add
+						(
+							new DB_Entry
+								{
+									username   =           reader["username"  ].ToString() ,
+									pin        =           reader["pin"       ].ToString() ,
+									teamnumber =           reader["teamnumber"].ToString() ,
+									teamname   =           reader["teamname"  ].ToString() ,
+									alliance   =           reader["alliance"  ].ToString() ,
+									team       = int.Parse(reader["team"      ].ToString()),
+									points     = int.Parse(reader["points"    ].ToString())
+								}
+						);
+					}
+					reader.Close();
+				}
+			}
+			connection.Close();
+		}
+		return list;
+	}
+
+	static public void db_set_entries(List<DB_Entry> entries)
+	{
+		using (var connection = new SqliteConnection(DATABASE_URI_NAME))
+		{
+			connection.Open();
+			using (var command = connection.CreateCommand())
+			{
+				command.CommandText =
+					"DROP TABLE IF EXISTS users;\n" +
+					"CREATE TABLE users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), teamname VARCHAR(16), alliance VARCHAR(16), team INT, points INT);";
+				command.ExecuteNonQuery();
+
+				foreach (var entry in entries)
+				{
+					command.CommandText =
+						"INSERT INTO users (username, pin, teamnumber, teamname, alliance, team, points) VALUES\n" +
+							"(" +
+								"\"" + entry.username   + "\", " +
+								"\"" + entry.pin        + "\", " +
+								"\"" + entry.teamnumber + "\", " +
+								"\"" + entry.teamname   + "\", " +
+								"\"" + entry.alliance   + "\", " +
+								"\"" + entry.team       + "\", " +
+								"\"" + entry.points     + "\");\n";
+					command.ExecuteNonQuery();
+				}
+
+			}
+			connection.Close();
+		}
+	}
 }
