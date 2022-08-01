@@ -11,7 +11,7 @@ This document lists [rules](https://firstfrc.blob.core.windows.net/frc2022/Manua
 - In a match, all teams of both alliances will be playing in the arena.
 
 ## Play (Section 6.2, 6.3, pg. 43)
-- At the start of the match, the robots will be in the AUTONOMOUS PHASE for 15 seconds. The robots will attempt to score cargos into the hub without human input. Humans can score their own cargo into the hub.
+- At the start of the match, the robots will be in the AUTONOMOUS PHASE for 15 seconds. The robots will attempt to score cargos into the hub without human input. Humans can score their own cargo into the hub. **(This phase will be skipped).**
 - After the autonomous phase and for the rest of the remaining 2 minutes and 15 seconds, robots will enter the TELEOPERATED PHASE and will be allowed to be controlled by humans to score additional cargo and begin engaging with the hangars.
 
 ## Scoring (Section 6.4, pg. 43)
