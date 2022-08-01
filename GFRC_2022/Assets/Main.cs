@@ -20,6 +20,8 @@ public class Main : MonoBehaviour
 
 	[Header("UI")]
 	public TextMeshProUGUI debug;
+	public Text redScore;
+	public Text blueScore;
 	public TMP_InputField  input;
 	public GameObject[]    test_images;
 
@@ -46,7 +48,6 @@ public class Main : MonoBehaviour
 		// Input field.
 		//
 
-		FindObjectOfType<AudioManager>().Sound("Theme");
 		input.onEndEdit.AddListener(delegate {
 			output_string = "";
 
@@ -142,5 +143,7 @@ public class Main : MonoBehaviour
 			"score_hub_bot_blue : " + hub_bot.blueScore + "\n" +
 			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n" +
 			output_string;
+		redScore.text = "Red: " + (hub_top.redScore + hub_bot.redScore + hangar_red.calc_score());
+		blueScore.text = "Blue: " + (hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score());
 	}
 }
