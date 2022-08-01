@@ -122,7 +122,8 @@ static class Global
 	// Database.
 	//
 
-	const string DATABASE_URI_NAME = "URI=file:GFRC.db";
+	const string DATABASE_URI_NAME          = "URI=file:GFRC.db";
+	const string DATABASE_TABLE_CONSTRUCTOR = "users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), teamname VARCHAR(16), points INT);";
 
 	public struct DB_Entry
 	{
@@ -130,8 +131,6 @@ static class Global
 		public string pin;
 		public string teamnumber;
 		public string teamname;
-		public string alliance;
-		public int    team;
 		public int    points;
 	};
 
@@ -143,6 +142,9 @@ static class Global
 			connection.Open();
 			using (var command = connection.CreateCommand())
 			{
+				command.CommandText = "CREATE TABLE IF NOT EXISTS " + DATABASE_TABLE_CONSTRUCTOR + ";\n";
+				command.ExecuteNonQuery();
+
 				command.CommandText = "SELECT * FROM users;";
 				using (var reader = command.ExecuteReader())
 				{
@@ -156,8 +158,6 @@ static class Global
 									pin        =           reader["pin"       ].ToString() ,
 									teamnumber =           reader["teamnumber"].ToString() ,
 									teamname   =           reader["teamname"  ].ToString() ,
-									alliance   =           reader["alliance"  ].ToString() ,
-									team       = int.Parse(reader["team"      ].ToString()),
 									points     = int.Parse(reader["points"    ].ToString())
 								}
 						);
@@ -177,22 +177,18 @@ static class Global
 			connection.Open();
 			using (var command = connection.CreateCommand())
 			{
-				command.CommandText =
-					"DROP TABLE IF EXISTS users;\n" +
-					"CREATE TABLE users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), teamname VARCHAR(16), alliance VARCHAR(16), team INT, points INT);";
+				command.CommandText = "DROP TABLE IF EXISTS users;\nCREATE TABLE " + DATABASE_TABLE_CONSTRUCTOR;
 				command.ExecuteNonQuery();
 
 				foreach (var entry in entries)
 				{
 					command.CommandText =
-						"INSERT INTO users (username, pin, teamnumber, teamname, alliance, team, points) VALUES\n" +
+						"INSERT INTO users (username, pin, teamnumber, teamname, points) VALUES\n" +
 							"(" +
 								"\"" + entry.username   + "\", " +
 								"\"" + entry.pin        + "\", " +
 								"\"" + entry.teamnumber + "\", " +
 								"\"" + entry.teamname   + "\", " +
-								"\"" + entry.alliance   + "\", " +
-								"\"" + entry.team       + "\", " +
 								"\"" + entry.points     + "\");\n";
 					command.ExecuteNonQuery();
 				}

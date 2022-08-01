@@ -23,8 +23,8 @@ public class TitleMenu : MonoBehaviour
 	public Button         btn_log_in;
 	public TMP_InputField fld_username;
 	public TMP_InputField fld_pin;
-	public TMP_InputField fld_team_number;
-	public TMP_InputField fld_team_name;
+	public TMP_InputField fld_teamnumber;
+	public TMP_InputField fld_teamname;
 
 	void Start()
 	{
@@ -48,12 +48,87 @@ public class TitleMenu : MonoBehaviour
 			user_pop_up.SetActive(true);
 		};
 
+		{
+			var xs = db_get_entries();
+			if (xs.Count == 0)
+			{
+				print("No data.");
+			}
+			else
+			{
+				foreach (var x in xs)
+				{
+					print
+					(
+						" | username   : " + x.username   +
+						" | pin        : " + x.pin        +
+						" | teamnumber : " + x.teamnumber +
+						" | teamname   : " + x.teamname   +
+						" | scored     : " + x.points
+					);
+				}
+			}
+		}
+
 		btn_sign_up.onClick.AddListener(delegate {
-			print("sign up | " + fld_username.text + " " + fld_pin.text + " " + fld_team_number.text + " " + fld_team_name.text);
+			bool valid   = true;
+			var  entries = db_get_entries();
+
+			if (fld_username.text == "")
+			{
+				print("Username required.");
+				valid = false;
+			}
+			else if (fld_pin.text == "")
+			{
+				print("Pin required.");
+				valid = false;
+			}
+			else
+			{
+				foreach (var entry in entries)
+				{
+					if (entry.username == fld_username.text)
+					{
+						print("Username taken.");
+						valid = false;
+						break;
+					}
+					else if (entry.teamname == fld_teamname.text)
+					{
+						print("Team name taken.");
+						valid = false;
+						break;
+					}
+					else if (entry.teamnumber == fld_teamnumber.text)
+					{
+						print("Team number taken.");
+						valid = false;
+						break;
+					}
+				}
+			}
+
+
+			if (valid)
+			{
+				entries.Add
+				(
+					new DB_Entry
+						{
+							username   = fld_username.text,
+							pin        = fld_pin.text,
+							teamnumber = fld_teamnumber.text,
+							teamname   = fld_teamname.text
+						}
+				);
+				db_set_entries(entries);
+			}
 		});
 
 		btn_log_in.onClick.AddListener(delegate {
 			print("log in");
 		});
+
 	}
 }
