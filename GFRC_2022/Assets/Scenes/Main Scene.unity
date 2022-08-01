@@ -3592,29 +3592,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1734481105786570358, guid: 156cb9e3c58cf654680501278c0a7130, type: 3}
   m_PrefabInstance: {fileID: 1945435833}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
---- !u!1 &2001539800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2001539801}
-  - component: {fileID: 2001539803}
-  - component: {fileID: 2001539802}
-  m_Layer: 5
-  m_Name: Start
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &2001539801
-=======
 --- !u!224 &2001539801 stripped
->>>>>>> StartScreen
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 145571059590129832, guid: 31a5ad7a29f850c43a4e24e40c213186, type: 3}
   m_PrefabInstance: {fileID: 145571061583280753}

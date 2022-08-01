@@ -31,21 +31,13 @@ public class RobotBrain : MonoBehaviour
 		//
 
 		{
-			MatchOn = FindObjectOfType<Timer>().GetComponent<Timer>().isTimerStarted && !(FindObjectOfType<Timer>().GetComponent<Timer>().timerFinished);
-			float qe = 0.0f;
-<<<<<<< HEAD
-			if (key_down(Key.Q)) { qe -= 1.0f; }
-			if (key_down(Key.E)) { qe += 1.0f; }
-
-			Vector2 translation = (using_assistant ? left_stick(0) : new Vector2(0.0f, left_stick(0).y)) + wasd();
-=======
-			Vector2 translation = (using_assistant ? new Vector2(0.0f, left_stick(0).y) : left_stick(0)) + wasd();
->>>>>>> StartScreen
-
-			if (MatchOn) 
+			MatchOn = !FindObjectOfType<Timer>() || FindObjectOfType<Timer>().GetComponent<Timer>().isTimerStarted && !(FindObjectOfType<Timer>().GetComponent<Timer>().timerFinished);
+			if (MatchOn)
 			{
+				float qe = 0.0f;
 				if (key_down(Key.Q)) { qe -= 1.0f; }
 				if (key_down(Key.E)) { qe += 1.0f; }
+				Vector2 translation = (using_assistant ? left_stick(0) : new Vector2(0.0f, left_stick(0).y)) + wasd();
 
 				drive_controller.control
 					(
