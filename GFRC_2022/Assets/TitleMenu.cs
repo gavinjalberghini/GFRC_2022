@@ -21,15 +21,27 @@ public class TitleMenu : MonoBehaviour
 	public ClickDetector  user_pop_up_outside;
 	public Button         btn_sign_up;
 	public Button         btn_log_in;
+	public GameObject     note_pop_up;
+	public ClickDetector  note_pop_up_outside;
+	public Button         btn_sign_in;
+	public Button         btn_continue;
 	public TMP_InputField fld_username;
 	public TMP_InputField fld_pin;
 	public TMP_InputField fld_teamnumber;
-	public TMP_InputField fld_teamname;
+	public TMP_Text       txt_username;
+	public TMP_Text       txt_report;
 
 	void Start()
 	{
 		build_and_play.onClick.AddListener(delegate {
-			SceneManager.LoadScene("Scenes/BuildAndPlay");
+			if (db_currently_signed_in)
+			{
+				SceneManager.LoadScene("Scenes/BuildAndPlay");
+			}
+			else
+			{
+				note_pop_up.SetActive(true);
+			}
 		});
 
 		show_leaderboard.onClick.AddListener(delegate {
@@ -48,7 +60,21 @@ public class TitleMenu : MonoBehaviour
 			user_pop_up.SetActive(true);
 		};
 
-		{
+		note_pop_up_outside.click_down = delegate {
+			note_pop_up.SetActive(false);
+			txt_report.gameObject.SetActive(false);
+		};
+
+		btn_sign_in.onClick.AddListener(delegate {
+			note_pop_up.SetActive(false);
+			user_pop_up.SetActive(true);
+		});
+
+		btn_continue.onClick.AddListener(delegate {
+			SceneManager.LoadScene("Scenes/BuildAndPlay");
+		});
+
+		{ // @TEMP@ DEBUG!
 			var xs = db_get_entries();
 			if (xs.Count == 0)
 			{
@@ -63,72 +89,124 @@ public class TitleMenu : MonoBehaviour
 						" | username   : " + x.username   +
 						" | pin        : " + x.pin        +
 						" | teamnumber : " + x.teamnumber +
-						" | teamname   : " + x.teamname   +
 						" | scored     : " + x.points
 					);
 				}
 			}
-		}
+		} // @TEMP@ DEBUG!
 
-		btn_sign_up.onClick.AddListener(delegate {
-			bool valid   = true;
-			var  entries = db_get_entries();
-
-			if (fld_username.text == "")
+		fld_username.onValidateInput += delegate(string str, int i, char c) {
+			if (c == ' ')
 			{
-				print("Username required.");
-				valid = false;
+				return '_';
 			}
-			else if (fld_pin.text == "")
+			else if ('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || '0' <= c && c <= '9' || c == '$')
 			{
-				print("Pin required.");
-				valid = false;
+				return c;
 			}
 			else
 			{
+				return '\0';
+			}
+		};
+
+		btn_sign_up.onClick.AddListener(delegate {
+			db_currently_signed_in = false;
+			if (fld_username.text == "")
+			{
+				report_red("Username required!");
+			}
+			else if (fld_pin.text.Length != 4)
+			{
+				report_red("4-Digit pin required!");
+			}
+			else
+			{
+				bool found_username = false;
+				var  entries        = db_get_entries();
 				foreach (var entry in entries)
 				{
 					if (entry.username == fld_username.text)
 					{
-						print("Username taken.");
-						valid = false;
-						break;
-					}
-					else if (entry.teamname == fld_teamname.text)
-					{
-						print("Team name taken.");
-						valid = false;
-						break;
-					}
-					else if (entry.teamnumber == fld_teamnumber.text)
-					{
-						print("Team number taken.");
-						valid = false;
+						found_username = true;
+						report_red("Username taken!");
 						break;
 					}
 				}
-			}
+				if (!found_username)
+				{
+					entries.Add
+					(
+						new DB_Entry
+							{
+								username   = fld_username.text,
+								pin        = fld_pin.text,
+								teamnumber = fld_teamnumber.text
+							}
+					);
+					db_set_entries(entries);
 
-
-			if (valid)
-			{
-				entries.Add
-				(
-					new DB_Entry
-						{
-							username   = fld_username.text,
-							pin        = fld_pin.text,
-							teamnumber = fld_teamnumber.text,
-							teamname   = fld_teamname.text
-						}
-				);
-				db_set_entries(entries);
+					db_currently_signed_in = true;
+					db_curr_username       = fld_username.text;
+					txt_report.gameObject.SetActive(true);
+					txt_report.text        = "Logged as " + fld_username.text;
+					txt_report.color       = new Color(0.05043304f, 0.4785869f, 0.8018868f);
+				}
 			}
 		});
 
 		btn_log_in.onClick.AddListener(delegate {
-			print("log in");
+			db_currently_signed_in = false;
+			if (fld_username.text == "")
+			{
+				report_red("Username required!");
+			}
+			else if (fld_pin.text.Length != 4)
+			{
+				report_red("4-Digit pin required!");
+			}
+			else
+			{
+				bool found_username = false;
+				foreach (var entry in db_get_entries())
+				{
+					if (entry.username == fld_username.text)
+					{
+						found_username = true;
+						if (entry.pin == fld_pin.text)
+						{
+							db_currently_signed_in = true;
+							db_curr_username       = entry.username;
+							txt_report.gameObject.SetActive(true);
+							txt_report.text        = "Logged as " + entry.username;
+							txt_report.color       = new Color(0.05043304f, 0.4785869f, 0.8018868f);
+							fld_teamnumber.text    = entry.teamnumber;
+						}
+						else
+						{
+							report_red("Invalid pin!");
+						}
+						break;
+					}
+				}
+				if (!found_username)
+				{
+					report_red("Unknown username!");
+				}
+			}
 		});
+	}
 
+	void report_red(string message)
+	{
+		txt_report.gameObject.SetActive(true);
+		txt_report.text  = message;
+		txt_report.color = new Color(0.9150943f, 0.2129464f, 0.24059f);
+	}
+
+	void Update()
+	{
+		txt_username.gameObject.SetActive(db_currently_signed_in);
+		txt_username.text = db_curr_username;
 	}
 }

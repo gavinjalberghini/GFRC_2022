@@ -122,27 +122,29 @@ static class Global
 	// Database.
 	//
 
-	const string DATABASE_URI_NAME          = "URI=file:GFRC.db";
-	const string DATABASE_TABLE_CONSTRUCTOR = "users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), teamname VARCHAR(16), points INT);";
+	const string DB_URI_NAME     = "URI=file:GFRC.db";
+	const string DB_TABLE_LAYOUT = "users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), points INT);";
+
+	static public bool   db_currently_signed_in = false;
+	static public string db_curr_username;
 
 	public struct DB_Entry
 	{
 		public string username;
 		public string pin;
 		public string teamnumber;
-		public string teamname;
 		public int    points;
 	};
 
 	static public List<DB_Entry> db_get_entries()
 	{
 		var list = new List<DB_Entry>();
-		using (var connection = new SqliteConnection(DATABASE_URI_NAME))
+		using (var connection = new SqliteConnection(DB_URI_NAME))
 		{
 			connection.Open();
 			using (var command = connection.CreateCommand())
 			{
-				command.CommandText = "CREATE TABLE IF NOT EXISTS " + DATABASE_TABLE_CONSTRUCTOR + ";\n";
+				command.CommandText = "CREATE TABLE IF NOT EXISTS " + DB_TABLE_LAYOUT + ";\n";
 				command.ExecuteNonQuery();
 
 				command.CommandText = "SELECT * FROM users;";
@@ -157,7 +159,6 @@ static class Global
 									username   =           reader["username"  ].ToString() ,
 									pin        =           reader["pin"       ].ToString() ,
 									teamnumber =           reader["teamnumber"].ToString() ,
-									teamname   =           reader["teamname"  ].ToString() ,
 									points     = int.Parse(reader["points"    ].ToString())
 								}
 						);
@@ -172,23 +173,22 @@ static class Global
 
 	static public void db_set_entries(List<DB_Entry> entries)
 	{
-		using (var connection = new SqliteConnection(DATABASE_URI_NAME))
+		using (var connection = new SqliteConnection(DB_URI_NAME))
 		{
 			connection.Open();
 			using (var command = connection.CreateCommand())
 			{
-				command.CommandText = "DROP TABLE IF EXISTS users;\nCREATE TABLE " + DATABASE_TABLE_CONSTRUCTOR;
+				command.CommandText = "DROP TABLE IF EXISTS users;\nCREATE TABLE " + DB_TABLE_LAYOUT;
 				command.ExecuteNonQuery();
 
 				foreach (var entry in entries)
 				{
 					command.CommandText =
-						"INSERT INTO users (username, pin, teamnumber, teamname, points) VALUES\n" +
+						"INSERT INTO users (username, pin, teamnumber, points) VALUES\n" +
 							"(" +
 								"\"" + entry.username   + "\", " +
 								"\"" + entry.pin        + "\", " +
 								"\"" + entry.teamnumber + "\", " +
-								"\"" + entry.teamname   + "\", " +
 								"\"" + entry.points     + "\");\n";
 					command.ExecuteNonQuery();
 				}
