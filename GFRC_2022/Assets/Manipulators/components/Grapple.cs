@@ -76,8 +76,19 @@ public class Grapple : MonoBehaviour
 		state                                       = GrappleState.resetting;
 		hook.GetComponent<SphereCollider>().enabled = false;
 		hook.GetComponent<Rigidbody>().isKinematic  = true;
-		hook.GetComponent<Hook>().contact           = null;
-		reset_delta_pos                             = hook.transform.position - transform.position;
+		if (hook.GetComponent<Hook>().contact)
+		{
+			if (hook.CompareTag("RedHook"))
+			{
+				hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingRed = false;
+			}
+			else if (hook.CompareTag("BlueHook"))
+			{
+				hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingBlue = false;
+			}
+			hook.GetComponent<Hook>().contact = null;
+		}
+		reset_delta_pos = hook.transform.position - transform.position;
 
 		if (joint)
 		{
@@ -125,12 +136,18 @@ public class Grapple : MonoBehaviour
 						)
 					)
 					{
-						//hook.GetComponent<Hook>().contact.GetComponent<Railing>();
+						if (hook.CompareTag("RedHook"))
+						{
+							hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingRed = true;
+						}
+						else if (hook.CompareTag("BlueHook"))
+						{
+							hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingBlue = true;
+						}
 
 						state                                       = GrappleState.hooked;
 						hook.GetComponent<SphereCollider>().enabled = false;
 						hook.GetComponent<Rigidbody>().isKinematic  = true;
-						hook.GetComponent<Hook>().contact           = null;
 						joint                                       = anchor.gameObject.AddComponent<SpringJoint>();
 						joint.autoConfigureConnectedAnchor          = false;
 						joint.connectedAnchor                       = hook.GetComponent<Hook>().contact_pos;

@@ -42,6 +42,8 @@ public class Main : MonoBehaviour
 
 	void Start()
 	{
+		Wheel.show_indicator = false;
+
 		//
 		// Spawn robots.
 		//
