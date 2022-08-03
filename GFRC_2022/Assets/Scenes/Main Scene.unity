@@ -793,9 +793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4b221e80d11d84d8e5d237cd556466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameStartTime: 10
+  gameStartTime: 150
   isTimerStarted: 0
   timerFinished: 0
+  justFinished: 0
   promptTime: 10
   promptCountDown: {fileID: 1139020301}
   endCountDown: {fileID: 359779720}
@@ -3020,6 +3021,7 @@ MonoBehaviour:
   - {fileID: 5740772872544041224, guid: ee9147ca665e44542a4a015e7de71539, type: 3}
   - {fileID: 5740772872544041224, guid: d3c37a9116680dd489c392f2d9f8999e, type: 3}
   play_camera: {fileID: 231070405}
+  timer: {fileID: 576964418}
 --- !u!4 &2135176288
 Transform:
   m_ObjectHideFlags: 0
@@ -3370,6 +3372,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1388955824}
     m_Modifications:
+    - target: {fileID: 638110887, guid: d4fc492d3e407b549989498f3495d713, type: 3}
+      propertyPath: m_text
+      value: 'Enter To Return to Main Menu
+
+        BackSpace to Rebuild'
+      objectReference: {fileID: 0}
     - target: {fileID: 5167833570945382376, guid: d4fc492d3e407b549989498f3495d713, type: 3}
       propertyPath: m_Name
       value: End

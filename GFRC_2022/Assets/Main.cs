@@ -12,22 +12,16 @@ using static Global;
 
 public class Main : MonoBehaviour
 {
-	[Header("Scores")]
 	public Hub             hub_top;
 	public Hub             hub_bot;
 	public Hangar          hangar_blue;
 	public Hangar          hangar_red;
-
-	[Header("UI")]
 	public TextMeshProUGUI debug;
 	public Text            redScore;
 	public Text            blueScore;
-
-	[Header("Robot Spawns")]
-	public GameObject[] ordered_bases;
-
-	[Header("Camera")]
-	public PlayCamera  play_camera;
+	public GameObject[]    ordered_bases;
+	public PlayCamera      play_camera;
+	public Timer           timer;
 
 	public static bool                randomized_robot_spawn;
 	public static int                 assmebler_base_index;
@@ -38,7 +32,6 @@ public class Main : MonoBehaviour
 
 	GameObject[] RobotReds;
 	GameObject[] RobotBlues;
-	string       output_string;
 
 	void Start()
 	{
@@ -104,14 +97,35 @@ public class Main : MonoBehaviour
 
 	void Update()
 	{
+		if (timer.justFinished && db_currently_signed_in)
+		{
+			var entries = db_get_entries();
+			for (int i = 0; i < entries.Count; i += 1)
+			{
+				if (entries[i].username == db_curr_username)
+				{
+					if (assembler_red_alliance)
+					{
+						entries[i].points = hub_top.redScore + hub_bot.redScore + hangar_red.calc_score();
+					}
+					else
+					{
+						entries[i].points = hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score();
+					}
+					break;
+				}
+			}
+			db_set_entries(entries);
+		}
+
 		debug.text =
 			"score_hub_top_red  : " + hub_top.redScore + "\n" +
 			"score_hub_bot_red  : " + hub_bot.redScore + "\n" +
 			"score_hangar_red   : " + hangar_red.calc_score() + "\n" +
 			"score_hub_top_blue : " + hub_top.blueScore + "\n" +
 			"score_hub_bot_blue : " + hub_bot.blueScore + "\n" +
-			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n" +
-			output_string;
+			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n";
+
 		redScore.text = "Red: " + (hub_top.redScore + hub_bot.redScore + hangar_red.calc_score());
 		blueScore.text = "Blue: " + (hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score());
 	}

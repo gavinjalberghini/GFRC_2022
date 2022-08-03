@@ -128,7 +128,7 @@ static class Global
 	static public bool   db_currently_signed_in = false;
 	static public string db_curr_username;
 
-	public struct DB_Entry
+	public class DB_Entry
 	{
 		public string username;
 		public string pin;
