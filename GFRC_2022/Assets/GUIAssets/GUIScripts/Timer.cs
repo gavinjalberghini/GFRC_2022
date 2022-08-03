@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using static Global;
 
 public class Timer : MonoBehaviour
@@ -86,7 +87,7 @@ public class Timer : MonoBehaviour
             if (key_now_down(Key.Enter))
             {
                 FindObjectOfType<AudioManager>().Sound("Shoot");
-                Debug.Log("Open main menu :)");
+				SceneManager.LoadScene("Scenes/Title Menu Scene");
             }
             else if (key_now_down(Key.Backspace))
             {
@@ -96,14 +97,13 @@ public class Timer : MonoBehaviour
                 isTimerStarted = false;
             }
         }
-        else
-            timerFinished = gameTime <= 0f;
 
-        if (timerFinished) 
+		bool oldTimerFinished = timerFinished;
+		timerFinished = gameTime <= 0f;
+        if (!oldTimerFinished && timerFinished)
         {
             OpenScreen(EndScreen, StartScreen, false, true);
             FindObjectOfType<AudioManager>().Sound("Shoot");
-            timerFinished = false;
         }
     }
 

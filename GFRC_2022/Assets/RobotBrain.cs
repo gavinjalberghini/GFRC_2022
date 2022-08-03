@@ -7,7 +7,6 @@ using static Global;
 public class RobotBrain : MonoBehaviour
 {
 	public bool                 using_assistant;
-	public bool					MatchOn;
 	public DriveController      drive_controller;
 	public PrimaryManipulator   primary;
 	public SecondaryManipulator secondary;
@@ -31,28 +30,28 @@ public class RobotBrain : MonoBehaviour
 		//
 
 		{
-			MatchOn = !FindObjectOfType<Timer>() || FindObjectOfType<Timer>().GetComponent<Timer>().isTimerStarted && !(FindObjectOfType<Timer>().GetComponent<Timer>().timerFinished);
-			if (MatchOn)
+			bool in_control = !FindObjectOfType<Timer>() || FindObjectOfType<Timer>().GetComponent<Timer>().isTimerStarted && !FindObjectOfType<Timer>().GetComponent<Timer>().timerFinished;
+			float qe = 0.0f;
+			if (in_control && key_down(Key.Q)) { qe -= 1.0f; }
+			if (in_control && key_down(Key.E)) { qe += 1.0f; }
+			Vector2 translation =
+				in_control
+					? (using_assistant ? left_stick(0) : new Vector2(0.0f, left_stick(0).y)) + wasd()
+					: new Vector2(0.0f, 0.0f);
+
+			drive_controller.control
+				(
+					translation : translation,
+					steering    : (using_assistant ? right_stick(0).x : left_stick(0).x) + qe
+				);
+
+			if (translation == new Vector2(0.0f, 0.0f) && qe == 0.0f)
 			{
-				float qe = 0.0f;
-				if (key_down(Key.Q)) { qe -= 1.0f; }
-				if (key_down(Key.E)) { qe += 1.0f; }
-				Vector2 translation = (using_assistant ? left_stick(0) : new Vector2(0.0f, left_stick(0).y)) + wasd();
-
-				drive_controller.control
-					(
-						translation: translation,
-						steering: (using_assistant ? right_stick(0).x : left_stick(0).x) + qe
-					);
-
-				if (translation == new Vector2(0.0f, 0.0f) && qe == 0.0f)
-				{
-					GetComponent<AudioSource>().Stop();
-				}
-				else if (!GetComponent<AudioSource>().isPlaying)
-				{
-					GetComponent<AudioSource>().Play();
-				}
+				GetComponent<AudioSource>().Stop();
+			}
+			else if (!GetComponent<AudioSource>().isPlaying)
+			{
+				GetComponent<AudioSource>().Play();
 			}
 		}
 
