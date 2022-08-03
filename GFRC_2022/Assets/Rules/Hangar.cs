@@ -9,7 +9,7 @@ public class Hangar : MonoBehaviour
 
 	public int calc_score()
 	{
-		if (isRed) 
+		if (isRed)
 		{
 			if (railings_from_lowest_to_highest[0].robotHangingRed)
 			{
@@ -32,7 +32,7 @@ public class Hangar : MonoBehaviour
 				return 0;
 			}
 		}
-        else 
+		else
 		{
 			if (railings_from_lowest_to_highest[0].robotHangingBlue)
 			{

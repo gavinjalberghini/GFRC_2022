@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Railing : MonoBehaviour
 {
-	[HideInInspector] public bool robotHangingRed; // @TODO@ This doesn't say what robot is hanging, or how many. Could lead to ambigious cases.
-	[HideInInspector] public bool robotHangingBlue;
-	[HideInInspector] public bool isRed;
+	public bool robotHangingRed; // @TODO@ This doesn't say what robot is hanging, or how many. Could lead to ambigious cases.
+	public bool robotHangingBlue;
+	public bool isRed;
 
-	void Start() 
+	void Start()
 	{
 		isRed = gameObject.GetComponentInParent<Hangar>().isRed;
 	}
@@ -19,8 +19,7 @@ public class Railing : MonoBehaviour
 		{
 			robotHangingRed = true;
 		}
-
-		if (robot.gameObject.layer == 9 && isRed)
+		else if (robot.gameObject.layer == 9 && !isRed)
 		{
 			robotHangingBlue = true;
 		}
@@ -32,8 +31,7 @@ public class Railing : MonoBehaviour
 		{
 			robotHangingRed = false;
 		}
-
-		if (robot.gameObject.layer == 9 && isRed)
+		else if (robot.gameObject.layer == 9 && !isRed)
 		{
 			robotHangingBlue = false;
 		}

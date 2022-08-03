@@ -20,10 +20,8 @@ public class Main : MonoBehaviour
 
 	[Header("UI")]
 	public TextMeshProUGUI debug;
-	public Text redScore;
-	public Text blueScore;
-	public TMP_InputField  input;
-	public GameObject[]    test_images;
+	public Text            redScore;
+	public Text            blueScore;
 
 	[Header("Robot Spawns")]
 	public GameObject[] ordered_bases;
@@ -44,37 +42,6 @@ public class Main : MonoBehaviour
 
 	void Start()
 	{
-		//
-		// Input field.
-		//
-
-		input.onEndEdit.AddListener(delegate {
-			output_string = "";
-
-			if (input.text == "ralph")
-			{
-				output_string = "Pick your Ralphs";
-				foreach (var img in test_images)
-				{
-					img.SetActive(true);
-				}
-			}
-		});
-
-		//
-		// Test images.
-		//
-
-		foreach (var img in test_images)
-		{
-			img.SetActive(false);
-
-			img.GetComponent<ClickDetector>().click = delegate
-				{
-					img.GetComponent<Outline>().effectColor = new Color(0.0f, 0.0f, 0.0f, 1.0f - img.GetComponent<Outline>().effectColor.a);
-				};
-		}
-
 		//
 		// Spawn robots.
 		//

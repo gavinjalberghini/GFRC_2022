@@ -125,6 +125,8 @@ public class Grapple : MonoBehaviour
 						)
 					)
 					{
+						//hook.GetComponent<Hook>().contact.GetComponent<Railing>();
+
 						state                                       = GrappleState.hooked;
 						hook.GetComponent<SphereCollider>().enabled = false;
 						hook.GetComponent<Rigidbody>().isKinematic  = true;

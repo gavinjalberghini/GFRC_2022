@@ -1,5 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using System.Linq;
 using UnityEngine;
 
 public class Assembler : MonoBehaviour
@@ -28,6 +32,7 @@ public class Assembler : MonoBehaviour
 	[HideInInspector] public Primary    curr_primary;
 	[HideInInspector] public Secondary  curr_secondary;
 	[HideInInspector] public bool       using_floor_intake;
+	[HideInInspector]        bool       is_red_alliance = true;
 
 	public GameObject[] ordered_primaries;
 	public GameObject[] ordered_secondaries;
@@ -84,6 +89,7 @@ public class Assembler : MonoBehaviour
 
 	public void set_alliance(bool is_red)
 	{
+		is_red_alliance = is_red;
 		foreach (Transform transform in transform.Find("Body"))
 		{
 			transform.gameObject.GetComponent<MeshRenderer>().material = is_red ? mat_red : mat_blue;
@@ -97,6 +103,23 @@ public class Assembler : MonoBehaviour
 		foreach (var container in GetComponent<RobotBrain>().cargo_containers)
 		{
 			container.try_unloading(true);
+		}
+	}
+
+	void Update()
+	{
+		if (RobotBrain.subtype<DualCaneManipulator>(GetComponent<RobotBrain>().secondary))
+		{
+			Action<Transform> set = null;
+			set = (Transform t) => {
+				t.gameObject.layer = is_red_alliance ? 8 : 9;
+				foreach (Transform u in t)
+				{
+					set(u);
+				}
+			};
+
+			set(GetComponent<RobotBrain>().secondary.transform);
 		}
 	}
 }
