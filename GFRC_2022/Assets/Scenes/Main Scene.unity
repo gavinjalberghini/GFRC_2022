@@ -3152,10 +3152,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start
       objectReference: {fileID: 0}
-    - target: {fileID: 145571060880447343, guid: 31a5ad7a29f850c43a4e24e40c213186, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31a5ad7a29f850c43a4e24e40c213186, type: 3}
 --- !u!1001 &1454099082509854099
@@ -3427,19 +3423,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1388955824}
     m_Modifications:
-    - target: {fileID: 638110887, guid: d4fc492d3e407b549989498f3495d713, type: 3}
-      propertyPath: m_text
-      value: 'Enter To Return to Main Menu
-
-        BackSpace to Rebuild'
-      objectReference: {fileID: 0}
     - target: {fileID: 5167833570945382376, guid: d4fc492d3e407b549989498f3495d713, type: 3}
       propertyPath: m_Name
       value: End
-      objectReference: {fileID: 0}
-    - target: {fileID: 5167833570945382376, guid: d4fc492d3e407b549989498f3495d713, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5593946994196611880, guid: d4fc492d3e407b549989498f3495d713, type: 3}
       propertyPath: m_Pivot.x
@@ -3626,10 +3612,6 @@ PrefabInstance:
     - target: {fileID: 7597205889118139710, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7597205889118139711, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}
-      propertyPath: m_Text
-      value: 'Teleop: 2:30'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dff453233d2ee3e4c938b1d7d999747f, type: 3}

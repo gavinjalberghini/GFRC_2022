@@ -148,7 +148,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Enter To Return to Main Menu
 
-    BackSpace to Restart Match'
+    BackSpace to Rebuild'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -379,7 +379,7 @@ RectTransform:
   m_GameObject: {fileID: 890494244932355772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5593946994196611880}
@@ -388,7 +388,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 900}
+  m_SizeDelta: {x: 531, y: 470}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6809846153626132341
 CanvasRenderer:
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3a45fd2c6b6fff6498f54b6139e6723f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 916d784a43e274b4abc79b3b406e44ed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -445,7 +445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5593946994196611880
 RectTransform:
   m_ObjectHideFlags: 0
