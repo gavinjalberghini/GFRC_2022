@@ -12,33 +12,31 @@ public class RoboDummy : MonoBehaviour
 	private bool isRotatingright;
 	private bool isWalking;
 
-	void Start()
-	{
-		
-	}
-
 	void Update()
 	{
-		if (!isWandering) 
+		if (FindObjectOfType<Timer>().GetComponent<Timer>().isTimerStarted && !FindObjectOfType<Timer>().GetComponent<Timer>().timerFinished)
 		{
-			GetComponent<AudioSource>().Stop();
-			StartCoroutine(Wander());
-		}
-		if (isRotatingleft)
-		{
-			transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
-		}
-		if (isRotatingright)
-		{
-			transform.Rotate(transform.up * Time.deltaTime * rotSpeed);
-		}
-		if (isWalking)
-		{
-			transform.position += transform.forward * moveSpeed * Time.deltaTime;
+			if (!isWandering)
+			{
+				GetComponent<AudioSource>().Stop();
+				StartCoroutine(Wander());
+			}
+			if (isRotatingleft)
+			{
+				transform.Rotate(transform.up * Time.deltaTime * -rotSpeed);
+			}
+			if (isRotatingright)
+			{
+				transform.Rotate(transform.up * Time.deltaTime * rotSpeed);
+			}
+			if (isWalking)
+			{
+				transform.position += transform.forward * moveSpeed * Time.deltaTime;
+			}
 		}
 	}
 
-	IEnumerator Wander() 
+	IEnumerator Wander()
 	{
 		int rotTime = Random.Range(1, 3);
 		int rotateWait = Random.Range(1, 2);
@@ -53,7 +51,7 @@ public class RoboDummy : MonoBehaviour
 		yield return new WaitForSeconds(walkTime);
 		isWalking = false;
 		yield return new WaitForSeconds(rotateWait);
-		if (rotateLorR == 1) 
+		if (rotateLorR == 1)
 		{
 			isRotatingright = true;
 			yield return new WaitForSeconds(rotTime);
@@ -69,9 +67,9 @@ public class RoboDummy : MonoBehaviour
 		isWandering = false;
 	}
 
-	void OnTriggerEnter(Collider col) 
+	void OnTriggerEnter(Collider col)
 	{
-		if (col.gameObject.layer == 10) 
+		if (col.gameObject.layer == 10)
 		{
 			isWalking = false;
 			isRotatingright = true;

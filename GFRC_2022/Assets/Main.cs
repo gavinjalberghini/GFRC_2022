@@ -106,11 +106,11 @@ public class Main : MonoBehaviour
 				{
 					if (assembler_red_alliance)
 					{
-						entries[i].points = hub_top.redScore + hub_bot.redScore + hangar_red.calc_score();
+						entries[i].points = Math.Max(entries[i].points, hub_top.redScore + hub_bot.redScore + hangar_red.calc_score());
 					}
 					else
 					{
-						entries[i].points = hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score();
+						entries[i].points = Math.Max(entries[i].points, hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score());
 					}
 					break;
 				}

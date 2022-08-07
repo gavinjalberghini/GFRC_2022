@@ -3182,6 +3182,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 359779720}
     - target: {fileID: 1454099083082556113, guid: 4b9e27a62a321e443aef53e4cc2cfdfc, type: 3}
+      propertyPath: gameStartTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454099083082556113, guid: 4b9e27a62a321e443aef53e4cc2cfdfc, type: 3}
       propertyPath: promptCountDown
       value: 
       objectReference: {fileID: 1139020301}
