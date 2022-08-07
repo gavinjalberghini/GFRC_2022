@@ -32,6 +32,7 @@ public class Grapple : MonoBehaviour
 	{
 		if (state == GrappleState.ready)
 		{
+			FindObjectOfType<AudioManager>().Sound("Shoot");
 			state = GrappleState.thrown;
 			hook.GetComponent<SphereCollider>().enabled = true;
 			hook.GetComponent<Rigidbody>().isKinematic  = false;
@@ -73,10 +74,7 @@ public class Grapple : MonoBehaviour
 
 	void reset()
 	{
-		state                                       = GrappleState.resetting;
-		hook.GetComponent<SphereCollider>().enabled = false;
-		hook.GetComponent<Rigidbody>().isKinematic  = true;
-		if (hook.GetComponent<Hook>().contact)
+		if (state == GrappleState.hooked)
 		{
 			if (hook.CompareTag("RedHook"))
 			{
@@ -88,6 +86,9 @@ public class Grapple : MonoBehaviour
 			}
 			hook.GetComponent<Hook>().contact = null;
 		}
+		state                                       = GrappleState.resetting;
+		hook.GetComponent<SphereCollider>().enabled = false;
+		hook.GetComponent<Rigidbody>().isKinematic  = true;
 		reset_delta_pos = hook.transform.position - transform.position;
 
 		if (joint)
@@ -145,6 +146,7 @@ public class Grapple : MonoBehaviour
 							hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingBlue = true;
 						}
 
+						FindObjectOfType<AudioManager>().Sound("Click");
 						state                                       = GrappleState.hooked;
 						hook.GetComponent<SphereCollider>().enabled = false;
 						hook.GetComponent<Rigidbody>().isKinematic  = true;

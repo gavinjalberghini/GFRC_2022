@@ -36,7 +36,7 @@ public class Timer : MonoBehaviour
 	void Start()
 	{
 		gameTime = gameStartTime;
-		FindObjectOfType<AudioManager>().Sound("Null");
+		FindObjectOfType<AudioManager>().Sound("Music");
 		EndScreen.SetActive(false);
 		OpenScreen(StartScreen, PromptScreen, false, false);
 	}
@@ -69,15 +69,15 @@ public class Timer : MonoBehaviour
 		//float mm, ss;
 		if (gameTime >= 60)
 		{
-			m = Mathf.Floor(gameTime / 60);
+			m = Mathf.Ceil(gameTime / 60);
 			//mm = float.Parse(m);
-			s = Mathf.Floor(gameTime % 60);
+			s = Mathf.Ceil(gameTime % 60);
 			//ss = float.Parse(s);
 		}
 		else
 		{
 			m = 0f;
-			s = Mathf.Floor(gameTime);
+			s = Mathf.Ceil(gameTime);
 			if (s < 0)
 				s = 0;
 		}
@@ -102,7 +102,7 @@ public class Timer : MonoBehaviour
 		if (justFinished)
 		{
 			OpenScreen(EndScreen, StartScreen, false, true);
-			FindObjectOfType<AudioManager>().Sound("Shoot");
+			FindObjectOfType<AudioManager>().Sound("Air Horn");
 		}
 	}
 
@@ -110,13 +110,13 @@ public class Timer : MonoBehaviour
 	{
 		gameTime -= Time.deltaTime;
 		isTimerStarted = true;
-		if (gameTime < 6f && gameTime > 1f)
+		if (gameTime < 6f && gameTime >= 0f)
 		{
 			j += Time.deltaTime;
 			if (j >= 1)
 			{
-				j = j % 1;
-				FindObjectOfType<AudioManager>().Sound("Beep");
+				j = 0;
+				FindObjectOfType<AudioManager>().Sound("Time");
 			}
 		}
 	}

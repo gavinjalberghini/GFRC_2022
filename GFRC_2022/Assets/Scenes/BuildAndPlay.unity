@@ -10374,6 +10374,91 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4005900634211048565, guid: fd1683a383213fd4a9120b807be1d0f9, type: 3}
   m_PrefabInstance: {fileID: 238398696}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1854626002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1854626004}
+  - component: {fileID: 1854626003}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1854626003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854626002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078c50124d1d48047bd2ca55d5f48260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Music
+    clip: {fileID: 8300000, guid: 077c1b4bf010c1643a53b263e97c0872, type: 3}
+    volume: 0.17
+    pitch: 1
+    source: {fileID: 0}
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 6814ab190edc8a943ae5d79b480c88b4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Drive
+    clip: {fileID: 8300000, guid: 02cfe485592afaa458e2fc31b8e284ba, type: 3}
+    volume: 0.249
+    pitch: 2.5
+    source: {fileID: 0}
+  - name: Beep
+    clip: {fileID: 8300000, guid: 4c712738b1dd05346b354f90fb59b046, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Time
+    clip: {fileID: 8300000, guid: 1e4bf7a6a338944418ee87980dc0f9e5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Air Horn
+    clip: {fileID: 8300000, guid: f54d5a8d00f625948a71703730d55b27, type: 3}
+    volume: 0.5
+    pitch: 0.6
+    source: {fileID: 0}
+  - name: Pop
+    clip: {fileID: 8300000, guid: 09c3c6c5e2e43f54f97df2f05bc630e8, type: 3}
+    volume: 0.5
+    pitch: 0.6
+    source: {fileID: 0}
+  - name: Click
+    clip: {fileID: 8300000, guid: 4912ac3d436905546b61272211b947dd, type: 3}
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+--- !u!4 &1854626004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854626002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1859145669
 GameObject:
   m_ObjectHideFlags: 0

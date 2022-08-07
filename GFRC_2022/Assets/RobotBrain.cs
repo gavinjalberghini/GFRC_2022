@@ -63,6 +63,7 @@ public class RobotBrain : MonoBehaviour
 		{
 			if ((floor_intake && container.try_loading(floor_intake)) || (subtype<Intake>(secondary) && container.try_loading(secondary as Intake)))
 			{
+				FindObjectOfType<AudioManager>().Sound("Shoot");
 				break;
 			}
 		}
@@ -73,7 +74,10 @@ public class RobotBrain : MonoBehaviour
 
 		if (left_stick_now_down(using_assistant ? 1 : 0))
 		{
-			cargo_containers[selected_cargo_container_index].try_unloading(true);
+			if (cargo_containers[selected_cargo_container_index].try_unloading(true))
+			{
+				FindObjectOfType<AudioManager>().Sound("Pop");
+			}
 		}
 
 		for (int i = 0; i < cargo_containers.Length; i += 1)

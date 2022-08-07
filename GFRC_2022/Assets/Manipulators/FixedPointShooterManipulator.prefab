@@ -87,7 +87,7 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: Beep
-    clip: {fileID: 8300000, guid: 4c712738b1dd05346b354f90fb59b046, type: 3}
+    clip: {fileID: 8300000, guid: d977a9e417a3f41418de31ecde064999, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
