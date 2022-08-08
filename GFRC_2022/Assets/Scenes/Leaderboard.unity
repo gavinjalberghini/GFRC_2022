@@ -1818,6 +1818,7 @@ MonoBehaviour:
   - {fileID: 557170591}
   - {fileID: 724741458}
   - {fileID: 56810240}
+  btn_main_menu: {fileID: 1932469274}
 --- !u!4 &593671318
 Transform:
   m_ObjectHideFlags: 0

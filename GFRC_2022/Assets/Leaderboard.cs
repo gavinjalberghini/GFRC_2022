@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using static Global;
 
@@ -11,6 +12,7 @@ public class Leaderboard : MonoBehaviour
 	public GameObject      entry_prefab;
 	public ClickDetector[] columns_header;
 	public GameObject   [] columns_sort_arrow;
+	public Button          btn_main_menu;
 
 	int  last_clicked_column_index = -1;
 	bool decending;
@@ -69,6 +71,10 @@ public class Leaderboard : MonoBehaviour
 				last_clicked_column_index = i;
 			};
 		}
+
+		btn_main_menu.onClick.AddListener(delegate {
+			SceneManager.LoadScene("Scenes/Title Menu Scene");
+		});
 
 		columns_header[2].click(null);
 	}
