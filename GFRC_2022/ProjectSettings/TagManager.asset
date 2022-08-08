@@ -15,6 +15,7 @@ TagManager:
   - BlueHangar1
   - BlueHangar2
   - BlueHangar3
+  - InputLine
   layers:
   - Default
   - TransparentFX
