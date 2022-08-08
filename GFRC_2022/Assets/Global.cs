@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
+using TMPro;
+using Mono.Data.Sqlite;
 
 static class Global
 {
@@ -70,8 +73,11 @@ static class Global
 	static public bool    right_stick_now_down   (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].rightStickButton.wasPressedThisFrame;
 	static public Vector2 dpad                   (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null ?  Gamepad.all[index].dpad.ReadValue() :  new Vector2(0.0f, 0.0f);
 	static public Vector2 dpad_normalized        (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.ReadValue() != new Vector2(0.0f, 0.0f) ? Gamepad.all[index].dpad.ReadValue().normalized : new Vector2(0.0f, 0.0f);
+	static public bool    dpad_left_now_down     (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.left.wasPressedThisFrame;
+	static public bool    dpad_right_now_down    (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.right.wasPressedThisFrame;
 
-	static public Vector2 mouse_delta() => Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();
+	static public Vector2 mouse_delta   () => Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();
+	static public bool    mouse_now_down() => Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
 
 	static public float argument(Vector2 v) => v.magnitude < 0.001f ? 0.0f : Mathf.Atan2(v.y, v.x);
 
@@ -85,6 +91,7 @@ static class Global
 				v.x * Mathf.Sin(degrees / 180.0f * Mathf.PI) + v.y * Mathf.Cos(degrees / 180.0f * Mathf.PI)
 			);
 
+	static public int   mod(int   a, int   b)          => (a % b + b) % b;
 	static public float mod(float a, float b)          => (a % b + b) % b;
 	static public float mod(float a, float b, float c) => mod(a - b, c - b) + b;
 
@@ -110,4 +117,84 @@ static class Global
 	static public Quaternion set_local_rotation_x(Transform t, float x) => t.localRotation = Quaternion.Euler(                            x, t.localRotation.eulerAngles.y, t.localRotation.eulerAngles.z);
 	static public Quaternion set_local_rotation_y(Transform t, float y) => t.localRotation = Quaternion.Euler(t.localRotation.eulerAngles.x,                             y, t.localRotation.eulerAngles.z);
 	static public Quaternion set_local_rotation_z(Transform t, float z) => t.localRotation = Quaternion.Euler(t.localRotation.eulerAngles.x, t.localRotation.eulerAngles.y,                             z);
+
+	//
+	// Database.
+	//
+
+	const string DB_URI_NAME     = "URI=file:GFRC.db";
+	const string DB_TABLE_LAYOUT = "users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), points INT);";
+
+	static public bool   db_currently_signed_in = false;
+	static public string db_curr_username;
+
+	public class DB_Entry
+	{
+		public string username;
+		public string pin;
+		public string teamnumber;
+		public int    points;
+	};
+
+	static public List<DB_Entry> db_get_entries()
+	{
+		var list = new List<DB_Entry>();
+		using (var connection = new SqliteConnection(DB_URI_NAME))
+		{
+			connection.Open();
+			using (var command = connection.CreateCommand())
+			{
+				command.CommandText = "CREATE TABLE IF NOT EXISTS " + DB_TABLE_LAYOUT + ";\n";
+				command.ExecuteNonQuery();
+
+				command.CommandText = "SELECT * FROM users;";
+				using (var reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						list.Add
+						(
+							new DB_Entry
+								{
+									username   =           reader["username"  ].ToString() ,
+									pin        =           reader["pin"       ].ToString() ,
+									teamnumber =           reader["teamnumber"].ToString() ,
+									points     = int.Parse(reader["points"    ].ToString())
+								}
+						);
+					}
+					reader.Close();
+				}
+			}
+			connection.Close();
+		}
+		return list;
+	}
+
+	static public void db_set_entries(List<DB_Entry> entries)
+	{
+		using (var connection = new SqliteConnection(DB_URI_NAME))
+		{
+			connection.Open();
+			using (var command = connection.CreateCommand())
+			{
+				command.CommandText = "DROP TABLE IF EXISTS users;\nCREATE TABLE " + DB_TABLE_LAYOUT;
+				command.ExecuteNonQuery();
+
+				foreach (var entry in entries)
+				{
+					command.CommandText =
+						"INSERT INTO users (username, pin, teamnumber, points) VALUES\n" +
+							"(" +
+								"\"" + entry.username   + "\", " +
+								"\"" + entry.pin        + "\", " +
+								"\"" + entry.teamnumber + "\", " +
+								"\"" + entry.points     + "\");\n";
+					command.ExecuteNonQuery();
+				}
+
+			}
+			connection.Close();
+		}
+	}
 }
