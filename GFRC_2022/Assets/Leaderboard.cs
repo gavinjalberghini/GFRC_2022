@@ -19,11 +19,6 @@ public class Leaderboard : MonoBehaviour
 
 	void Start()
 	{
-		//{
-		//	var xs = db_get_entries();
-		//	xs.Add(new DB_Entry { username = "nanoray", pin = "1234", teamnumber = "6060", points = 999 });
-		//	db_set_entries(xs);
-		//}
 		for (int i_ = 0; i_ < columns_header.Length; i_ += 1)
 		{
 			int i = i_;
@@ -99,6 +94,15 @@ public class Leaderboard : MonoBehaviour
 			entry.transform.Find("High Score" ).GetComponent<TMP_Text>().text = x.points.ToString();
 			entry.transform.Find("Build"      ).GetComponent<TMP_Text>().text = "meow";
 			entry.transform.Find("Date"       ).GetComponent<TMP_Text>().text = "meow";
+
+			if (db_currently_signed_in && db_curr_username == x.username)
+			{
+				entry.GetComponent<Image>().enabled = true;
+			}
+			else
+			{
+				entry.GetComponent<Image>().enabled = false;
+			}
 		}
 	}
 }
