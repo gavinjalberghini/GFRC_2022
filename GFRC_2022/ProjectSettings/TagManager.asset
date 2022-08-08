@@ -3,21 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ground
-  - BlueCargo
-  - RedCargo
-  - RedHangar0
-  - RedHangar1
-  - RedHangar2
-  - RedHangar3
-  - BlueHangar0
-  - BlueHangar1
-  - BlueHangar2
-  - BlueHangar3
-  - RedHook
-  - BlueHook
-  - Hook
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -25,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - BCargo
-  - RCargo
-  - RoboArmRed
-  - RoboArmBlue
-  - ArenaObject
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
