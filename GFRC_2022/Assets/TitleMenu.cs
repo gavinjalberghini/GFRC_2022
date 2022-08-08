@@ -141,7 +141,9 @@ public class TitleMenu : MonoBehaviour
 							{
 								username   = fld_username.text,
 								pin        = fld_pin.text,
-								teamnumber = fld_teamnumber.text
+								teamnumber = fld_teamnumber.text,
+								points     = -1,
+								unixtime   = 0
 							}
 					);
 					db_set_entries(entries);

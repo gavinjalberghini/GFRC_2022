@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,6 +61,20 @@ public class Leaderboard : MonoBehaviour
 					{
 						entries.Sort((DB_Entry a, DB_Entry b) => -a.points.CompareTo(b.points));
 					} break;
+
+					case 3:
+					{
+						// @TODO@ Build
+					} break;
+
+					case 4:
+					{
+						entries.Sort((DB_Entry a, DB_Entry b) =>
+							a.unixtime == b.unixtime ? 0 :
+							a.unixtime ==          0 ? (decending ? -1 :  1) :
+							b.unixtime ==          0 ? (decending ?  1 : -1) : a.unixtime.CompareTo(b.unixtime)
+						);
+					} break;
 				}
 
 				rebuild(entries);
@@ -91,9 +106,9 @@ public class Leaderboard : MonoBehaviour
 			GameObject entry = Instantiate(entry_prefab, entries_container);
 			entry.transform.Find("Username"   ).GetComponent<TMP_Text>().text = x.username;
 			entry.transform.Find("Team Number").GetComponent<TMP_Text>().text = x.teamnumber == "" ? "N/A" : x.teamnumber;
-			entry.transform.Find("High Score" ).GetComponent<TMP_Text>().text = x.points.ToString();
+			entry.transform.Find("High Score" ).GetComponent<TMP_Text>().text = x.points == -1 ? "N/A" : x.points.ToString();
 			entry.transform.Find("Build"      ).GetComponent<TMP_Text>().text = "meow";
-			entry.transform.Find("Date"       ).GetComponent<TMP_Text>().text = "meow";
+			entry.transform.Find("Date"       ).GetComponent<TMP_Text>().text = x.unixtime == 0 ? "N/A" : (new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).AddSeconds(x.unixtime).ToLocalTime().ToString();
 
 			if (db_currently_signed_in && db_curr_username == x.username)
 			{

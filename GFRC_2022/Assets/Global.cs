@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using System.Linq;
 using TMPro;
 using Mono.Data.Sqlite;
+using System;
 
 static class Global
 {
@@ -123,7 +124,7 @@ static class Global
 	//
 
 	const string DB_URI_NAME     = "URI=file:GFRC.db";
-	const string DB_TABLE_LAYOUT = "users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), points INT);";
+	const string DB_TABLE_LAYOUT = "users (username VARCHAR(16), pin VARCHAR(4), teamnumber VARCHAR(16), points INT, unixtime VARCHAR(16));";
 
 	static public bool   db_currently_signed_in = false;
 	static public string db_curr_username;
@@ -134,6 +135,7 @@ static class Global
 		public string pin;
 		public string teamnumber;
 		public int    points;
+		public long   unixtime;
 	};
 
 	static public List<DB_Entry> db_get_entries()
@@ -156,10 +158,11 @@ static class Global
 						(
 							new DB_Entry
 								{
-									username   =           reader["username"  ].ToString() ,
-									pin        =           reader["pin"       ].ToString() ,
-									teamnumber =           reader["teamnumber"].ToString() ,
-									points     = int.Parse(reader["points"    ].ToString())
+									username   =            reader["username"  ].ToString() ,
+									pin        =            reader["pin"       ].ToString() ,
+									teamnumber =            reader["teamnumber"].ToString() ,
+									points     = int .Parse(reader["points"    ].ToString()),
+									unixtime   = long.Parse(reader["unixtime"  ].ToString()),
 								}
 						);
 					}
@@ -184,12 +187,13 @@ static class Global
 				foreach (var entry in entries)
 				{
 					command.CommandText =
-						"INSERT INTO users (username, pin, teamnumber, points) VALUES\n" +
+						"INSERT INTO users (username, pin, teamnumber, points, unixtime) VALUES\n" +
 							"(" +
 								"\"" + entry.username   + "\", " +
 								"\"" + entry.pin        + "\", " +
 								"\"" + entry.teamnumber + "\", " +
-								"\"" + entry.points     + "\");\n";
+								"\"" + entry.points     + "\", " +
+								"\"" + entry.unixtime   + "\");\n";
 					command.ExecuteNonQuery();
 				}
 

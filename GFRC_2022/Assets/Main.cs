@@ -112,6 +112,7 @@ public class Main : MonoBehaviour
 					{
 						entries[i].points = Math.Max(entries[i].points, hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score());
 					}
+					entries[i].unixtime = DateTimeOffset.Now.ToUnixTimeSeconds();
 					break;
 				}
 			}
