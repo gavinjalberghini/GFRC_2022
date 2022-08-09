@@ -53,18 +53,26 @@ public class Leaderboard : MonoBehaviour
 						entries.Sort((DB_Entry a, DB_Entry b) =>
 							a.teamnumber == b.teamnumber ? 0 :
 							a.teamnumber ==           "" ? (decending ? -1 :  1) :
-							b.teamnumber ==           "" ? (decending ?  1 : -1) : a.teamnumber.CompareTo(b.teamnumber)
+							b.teamnumber ==           "" ? (decending ?  1 : -1) : int.Parse(a.teamnumber).CompareTo(int.Parse(b.teamnumber))
 						);
 					} break;
 
 					case 2:
 					{
-						entries.Sort((DB_Entry a, DB_Entry b) => -a.points.CompareTo(b.points));
+						entries.Sort((DB_Entry a, DB_Entry b) =>
+							a.points == b.points ? 0 :
+							a.points ==       -1 ? (decending ? -1 :  1) :
+							b.points ==       -1 ? (decending ?  1 : -1) : -a.points.CompareTo(b.points)
+						);
 					} break;
 
 					case 3:
 					{
-						// @TODO@ Build
+						entries.Sort((DB_Entry a, DB_Entry b) =>
+							a.build == b.build ? 0 :
+							a.build ==      "" ? (decending ? -1 :  1) :
+							b.build ==      "" ? (decending ?  1 : -1) : a.build.CompareTo(b.build)
+						);
 					} break;
 
 					case 4:
@@ -72,7 +80,7 @@ public class Leaderboard : MonoBehaviour
 						entries.Sort((DB_Entry a, DB_Entry b) =>
 							a.unixtime == b.unixtime ? 0 :
 							a.unixtime ==          0 ? (decending ? -1 :  1) :
-							b.unixtime ==          0 ? (decending ?  1 : -1) : a.unixtime.CompareTo(b.unixtime)
+							b.unixtime ==          0 ? (decending ?  1 : -1) : -a.unixtime.CompareTo(b.unixtime)
 						);
 					} break;
 				}
@@ -107,7 +115,7 @@ public class Leaderboard : MonoBehaviour
 			entry.transform.Find("Username"   ).GetComponent<TMP_Text>().text = x.username;
 			entry.transform.Find("Team Number").GetComponent<TMP_Text>().text = x.teamnumber == "" ? "N/A" : x.teamnumber;
 			entry.transform.Find("High Score" ).GetComponent<TMP_Text>().text = x.points == -1 ? "N/A" : x.points.ToString();
-			entry.transform.Find("Build"      ).GetComponent<TMP_Text>().text = "meow";
+			entry.transform.Find("Build"      ).GetComponent<TMP_Text>().text = x.build == "" ? "N/A" : x.build;
 			entry.transform.Find("Date"       ).GetComponent<TMP_Text>().text = x.unixtime == 0 ? "N/A" : (new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).AddSeconds(x.unixtime).ToLocalTime().ToString();
 
 			if (db_currently_signed_in && db_curr_username == x.username)

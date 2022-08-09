@@ -123,7 +123,7 @@ public class Assembler : MonoBehaviour
 		}
 		else if (RobotBrain.subtype<GrapplingHookManipulator>(GetComponent<RobotBrain>().secondary))
 		{
-			GetComponent<RobotBrain>().secondary.transform.Find("Grapple").Find("Hook").tag = is_red_alliance ? "RedHook" : "BlueHook";
+			GetComponent<RobotBrain>().secondary.transform.Find("Grapple").Find("Hook").tag = "Hook";
 		}
 	}
 }

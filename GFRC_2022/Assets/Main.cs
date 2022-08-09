@@ -24,10 +24,10 @@ public class Main : MonoBehaviour
 	public Timer           timer;
 
 	public static bool                randomized_robot_spawn;
-	public static int                 assmebler_base_index;
-	public static Assembler.Primary   assmebler_curr_primary;
-	public static Assembler.Secondary assmebler_curr_secondary;
-	public static bool                assmebler_using_floor_intake;
+	public static int                 assembler_base_index;
+	public static Assembler.Primary   assembler_curr_primary;
+	public static Assembler.Secondary assembler_curr_secondary;
+	public static bool                assembler_using_floor_intake;
 	public static bool                assembler_red_alliance;
 
 	GameObject[] RobotReds;
@@ -43,10 +43,10 @@ public class Main : MonoBehaviour
 
 		{
 			GameObject[] xs = new GameObject[1];
-			xs[0] = Instantiate(ordered_bases[assmebler_base_index]);
-			xs[0].GetComponent<Assembler>().pick(assmebler_curr_primary);
-			xs[0].GetComponent<Assembler>().pick(assmebler_curr_secondary);
-			xs[0].GetComponent<Assembler>().set_floor_intake(assmebler_using_floor_intake);
+			xs[0] = Instantiate(ordered_bases[assembler_base_index]);
+			xs[0].GetComponent<Assembler>().pick(assembler_curr_primary);
+			xs[0].GetComponent<Assembler>().pick(assembler_curr_secondary);
+			xs[0].GetComponent<Assembler>().set_floor_intake(assembler_using_floor_intake);
 			xs[0].GetComponent<Assembler>().set_alliance(assembler_red_alliance);
 
 			{
@@ -112,6 +112,29 @@ public class Main : MonoBehaviour
 					{
 						entries[i].points = Math.Max(entries[i].points, hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score());
 					}
+
+					entries[i].build = "";
+
+					string[] base_names = { "Mecanum", "Swerve", "Tank", "Car", "Kiwi", "Forklift", "H" };
+					entries[i].build += base_names[assembler_base_index];
+
+					if (assembler_curr_primary != Assembler.Primary.none)
+					{
+						string[] primary_names = { "_", "Turret Mounted Shooter", "Fixed Point Shooter", "Simple Arm", "Jointed Arm", "Telescopic Arm", "Bucket" };
+						entries[i].build += "\n" + primary_names[(int) assembler_curr_primary];
+					}
+
+					if (assembler_curr_secondary != Assembler.Secondary.none)
+					{
+						string[] secondary_names = { "_", "Grappling Hook", "Dual Canes", "Human Feed Intake" };
+						entries[i].build += "\n" + secondary_names[(int) assembler_curr_secondary];
+					}
+
+					if (assembler_using_floor_intake)
+					{
+						entries[i].build += "\nFoor Intake";
+					}
+
 					entries[i].unixtime = DateTimeOffset.Now.ToUnixTimeSeconds();
 					break;
 				}

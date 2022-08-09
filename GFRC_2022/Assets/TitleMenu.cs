@@ -143,6 +143,7 @@ public class TitleMenu : MonoBehaviour
 								pin        = fld_pin.text,
 								teamnumber = fld_teamnumber.text,
 								points     = -1,
+								build      = "",
 								unixtime   = 0
 							}
 					);

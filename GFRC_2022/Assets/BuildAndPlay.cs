@@ -37,10 +37,10 @@ public class BuildAndPlay : MonoBehaviour
 	{
 		btn_play_simulation.onClick.AddListener(delegate {
 			Main.randomized_robot_spawn       = false;
-			Main.assmebler_base_index         = drp_drive.value;
-			Main.assmebler_curr_primary       = curr_build.GetComponent<Assembler>().curr_primary;
-			Main.assmebler_curr_secondary     = curr_build.GetComponent<Assembler>().curr_secondary;
-			Main.assmebler_using_floor_intake = curr_build.GetComponent<Assembler>().using_floor_intake;
+			Main.assembler_base_index         = drp_drive.value;
+			Main.assembler_curr_primary       = curr_build.GetComponent<Assembler>().curr_primary;
+			Main.assembler_curr_secondary     = curr_build.GetComponent<Assembler>().curr_secondary;
+			Main.assembler_using_floor_intake = curr_build.GetComponent<Assembler>().using_floor_intake;
 			Main.assembler_red_alliance       = drp_alliance.value == 0;
 			SceneManager.LoadScene("Scenes/Main Scene");
 		});
