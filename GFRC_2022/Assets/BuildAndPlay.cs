@@ -36,12 +36,9 @@ public class BuildAndPlay : MonoBehaviour
 	void Start()
 	{
 		btn_play_simulation.onClick.AddListener(delegate {
-			Main.randomized_robot_spawn       = false;
-			Main.assembler_base_index         = drp_drive.value;
-			Main.assembler_curr_primary       = curr_build.GetComponent<Assembler>().curr_primary;
-			Main.assembler_curr_secondary     = curr_build.GetComponent<Assembler>().curr_secondary;
-			Main.assembler_using_floor_intake = curr_build.GetComponent<Assembler>().using_floor_intake;
-			Main.assembler_red_alliance       = drp_alliance.value == 0;
+			Main.randomized_robot_spawn = false;
+			Main.assembler_base_index   = drp_drive.value;
+			Main.assembler_data         = curr_build.GetComponent<Assembler>().data;
 			SceneManager.LoadScene("Scenes/Main Scene");
 		});
 
@@ -178,7 +175,7 @@ public class BuildAndPlay : MonoBehaviour
 
 	void Update()
 	{
-		curr_build.GetComponent<RobotBrain>().using_assistant = tgl_assistant.isOn;
+		curr_build.GetComponent<Assembler>().data.is_using_assistant = tgl_assistant.isOn;
 		curr_build.GetComponent<Assembler>().set_alliance(drp_alliance.value == 0);
 		curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
 
@@ -290,18 +287,14 @@ public class BuildAndPlay : MonoBehaviour
 
 	void build(GameObject robot_base)
 	{
-		Vector3             pos          = curr_build ? curr_build.transform.position                       : reset_point.position;
-		Quaternion          rot          = curr_build ? curr_build.transform.rotation                       : reset_point.rotation;
-		Assembler.Primary   primary      = curr_build ? curr_build.GetComponent<Assembler>().curr_primary   : Assembler.Primary  .none;
-		Assembler.Secondary secondary    = curr_build ? curr_build.GetComponent<Assembler>().curr_secondary : Assembler.Secondary.none;
-		bool                floor_intake = curr_build && curr_build.GetComponent<Assembler>().using_floor_intake;
+		Vector3        pos  = curr_build ? curr_build.transform.position : reset_point.position;
+		Quaternion     rot  = curr_build ? curr_build.transform.rotation : reset_point.rotation;
+		Assembler.Data data = curr_build ? curr_build.GetComponent<Assembler>().data : new Assembler.Data();
 		curr_build?.GetComponent<Assembler>().free();
 		Destroy(curr_build);
 		curr_build                    = Instantiate(robot_base);
 		curr_build.transform.position = pos;
 		curr_build.transform.rotation = rot;
-		curr_build.GetComponent<Assembler>().pick(primary);
-		curr_build.GetComponent<Assembler>().pick(secondary);
-		curr_build.GetComponent<Assembler>().set_floor_intake(floor_intake);
+		curr_build.GetComponent<Assembler>().use_data(data);
 	}
 }

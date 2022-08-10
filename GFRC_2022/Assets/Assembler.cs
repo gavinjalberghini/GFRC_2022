@@ -27,12 +27,18 @@ public class Assembler : MonoBehaviour
 		human_feed_intake
 	};
 
+	public class Data
+	{
+		public Primary   curr_primary;
+		public Secondary curr_secondary;
+		public bool      using_floor_intake;
+		public bool      is_red_alliance = true;
+		public bool      is_using_assistant;
+	};
+
 	[HideInInspector] public GameObject curr_primary_obj;
 	[HideInInspector] public GameObject curr_secondary_obj;
-	[HideInInspector] public Primary    curr_primary;
-	[HideInInspector] public Secondary  curr_secondary;
-	[HideInInspector] public bool       using_floor_intake;
-	[HideInInspector]        bool       is_red_alliance = true;
+	[HideInInspector] public Data       data = new Data();
 
 	public GameObject[] ordered_primaries;
 	public GameObject[] ordered_secondaries;
@@ -47,7 +53,7 @@ public class Assembler : MonoBehaviour
 			Destroy(curr_primary_obj);
 		}
 
-		curr_primary = new_primary;
+		data.curr_primary = new_primary;
 		if (new_primary != Primary.none)
 		{
 			curr_primary_obj = Instantiate(ordered_primaries[(int) new_primary - 1], transform);
@@ -67,7 +73,7 @@ public class Assembler : MonoBehaviour
 			Destroy(curr_secondary_obj);
 		}
 
-		curr_secondary = new_secondary;
+		data.curr_secondary = new_secondary;
 		if (new_secondary != Secondary.none)
 		{
 			curr_secondary_obj = Instantiate(ordered_secondaries[(int) new_secondary - 1], transform);
@@ -82,14 +88,14 @@ public class Assembler : MonoBehaviour
 
 	public void set_floor_intake(bool state)
 	{
-		using_floor_intake = state;
+		data.using_floor_intake = state;
 		floor_intake.SetActive(state);
 		GetComponent<RobotBrain>().floor_intake = state ? floor_intake.GetComponent<Intake>() : null;
 	}
 
 	public void set_alliance(bool is_red)
 	{
-		is_red_alliance = is_red;
+		data.is_red_alliance = is_red;
 		foreach (Transform transform in transform.Find("Body"))
 		{
 			transform.gameObject.GetComponent<MeshRenderer>().material = is_red ? mat_red : mat_blue;
@@ -106,13 +112,22 @@ public class Assembler : MonoBehaviour
 		}
 	}
 
+	public void use_data(Data new_data)
+	{
+		pick(new_data.curr_primary);
+		pick(new_data.curr_secondary);
+		set_alliance(new_data.is_red_alliance);
+		set_floor_intake(new_data.using_floor_intake);
+		data = new_data;
+	}
+
 	void Update()
 	{
 		if (RobotBrain.subtype<DualCaneManipulator>(GetComponent<RobotBrain>().secondary))
 		{
 			Action<Transform> set = null;
 			set = (Transform t) => {
-				t.gameObject.layer = is_red_alliance ? 8 : 9;
+				t.gameObject.layer = data.is_red_alliance ? 8 : 9;
 				foreach (Transform u in t)
 				{
 					set(u);
@@ -123,7 +138,7 @@ public class Assembler : MonoBehaviour
 		}
 		else if (RobotBrain.subtype<GrapplingHookManipulator>(GetComponent<RobotBrain>().secondary))
 		{
-			GetComponent<RobotBrain>().secondary.transform.Find("Grapple").Find("Hook").tag = is_red_alliance ? "RedHook" : "BlueHook";
+			GetComponent<RobotBrain>().secondary.transform.Find("Grapple").Find("Hook").tag = data.is_red_alliance ? "RedHook" : "BlueHook";
 		}
 	}
 }

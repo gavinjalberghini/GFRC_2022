@@ -262,7 +262,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_playing: 1
-  using_assistant: 0
   drive_controller: {fileID: 2325568965894376924}
   primary: {fileID: 0}
   secondary: {fileID: 0}
@@ -396,9 +395,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curr_primary_obj: {fileID: 0}
   curr_secondary_obj: {fileID: 0}
-  curr_primary: 0
-  curr_secondary: 0
-  using_floor_intake: 0
   ordered_primaries:
   - {fileID: 8703090953282595535}
   - {fileID: 2577974009049662802}

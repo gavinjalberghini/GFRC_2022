@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 8752422207381425533}
   - component: {fileID: 3416608696207382649}
   - component: {fileID: 22678697936077928}
+  - component: {fileID: 4759482897078305847}
   m_Layer: 0
   m_Name: Forklift
   m_TagString: Untagged
@@ -294,7 +295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_playing: 1
-  using_assistant: 0
   drive_controller: {fileID: 22678697936077928}
   primary: {fileID: 0}
   secondary: {fileID: 0}
@@ -428,9 +428,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curr_primary_obj: {fileID: 0}
   curr_secondary_obj: {fileID: 0}
-  curr_primary: 0
-  curr_secondary: 0
-  using_floor_intake: 0
   ordered_primaries:
   - {fileID: 8703090953282595535}
   - {fileID: 2577974009049662802}
@@ -461,6 +458,29 @@ MonoBehaviour:
   wheel_back_right: {fileID: 3414046235934791159}
   wheel_front_left: {fileID: 5872385008480394319}
   wheel_front_right: {fileID: 4681659295330445223}
+--- !u!114 &4759482897078305847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740772872544041224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078c50124d1d48047bd2ca55d5f48260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 6814ab190edc8a943ae5d79b480c88b4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Pop
+    clip: {fileID: 8300000, guid: 09c3c6c5e2e43f54f97df2f05bc630e8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1001 &525064683661716647
 PrefabInstance:
   m_ObjectHideFlags: 0

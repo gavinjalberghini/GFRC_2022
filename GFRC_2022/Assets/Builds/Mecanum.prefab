@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 4464209995202286339}
   - component: {fileID: 8752422207381425533}
   - component: {fileID: 3416608696207382649}
+  - component: {fileID: -1701766842419283855}
   m_Layer: 0
   m_Name: Mecanum
   m_TagString: Untagged
@@ -261,7 +262,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_playing: 1
-  using_assistant: 0
   drive_controller: {fileID: 4464209995202286339}
   primary: {fileID: 0}
   secondary: {fileID: 0}
@@ -411,9 +411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curr_primary_obj: {fileID: 0}
   curr_secondary_obj: {fileID: 0}
-  curr_primary: 0
-  curr_secondary: 0
-  using_floor_intake: 0
   ordered_primaries:
   - {fileID: 8703090953282595535}
   - {fileID: 2577974009049662802}
@@ -428,6 +425,29 @@ MonoBehaviour:
   floor_intake: {fileID: 2095583378642368924}
   mat_red: {fileID: 2100000, guid: 9d0f697e6083e2745ada73f1cf3783b9, type: 2}
   mat_blue: {fileID: 2100000, guid: ec58bdca14b6e2b42adf8700e34c6527, type: 2}
+--- !u!114 &-1701766842419283855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740772872544041224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078c50124d1d48047bd2ca55d5f48260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 6814ab190edc8a943ae5d79b480c88b4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Pop
+    clip: {fileID: 8300000, guid: 09c3c6c5e2e43f54f97df2f05bc630e8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &8860934441733934687
 GameObject:
   m_ObjectHideFlags: 0

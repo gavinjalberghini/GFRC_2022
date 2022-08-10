@@ -38,19 +38,16 @@ public class Main : MonoBehaviour
 	public GameObject[]     ordered_bases;
 	public PlayCamera       play_camera;
 
-	public static bool                randomized_robot_spawn;
-	public static int                 assembler_base_index;
-	public static Assembler.Primary   assembler_curr_primary;
-	public static Assembler.Secondary assembler_curr_secondary;
-	public static bool                assembler_using_floor_intake;
-	public static bool                assembler_red_alliance;
+	public static bool           randomized_robot_spawn;
+	public static int            assembler_base_index;
+	public static Assembler.Data assembler_data = new Assembler.Data();
 
 	List<GameObject> RobotReds  = new List<GameObject>();
 	List<GameObject> RobotBlues = new List<GameObject>();
 	bool             got_highscore;
 
 	int calc_points() =>
-		assembler_red_alliance
+		assembler_data.is_red_alliance
 			? hub_top.redScore + hub_bot.redScore + hangar_red.calc_score()
 			: hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score();
 
@@ -65,16 +62,13 @@ public class Main : MonoBehaviour
 		{
 			GameObject player = Instantiate(ordered_bases[assembler_base_index]);
 
-			player.GetComponent<Assembler>().pick(assembler_curr_primary);
-			player.GetComponent<Assembler>().pick(assembler_curr_secondary);
-			player.GetComponent<Assembler>().set_floor_intake(assembler_using_floor_intake);
-			player.GetComponent<Assembler>().set_alliance(assembler_red_alliance);
+			player.GetComponent<Assembler>().use_data(assembler_data);
 
 			GameObject focused_robot = player;
 			play_camera.robot_subject = focused_robot.GetComponent<Transform>();
 			focused_robot.GetComponent<RobotBrain>().enabled = true;
 
-			if (assembler_red_alliance)
+			if (assembler_data.is_red_alliance)
 			{
 				RobotReds.Add(player);
 			}
@@ -171,7 +165,7 @@ public class Main : MonoBehaviour
 					txt_score.gameObject.SetActive(true);
 					GetComponent<AudioManager>().Sound("Air Horn");
 
-					if (assembler_red_alliance)
+					if (assembler_data.is_red_alliance)
 					{
 						txt_score.color = RED;
 					}
@@ -222,17 +216,17 @@ public class Main : MonoBehaviour
 									entries[i].build = "";
 									string[] base_names = { "Mecanum", "Swerve", "Tank", "Car", "Kiwi", "Forklift", "H" };
 									entries[i].build += base_names[assembler_base_index];
-									if (assembler_curr_primary != Assembler.Primary.none)
+									if (assembler_data.curr_primary != Assembler.Primary.none)
 									{
 										string[] primary_names = { "_", "Turret Mounted Shooter", "Fixed Point Shooter", "Simple Arm", "Jointed Arm", "Telescopic Arm", "Bucket" };
-										entries[i].build += "\n" + primary_names[(int) assembler_curr_primary];
+										entries[i].build += "\n" + primary_names[(int) assembler_data.curr_primary];
 									}
-									if (assembler_curr_secondary != Assembler.Secondary.none)
+									if (assembler_data.curr_secondary != Assembler.Secondary.none)
 									{
 										string[] secondary_names = { "_", "Grappling Hook", "Dual Canes", "Human Feed Intake" };
-										entries[i].build += "\n" + secondary_names[(int) assembler_curr_secondary];
+										entries[i].build += "\n" + secondary_names[(int) assembler_data.curr_secondary];
 									}
-									if (assembler_using_floor_intake)
+									if (assembler_data.using_floor_intake)
 									{
 										entries[i].build += "\nFoor Intake";
 									}
