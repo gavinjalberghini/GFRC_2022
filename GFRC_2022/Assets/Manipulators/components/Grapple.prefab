@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 7724762796005075193}
   - component: {fileID: 7724762796005075175}
   - component: {fileID: 7724762796005075174}
+  - component: {fileID: 8443331571560912380}
   m_Layer: 0
   m_Name: Grapple
   m_TagString: Untagged
@@ -234,6 +235,29 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &8443331571560912380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724762796005075192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078c50124d1d48047bd2ca55d5f48260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Click
+    clip: {fileID: 8300000, guid: 4912ac3d436905546b61272211b947dd, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 6814ab190edc8a943ae5d79b480c88b4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &7724762796218170437
 GameObject:
   m_ObjectHideFlags: 0

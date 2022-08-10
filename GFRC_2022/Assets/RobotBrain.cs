@@ -41,7 +41,7 @@ public class RobotBrain : MonoBehaviour
 
 	void Update()
 	{
-		bool in_control = !FindObjectOfType<Timer>() || FindObjectOfType<Timer>().GetComponent<Timer>().isTimerStarted && !FindObjectOfType<Timer>().GetComponent<Timer>().timerFinished;
+		bool in_control = !FindObjectOfType<Main>() || FindObjectOfType<Main>().state == Main.State.playing;
 		if (is_playing)
 		{
 			//
@@ -83,7 +83,7 @@ public class RobotBrain : MonoBehaviour
 				{
 					if ((floor_intake && container.try_loading(floor_intake)) || (subtype<Intake>(secondary) && container.try_loading(secondary as Intake)))
 					{
-						FindObjectOfType<AudioManager>().Sound("Shoot");
+						GetComponent<AudioManager>().Sound("Shoot");
 						break;
 					}
 				}
@@ -96,7 +96,7 @@ public class RobotBrain : MonoBehaviour
 				{
 					if (cargo_containers[selected_cargo_container_index].try_unloading(true))
 					{
-						FindObjectOfType<AudioManager>().Sound("Pop");
+						GetComponent<AudioManager>().Sound("Pop");
 					}
 				}
 

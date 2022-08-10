@@ -313,7 +313,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 02cfe485592afaa458e2fc31b8e284ba, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.534
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -518,7 +518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
       propertyPath: strafe_force
-      value: 16.41
+      value: 4.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
@@ -864,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
       propertyPath: strafe_force
-      value: 16.41
+      value: 4.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
@@ -1151,7 +1151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
       propertyPath: strafe_force
-      value: -16.41
+      value: -4.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
@@ -1797,7 +1797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
       propertyPath: strafe_force
-      value: -16.41
+      value: -4.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}

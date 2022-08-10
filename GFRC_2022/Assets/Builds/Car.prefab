@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 8752422207381425533}
   - component: {fileID: 3416608696207382649}
   - component: {fileID: 2325568965894376924}
+  - component: {fileID: 91458011789741279}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -297,7 +298,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 02cfe485592afaa458e2fc31b8e284ba, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.534
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -431,6 +432,29 @@ MonoBehaviour:
   - {fileID: 6024277666972323264}
   - {fileID: 8343026314758670797}
   steering_angle: 65
+--- !u!114 &91458011789741279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5740772872544041224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 078c50124d1d48047bd2ca55d5f48260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Shoot
+    clip: {fileID: 8300000, guid: 6814ab190edc8a943ae5d79b480c88b4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Pop
+    clip: {fileID: 8300000, guid: 09c3c6c5e2e43f54f97df2f05bc630e8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &8718497061462946503
 GameObject:
   m_ObjectHideFlags: 0

@@ -153,7 +153,7 @@ public class TitleMenu : MonoBehaviour
 					db_curr_username       = fld_username.text;
 					txt_report.gameObject.SetActive(true);
 					txt_report.text        = "Logged as " + fld_username.text;
-					txt_report.color       = new Color(0.05043304f, 0.4785869f, 0.8018868f);
+					txt_report.color       = BLUE;
 				}
 			}
 		});
@@ -182,7 +182,7 @@ public class TitleMenu : MonoBehaviour
 							db_curr_username       = entry.username;
 							txt_report.gameObject.SetActive(true);
 							txt_report.text        = "Logged as " + entry.username;
-							txt_report.color       = new Color(0.05043304f, 0.4785869f, 0.8018868f);
+							txt_report.color       = BLUE;
 							fld_teamnumber.text    = entry.teamnumber;
 						}
 						else
@@ -204,7 +204,7 @@ public class TitleMenu : MonoBehaviour
 	{
 		txt_report.gameObject.SetActive(true);
 		txt_report.text  = message;
-		txt_report.color = new Color(0.9150943f, 0.2129464f, 0.24059f);
+		txt_report.color = RED;
 	}
 
 	void Update()

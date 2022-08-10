@@ -61,6 +61,6 @@ public class Wheel : MonoBehaviour
 		set_local_rotation_y(drive_indicator (), angle);
 		set_local_rotation_y(strafe_indicator(), angle + 90.0f);
 		set_local_scale_z(drive_indicator (), dampen_indicator_scalar);
-		set_local_scale_z(strafe_indicator(), dampen_indicator_scalar * strafe_force * 0.5f);
+		set_local_scale_z(strafe_indicator(), dampen_indicator_scalar * strafe_force * 0.25f);
 	}
 }

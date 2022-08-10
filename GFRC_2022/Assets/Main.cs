@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using TMPro;
 using Mono.Data.Sqlite;
@@ -12,17 +13,30 @@ using static Global;
 
 public class Main : MonoBehaviour
 {
+	public enum State
+	{
+		start,
+		counting_down,
+		playing,
+		end
+	};
+
+	public float game_time;
+	[HideInInspector] public State state;
+	float countdown;
+	float end_t;
+	public TMP_Text   txt_countdown;
+	public TMP_Text   txt_timer;
+	public TMP_Text   txt_score;
+	public GameObject start_display;
+	public GameObject end_display;
+
 	public Hub              hub_top;
 	public Hub              hub_bot;
 	public Hangar           hangar_blue;
 	public Hangar           hangar_red;
-	public TextMeshProUGUI  debug;
-	public Text             redScore;
-	public Text             blueScore;
 	public GameObject[]     ordered_bases;
 	public PlayCamera       play_camera;
-	public Timer            timer;
-	//public GameObject[]     dummies;
 
 	public static bool                randomized_robot_spawn;
 	public static int                 assembler_base_index;
@@ -33,6 +47,12 @@ public class Main : MonoBehaviour
 
 	List<GameObject> RobotReds  = new List<GameObject>();
 	List<GameObject> RobotBlues = new List<GameObject>();
+	bool             got_highscore;
+
+	int calc_points() =>
+		assembler_red_alliance
+			? hub_top.redScore + hub_bot.redScore + hangar_red.calc_score()
+			: hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score();
 
 	void Start()
 	{
@@ -111,64 +131,165 @@ public class Main : MonoBehaviour
 				spawn_robots(RobotBlues, transform.Find("BlueSpawn").Cast<Transform>().ToList());
 			}
 		}
+
+		GetComponent<AudioManager>().Sound("Music");
 	}
 
 	void Update()
 	{
-		if (timer.justFinished && db_currently_signed_in)
+		switch (state)
 		{
-			var entries = db_get_entries();
-			for (int i = 0; i < entries.Count; i += 1)
+			case State.start:
 			{
-				if (entries[i].username == db_curr_username)
+				if (any_key_now_down() && !key_now_down(Key.Tab))
 				{
+					state     = State.counting_down;
+					countdown = 3.0f;
+					txt_countdown.gameObject.SetActive(true);
+					start_display.SetActive(false);
+				}
+			} break;
+
+			case State.counting_down:
+			{
+				float old_countdown = countdown;
+				countdown = Mathf.Max(countdown - Time.deltaTime, 0.0f);
+
+				if (Mathf.Floor(old_countdown) != Mathf.Floor(countdown))
+				{
+					GetComponent<AudioManager>().Sound("Time");
+				}
+
+				txt_countdown.text = Mathf.Ceil(countdown).ToString();
+				txt_countdown.fontSize = Mathf.Lerp(0.0f, 256.0f, 1.0f - Mathf.Pow(1.0f - countdown % 1.0f, 2.0f));
+
+				if (countdown == 0.0f)
+				{
+					state = State.playing;
+					txt_countdown.gameObject.SetActive(false);
+					txt_timer.gameObject.SetActive(true);
+					txt_score.gameObject.SetActive(true);
+					GetComponent<AudioManager>().Sound("Air Horn");
+
 					if (assembler_red_alliance)
 					{
-						entries[i].points = Math.Max(entries[i].points, hub_top.redScore + hub_bot.redScore + hangar_red.calc_score());
+						txt_score.color = RED;
 					}
 					else
 					{
-						entries[i].points = Math.Max(entries[i].points, hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score());
+						txt_score.color = BLUE;
 					}
-
-					entries[i].build = "";
-
-					string[] base_names = { "Mecanum", "Swerve", "Tank", "Car", "Kiwi", "Forklift", "H" };
-					entries[i].build += base_names[assembler_base_index];
-
-					if (assembler_curr_primary != Assembler.Primary.none)
-					{
-						string[] primary_names = { "_", "Turret Mounted Shooter", "Fixed Point Shooter", "Simple Arm", "Jointed Arm", "Telescopic Arm", "Bucket" };
-						entries[i].build += "\n" + primary_names[(int) assembler_curr_primary];
-					}
-
-					if (assembler_curr_secondary != Assembler.Secondary.none)
-					{
-						string[] secondary_names = { "_", "Grappling Hook", "Dual Canes", "Human Feed Intake" };
-						entries[i].build += "\n" + secondary_names[(int) assembler_curr_secondary];
-					}
-
-					if (assembler_using_floor_intake)
-					{
-						entries[i].build += "\nFoor Intake";
-					}
-
-					entries[i].unixtime = DateTimeOffset.Now.ToUnixTimeSeconds();
-					break;
 				}
-			}
-			db_set_entries(entries);
+			} break;
+
+			case State.playing:
+			{
+				float old_game_time = game_time;
+
+				game_time = Mathf.Max(game_time - Time.deltaTime, 0.0f);
+				txt_timer.text = Mathf.Floor(game_time / 60.0f).ToString() + ":" + Mathf.Floor(game_time % 60.0f).ToString().PadLeft(2, '0');
+				txt_score.text = calc_points().ToString();
+
+				if (game_time <= 10.0f && Mathf.Floor(old_game_time) != Mathf.Floor(game_time))
+				{
+					txt_timer.color = new Color(1.0f, 0.0f, 0.0f);
+					GetComponent<AudioManager>().Sound("Time");
+				}
+				else
+				{
+					txt_timer.color = dampen(txt_timer.color, new Color(1.0f, 1.0f, 1.0f), 0.1f);
+				}
+
+				if (game_time == 0.0f)
+				{
+					state = State.end;
+					txt_timer.gameObject.SetActive(false);
+					txt_score.gameObject.SetActive(false);
+					GetComponent<AudioManager>().Sound("Air Horn");
+
+					if (db_currently_signed_in)
+					{
+						var entries = db_get_entries();
+						for (int i = 0; i < entries.Count; i += 1)
+						{
+							if (entries[i].username == db_curr_username)
+							{
+								if (entries[i].points < calc_points())
+								{
+									got_highscore = entries[i].points != -1;
+									entries[i].points = calc_points();
+
+									entries[i].build = "";
+									string[] base_names = { "Mecanum", "Swerve", "Tank", "Car", "Kiwi", "Forklift", "H" };
+									entries[i].build += base_names[assembler_base_index];
+									if (assembler_curr_primary != Assembler.Primary.none)
+									{
+										string[] primary_names = { "_", "Turret Mounted Shooter", "Fixed Point Shooter", "Simple Arm", "Jointed Arm", "Telescopic Arm", "Bucket" };
+										entries[i].build += "\n" + primary_names[(int) assembler_curr_primary];
+									}
+									if (assembler_curr_secondary != Assembler.Secondary.none)
+									{
+										string[] secondary_names = { "_", "Grappling Hook", "Dual Canes", "Human Feed Intake" };
+										entries[i].build += "\n" + secondary_names[(int) assembler_curr_secondary];
+									}
+									if (assembler_using_floor_intake)
+									{
+										entries[i].build += "\nFoor Intake";
+									}
+
+									entries[i].unixtime = DateTimeOffset.Now.ToUnixTimeSeconds();
+								}
+
+								break;
+							}
+						}
+						db_set_entries(entries);
+					}
+				}
+			} break;
+
+			case State.end:
+			{
+				end_t = Mathf.Min(end_t + Time.deltaTime / 6.0f, 1.0f);
+
+				if (end_t == 1.0f)
+				{
+					end_display.transform.Find("Subtitle").GetComponent<TMP_Text>().color = dampen(end_display.transform.Find("Subtitle").GetComponent<TMP_Text>().color, new Color(1.0f, 1.0f, 1.0f, 1.0f), 0.1f);
+					if (any_key_now_down())
+					{
+						SceneManager.LoadScene("Scenes/Title Menu Scene");
+					}
+				}
+
+				in_window(end_t, 0.25f, 1.0f, display_t => {
+					end_display.SetActive(true);
+
+					in_window(display_t, 0.0f, 0.05f, fade_in_t => end_display.GetComponent<CanvasGroup>().alpha = Mathf.Pow(fade_in_t, 3.0f));
+
+					end_display.transform.Find("Title").GetComponent<TMP_Text>().text = got_highscore ? "New High Score!" : "You Scored";
+
+					in_window(display_t, 0.25f, 1.0f, score_t => {
+						if (got_highscore)
+						{
+							end_display.transform.Find("Title").GetComponent<TMP_Text>().color =
+								dampen
+								(
+									end_display.transform.Find("Title").GetComponent<TMP_Text>().color,
+									score_t == 1.0f
+										? new Color(1.0f, 1.0f, 1.0f)
+										: Color.HSVToRGB(score_t, 0.8f, 1.0f),
+									0.1f
+								);
+						}
+						end_display.transform.Find("Score").GetComponent<TMP_Text>().text  = Mathf.Round(calc_points() * (1.0f - Mathf.Pow(1.0f - score_t, 4.0f))).ToString();
+
+						if (any_key_now_down())
+						{
+							end_t = 1.0f;
+						}
+					});
+				});
+			} break;
 		}
-
-		debug.text =
-			"score_hub_top_red  : " + hub_top.redScore + "\n" +
-			"score_hub_bot_red  : " + hub_bot.redScore + "\n" +
-			"score_hangar_red   : " + hangar_red.calc_score() + "\n" +
-			"score_hub_top_blue : " + hub_top.blueScore + "\n" +
-			"score_hub_bot_blue : " + hub_bot.blueScore + "\n" +
-			"score_hangar_blue  : " + hangar_blue.calc_score() + "\n";
-
-		redScore.text = "Red: " + (hub_top.redScore + hub_bot.redScore + hangar_red.calc_score());
-		blueScore.text = "Blue: " + (hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score());
 	}
 }

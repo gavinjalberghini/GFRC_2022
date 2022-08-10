@@ -9,7 +9,17 @@ using System;
 
 static class Global
 {
-	static public float TAU = 2.0f * Mathf.PI;
+	static public float TAU  = 2.0f * Mathf.PI;
+	static public Color RED  = new Color(0.9150943f, 0.2129464f, 0.24059f);
+	static public Color BLUE = new Color(0.05043304f, 0.4785869f, 0.8018868f);
+
+	static public void in_window(float t, float a, float b, Action<float> f)
+	{
+		if (a <= t && (t < b || b == 1.0f))
+		{
+			f((t - a) / (b - a));
+		}
+	}
 
 	// @NOTE@ Framrate independent dampening. Use this to gradually move one value to other smoothly over each update tick.
 	// `friction` of 0.0f will cause an instanteous transition from `start` to `end`.
@@ -20,11 +30,13 @@ static class Global
 	static public Vector3    dampen      (Vector3    start, Vector3    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
 	static public Vector4    dampen      (Vector4    start, Vector4    end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
 	static public Quaternion dampen      (Quaternion start, Quaternion end, float friction) => Quaternion.Slerp(end, start, Mathf.Pow(friction, Time.deltaTime));
+	static public Color      dampen      (Color      start, Color      end, float friction) => end + (start - end) * Mathf.Pow(friction, Time.deltaTime);
 	static public float      dampen_angle(float      start, float      end, float friction) => start + dampen(0.0f, min_degree_arc(start, end), friction);
 
-	static public bool key_down    (Key k) => Keyboard.current != null && Keyboard.current[k].isPressed;
-	static public bool key_now_down(Key k) => Keyboard.current != null && Keyboard.current[k].wasPressedThisFrame;
-	static public bool key_now_up  (Key k) => Keyboard.current != null && Keyboard.current[k].wasReleasedThisFrame;
+	static public bool key_down        (Key k) => Keyboard.current != null && Keyboard.current[k].isPressed;
+	static public bool key_now_down    (Key k) => Keyboard.current != null && Keyboard.current[k].wasPressedThisFrame;
+	static public bool key_now_up      (Key k) => Keyboard.current != null && Keyboard.current[k].wasReleasedThisFrame;
+	static public bool any_key_now_down(     ) => Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame;
 
 	static public Vector2 wasd()
 	{

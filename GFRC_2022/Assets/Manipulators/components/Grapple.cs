@@ -32,7 +32,7 @@ public class Grapple : MonoBehaviour
 	{
 		if (state == GrappleState.ready)
 		{
-			FindObjectOfType<AudioManager>().Sound("Shoot");
+			GetComponent<AudioManager>().Sound("Shoot");
 			state = GrappleState.thrown;
 			hook.GetComponent<SphereCollider>().enabled = true;
 			hook.GetComponent<Rigidbody>().isKinematic  = false;
@@ -146,7 +146,7 @@ public class Grapple : MonoBehaviour
 							hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingBlue = true;
 						}
 
-						FindObjectOfType<AudioManager>().Sound("Click");
+						GetComponent<AudioManager>().Sound("Click");
 						state                                       = GrappleState.hooked;
 						hook.GetComponent<SphereCollider>().enabled = false;
 						hook.GetComponent<Rigidbody>().isKinematic  = true;

@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - RedCargo
+  - BlueCargo
+  - BlueHangar0
+  - BlueHangar3
+  - BlueHangar1
+  - RedHangar2
+  - RedHangar1
+  - BlueHangar2
+  - RedHangar3
+  - RedHangar0
+  - RedHook
+  - BlueHook
   layers:
   - Default
   - TransparentFX
