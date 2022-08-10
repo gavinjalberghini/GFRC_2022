@@ -12,16 +12,17 @@ using static Global;
 
 public class Main : MonoBehaviour
 {
-	public Hub             hub_top;
-	public Hub             hub_bot;
-	public Hangar          hangar_blue;
-	public Hangar          hangar_red;
-	public TextMeshProUGUI debug;
-	public Text            redScore;
-	public Text            blueScore;
-	public GameObject[]    ordered_bases;
-	public PlayCamera      play_camera;
-	public Timer           timer;
+	public Hub              hub_top;
+	public Hub              hub_bot;
+	public Hangar           hangar_blue;
+	public Hangar           hangar_red;
+	public TextMeshProUGUI  debug;
+	public Text             redScore;
+	public Text             blueScore;
+	public GameObject[]     ordered_bases;
+	public PlayCamera       play_camera;
+	public Timer            timer;
+	//public GameObject[]     dummies;
 
 	public static bool                randomized_robot_spawn;
 	public static int                 assembler_base_index;
@@ -30,8 +31,8 @@ public class Main : MonoBehaviour
 	public static bool                assembler_using_floor_intake;
 	public static bool                assembler_red_alliance;
 
-	GameObject[] RobotReds;
-	GameObject[] RobotBlues;
+	List<GameObject> RobotReds  = new List<GameObject>();
+	List<GameObject> RobotBlues = new List<GameObject>();
 
 	void Start()
 	{
@@ -42,36 +43,53 @@ public class Main : MonoBehaviour
 		//
 
 		{
-			GameObject[] xs = new GameObject[1];
-			xs[0] = Instantiate(ordered_bases[assembler_base_index]);
-			xs[0].GetComponent<Assembler>().pick(assembler_curr_primary);
-			xs[0].GetComponent<Assembler>().pick(assembler_curr_secondary);
-			xs[0].GetComponent<Assembler>().set_floor_intake(assembler_using_floor_intake);
-			xs[0].GetComponent<Assembler>().set_alliance(assembler_red_alliance);
+			GameObject player = Instantiate(ordered_bases[assembler_base_index]);
 
-			{
-				GameObject focused_robot = xs[0];
-				play_camera.robot_subject = focused_robot.GetComponent<Transform>();
-				focused_robot.GetComponent<RobotBrain>().enabled = true;
-			}
+			player.GetComponent<Assembler>().pick(assembler_curr_primary);
+			player.GetComponent<Assembler>().pick(assembler_curr_secondary);
+			player.GetComponent<Assembler>().set_floor_intake(assembler_using_floor_intake);
+			player.GetComponent<Assembler>().set_alliance(assembler_red_alliance);
+
+			GameObject focused_robot = player;
+			play_camera.robot_subject = focused_robot.GetComponent<Transform>();
+			focused_robot.GetComponent<RobotBrain>().enabled = true;
 
 			if (assembler_red_alliance)
 			{
-				RobotReds  = xs;
-				RobotBlues = new GameObject[0];
+				RobotReds.Add(player);
 			}
 			else
 			{
-				RobotReds  = new GameObject[0];
-				RobotBlues = xs;
+				RobotBlues.Add(player);
+			}
+
+			Action<List<GameObject>> make_random_dummy =
+				(xs) =>
+				{
+					GameObject dummy = Instantiate(ordered_bases[UnityEngine.Random.Range(0, ordered_bases.Length)]);
+					dummy.GetComponent<RobotBrain>().is_playing = false;
+					dummy.GetComponent<Assembler>().pick((Assembler.Primary)   UnityEngine.Random.Range(0, Enum.GetNames(typeof(Assembler.Primary)).Length));
+					dummy.GetComponent<Assembler>().pick((Assembler.Secondary) UnityEngine.Random.Range(0, Enum.GetNames(typeof(Assembler.Secondary)).Length));
+					dummy.GetComponent<Assembler>().set_floor_intake(UnityEngine.Random.Range(0.0f, 1.0f) < 0.5f);
+					dummy.GetComponent<Assembler>().set_alliance(xs == RobotReds);
+					xs.Add(dummy);
+				};
+
+			while (RobotReds.Count < 4)
+			{
+				make_random_dummy(RobotReds);
+			}
+			while (RobotBlues.Count < 4)
+			{
+				make_random_dummy(RobotBlues);
 			}
 		}
 
 		{
-			Action<GameObject[], List<Transform>> spawn_robots =
+			Action<List<GameObject>, List<Transform>> spawn_robots =
 				(robots, spawn_points) =>
 				{
-					for (int i = 0; i < robots.Length; i += 1)
+					for (int i = 0; i < robots.Count; i += 1)
 					{
 						int spawn_index = randomized_robot_spawn ? UnityEngine.Random.Range(0, spawn_points.Count) : 0;
 						robots[i].transform.position = spawn_points[spawn_index].position;

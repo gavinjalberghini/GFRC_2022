@@ -66,21 +66,8 @@ public class Timer : MonoBehaviour
 			FindObjectOfType<AudioManager>().Sound("Beep");
 		}
 
-		//float mm, ss;
-		if (gameTime >= 60)
-		{
-			m = Mathf.Ceil(gameTime / 60);
-			//mm = float.Parse(m);
-			s = Mathf.Ceil(gameTime % 60);
-			//ss = float.Parse(s);
-		}
-		else
-		{
-			m = 0f;
-			s = Mathf.Ceil(gameTime);
-			if (s < 0)
-				s = 0;
-		}
+		m = Mathf.Floor(gameTime / 60.0f);
+		s = Mathf.Max(Mathf.Floor(gameTime % 60.0f), 0.0f);
 
 		if (end)
 		{

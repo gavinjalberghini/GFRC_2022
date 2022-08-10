@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af16fde10d325140a17c6af8d6fb415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  is_playing: 1
   using_assistant: 0
   drive_controller: {fileID: 4464209995202286339}
   primary: {fileID: 0}
@@ -514,6 +515,10 @@ PrefabInstance:
     - target: {fileID: 1991567306694398841, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
       propertyPath: m_Name
       value: Mecanum Wheel (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
+      propertyPath: strafe_force
+      value: 16.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
@@ -857,6 +862,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mecanum Wheel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
+      propertyPath: strafe_force
+      value: 16.41
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
 --- !u!4 &940580332391647467 stripped
@@ -1142,7 +1151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
       propertyPath: strafe_force
-      value: -2.41
+      value: -16.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
@@ -1788,7 +1797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1991567306694398846, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}
       propertyPath: strafe_force
-      value: -2.41
+      value: -16.41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23f2a92779f597c4e83de4817f25eaaf, type: 3}

@@ -121,9 +121,5 @@ public class Assembler : MonoBehaviour
 
 			set(GetComponent<RobotBrain>().secondary.transform);
 		}
-		else if (RobotBrain.subtype<GrapplingHookManipulator>(GetComponent<RobotBrain>().secondary))
-		{
-			GetComponent<RobotBrain>().secondary.transform.Find("Grapple").Find("Hook").tag = "Hook";
-		}
 	}
 }
