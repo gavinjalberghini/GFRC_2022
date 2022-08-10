@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   omniarm: {fileID: 3935957843550322747}
-  force: 6
+  force: 4
 --- !u!114 &9100387155721450979
 MonoBehaviour:
   m_ObjectHideFlags: 0

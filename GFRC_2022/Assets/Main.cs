@@ -39,6 +39,7 @@ public class Main : MonoBehaviour
 	public PlayCamera       play_camera;
 
 	public static bool           randomized_robot_spawn;
+	public static bool           use_dummy_robots;
 	public static int            assembler_base_index;
 	public static Assembler.Data assembler_data = new Assembler.Data();
 
@@ -89,13 +90,16 @@ public class Main : MonoBehaviour
 					xs.Add(dummy);
 				};
 
-			while (RobotReds.Count < 4)
+			if (use_dummy_robots)
 			{
-				make_random_dummy(RobotReds);
-			}
-			while (RobotBlues.Count < 4)
-			{
-				make_random_dummy(RobotBlues);
+				while (RobotReds.Count < 4)
+				{
+					make_random_dummy(RobotReds);
+				}
+				while (RobotBlues.Count < 4)
+				{
+					make_random_dummy(RobotBlues);
+				}
 			}
 		}
 

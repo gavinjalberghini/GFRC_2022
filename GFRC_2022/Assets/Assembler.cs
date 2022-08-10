@@ -34,6 +34,9 @@ public class Assembler : MonoBehaviour
 		public bool      using_floor_intake;
 		public bool      is_red_alliance = true;
 		public bool      is_using_assistant;
+		public float     shooter_power_t;
+		public float     shooter_yaw_t;
+		public float     shooter_pitch_t;
 	};
 
 	[HideInInspector] public GameObject curr_primary_obj;
@@ -123,7 +126,19 @@ public class Assembler : MonoBehaviour
 
 	void Update()
 	{
-		if (RobotBrain.subtype<DualCaneManipulator>(GetComponent<RobotBrain>().secondary))
+		if (data.curr_primary == Primary.turret_mounted_shooter)
+		{
+			print(curr_primary_obj.GetComponent<Shooter>().force);
+			curr_primary_obj.GetComponent<Shooter>().force = Mathf.Lerp(4.0f, 8.0f, data.shooter_power_t);
+		}
+		else if (RobotBrain.subtype<FixedPointShooterManipulator>(GetComponent<RobotBrain>().primary))
+		{
+			curr_primary_obj.GetComponent<Shooter>().force = Mathf.Lerp(4.0f, 8.0f, data.shooter_power_t);
+			curr_primary_obj.GetComponent<OmniArm>().target_yaw   = curr_primary_obj.GetComponent<OmniArm>().yaw   = Mathf.Lerp(0.0f, 360.0f, data.shooter_yaw_t);
+			curr_primary_obj.GetComponent<OmniArm>().target_pitch = curr_primary_obj.GetComponent<OmniArm>().pitch = Mathf.Lerp(35.0f, 90.0f, data.shooter_pitch_t);
+		}
+
+		if (data.curr_secondary == Secondary.dual_canes)
 		{
 			Action<Transform> set = null;
 			set = (Transform t) => {
@@ -136,7 +151,7 @@ public class Assembler : MonoBehaviour
 
 			set(GetComponent<RobotBrain>().secondary.transform);
 		}
-		else if (RobotBrain.subtype<GrapplingHookManipulator>(GetComponent<RobotBrain>().secondary))
+		if (data.curr_secondary == Secondary.grappling_hook)
 		{
 			GetComponent<RobotBrain>().secondary.transform.Find("Grapple").Find("Hook").tag = data.is_red_alliance ? "RedHook" : "BlueHook";
 		}

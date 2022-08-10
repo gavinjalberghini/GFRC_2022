@@ -16,6 +16,7 @@ public class BuildAndPlay : MonoBehaviour
 	public Canvas       canvas;
 	public Button       btn_play_simulation;
 	public Button       btn_view_bindings;
+	public Button       btn_zoom;
 	public GameObject   bindings_pop_up;
 	public TMP_Dropdown drp_drive;
 	public TMP_Text     txt_drive;
@@ -25,13 +26,19 @@ public class BuildAndPlay : MonoBehaviour
 	public TMP_Text     txt_secondary;
 	public Toggle       tgl_floor_intake;
 	public Toggle       tgl_assistant;
+	public Toggle       tgl_dummy_robots;
+	public Toggle       tgl_randomized_spawn;
 	public TMP_Dropdown drp_alliance;
 	public GameObject   preview_camera;
-
 	public Transform    reset_point;
+	public GameObject   slider_power;
+	public GameObject   slider_yaw;
+	public GameObject   slider_pitch;
 	public GameObject[] ordered_bases;
 
 	GameObject curr_build;
+	bool       zoomed = true;
+	float      zoom_t = 1.0f;
 
 	void Start()
 	{
@@ -48,6 +55,10 @@ public class BuildAndPlay : MonoBehaviour
 
 		btn_view_bindings.onClick.AddListener(delegate {
 			bindings_pop_up.SetActive(true);
+		});
+
+		btn_zoom.onClick.AddListener(delegate {
+			zoomed = !zoomed;
 		});
 
 		drp_drive.onValueChanged.AddListener(delegate {
@@ -92,6 +103,10 @@ public class BuildAndPlay : MonoBehaviour
 		});
 
 		drp_primary.onValueChanged.AddListener(delegate {
+			slider_power.SetActive(false);
+			slider_yaw  .SetActive(false);
+			slider_pitch.SetActive(false);
+
 			switch (drp_primary.value)
 			{
 				case 0:
@@ -104,12 +119,16 @@ public class BuildAndPlay : MonoBehaviour
 				{
 					txt_primary.text = "A ball launcher system that pivots and rotates.";
 					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.turret_mounted_shooter);
+					slider_power.SetActive(true);
 				} break;
 
 				case 2:
 				{
 					txt_primary.text = "A ball launcher system that remains stationary relative to the robot frame.";
 					curr_build.GetComponent<Assembler>().pick(Assembler.Primary.fixed_point_shooter);
+					slider_power.SetActive(true);
+					slider_yaw  .SetActive(true);
+					slider_pitch.SetActive(true);
 				} break;
 
 				case 3:
@@ -175,11 +194,22 @@ public class BuildAndPlay : MonoBehaviour
 
 	void Update()
 	{
+		if (key_now_down(Key.Tab))
+		{
+			zoomed = !zoomed;
+		}
+
+		zoom_t = dampen(zoom_t, zoomed ? 1.0f : 0.0f, 0.1f);
+		btn_zoom.GetComponent<RectTransform>().sizeDelta = new Vector2(Mathf.Lerp(32.0f, 64.0f, zoom_t), Mathf.Lerp(32.0f, 64.0f, zoom_t));
+
 		curr_build.GetComponent<Assembler>().data.is_using_assistant = tgl_assistant.isOn;
+		curr_build.GetComponent<Assembler>().data.shooter_power_t    = slider_power.transform.Find("Slider").GetComponent<Slider>().value;
+		curr_build.GetComponent<Assembler>().data.shooter_yaw_t      = slider_yaw.  transform.Find("Slider").GetComponent<Slider>().value;
+		curr_build.GetComponent<Assembler>().data.shooter_pitch_t    = slider_pitch.transform.Find("Slider").GetComponent<Slider>().value;
 		curr_build.GetComponent<Assembler>().set_alliance(drp_alliance.value == 0);
 		curr_build.GetComponent<Assembler>().set_floor_intake(tgl_floor_intake.isOn);
 
-		preview_camera.transform.position = curr_build.transform.position + new Vector3(1.25f, 1.75f, 1.25f);
+		preview_camera.transform.position = curr_build.transform.position + new Vector3(0.8f, 1.1f, 1.3f) * (2.0f - zoom_t);
 		preview_camera.transform.rotation = Quaternion.LookRotation(curr_build.transform.position - preview_camera.transform.position, new Vector3(0.0f, 1.0f, 0.0f));
 
 		if (bindings_pop_up.activeInHierarchy)
@@ -283,6 +313,9 @@ public class BuildAndPlay : MonoBehaviour
 				bindings_pop_up.transform.Find("Gamepad 2").gameObject.SetActive(false);
 			}
 		}
+
+		Main.use_dummy_robots       = tgl_dummy_robots.isOn;
+		Main.randomized_robot_spawn = tgl_randomized_spawn.isOn;
 	}
 
 	void build(GameObject robot_base)
