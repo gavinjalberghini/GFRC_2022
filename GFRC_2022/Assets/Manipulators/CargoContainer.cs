@@ -41,6 +41,22 @@ public class CargoContainer : MonoBehaviour
 		}
 	}
 
+	public bool try_loading(GameObject new_cargo)
+	{
+		if (cargo)
+		{
+			return false;
+		}
+		else
+		{
+			cargo                                        = new_cargo;
+			cargo_delta_pos                              = cargo.transform.position - transform.position;
+			cargo.GetComponent<SphereCollider>().enabled = false;
+			cargo.GetComponent<Rigidbody>().isKinematic  = true;
+			return true;
+		}
+	}
+
 	public GameObject try_unloading(bool reenable_physics)
 	{
 		if (cargo && reenable_physics)

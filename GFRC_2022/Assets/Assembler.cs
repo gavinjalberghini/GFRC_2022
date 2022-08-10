@@ -128,7 +128,6 @@ public class Assembler : MonoBehaviour
 	{
 		if (data.curr_primary == Primary.turret_mounted_shooter)
 		{
-			print(curr_primary_obj.GetComponent<Shooter>().force);
 			curr_primary_obj.GetComponent<Shooter>().force = Mathf.Lerp(4.0f, 8.0f, data.shooter_power_t);
 		}
 		else if (RobotBrain.subtype<FixedPointShooterManipulator>(GetComponent<RobotBrain>().primary))

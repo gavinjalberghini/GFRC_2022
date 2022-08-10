@@ -23,11 +23,6 @@ public class Grapple : MonoBehaviour
 	Vector3      reset_delta_pos;
 	SpringJoint  joint;
 
-	void OnCollisionEnter(Collision collision)
-	{
-		print(collision);
-	}
-
 	public bool shoot()
 	{
 		if (state == GrappleState.ready)

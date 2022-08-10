@@ -32,6 +32,70 @@ public class RobotBrain : MonoBehaviour
 	public static bool subtype<T>(PrimaryManipulator   x) { return x && typeof(T).IsAssignableFrom(x.GetType()); }
 	public static bool subtype<T>(SecondaryManipulator x) { return x && typeof(T).IsAssignableFrom(x.GetType()); }
 
+	public GameObject cargo_source;
+
+	bool  trigger_triggered_this_frame;
+	float human_feed_countdown;
+
+	void OnTriggerStay(Collider zone)
+	{
+		if (!trigger_triggered_this_frame && is_playing && subtype<Intake>(secondary) && trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0))
+		{
+			if (human_feed_countdown == 0.0f)
+			{
+				human_feed_countdown = 1.0f;
+
+				bool available_slot = false;
+				foreach (var cargo_container in cargo_containers)
+				{
+					if (!cargo_container.cargo)
+					{
+						available_slot = true;
+						break;
+					}
+				}
+				if (available_slot)
+				{
+					Transform farthest_cargo = null;
+
+					foreach (Transform cargo in cargo_source.transform)
+					{
+						bool taken = false;
+						foreach (var cargo_container in cargo_containers)
+						{
+							if (cargo_container.cargo == cargo.gameObject)
+							{
+								taken = true;
+								break;
+							}
+						}
+						if (!taken && (!farthest_cargo || Vector3.Distance(cargo.position, transform.position) > Vector3.Distance(farthest_cargo.position, transform.position)))
+						{
+							farthest_cargo = cargo;
+						}
+					}
+					if (farthest_cargo)
+					{
+						trigger_triggered_this_frame = true;
+						farthest_cargo.position = secondary.transform.position;
+						foreach (var container in cargo_containers)
+						{
+							if (container.try_loading(farthest_cargo.gameObject))
+							{
+								GetComponent<AudioManager>().Sound("Shoot");
+								break;
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				GetComponent<AudioManager>().Sound("Harsh Beep");
+			}
+		}
+	}
+
 	void Start()
 	{
 		GetComponent<Rigidbody>().centerOfMass = new Vector3(0.0f, 0.0f, 0.0f);
@@ -40,6 +104,7 @@ public class RobotBrain : MonoBehaviour
 
 	void Update()
 	{
+		human_feed_countdown = Mathf.Max(human_feed_countdown - Time.deltaTime, 0.0f);
 		bool in_control = !FindObjectOfType<Main>() || FindObjectOfType<Main>().state == Main.State.playing;
 		if (is_playing)
 		{
@@ -81,7 +146,7 @@ public class RobotBrain : MonoBehaviour
 
 				foreach (var container in cargo_containers)
 				{
-					if ((floor_intake && container.try_loading(floor_intake)) || (subtype<Intake>(secondary) && container.try_loading(secondary as Intake)))
+					if (floor_intake && container.try_loading(floor_intake))
 					{
 						GetComponent<AudioManager>().Sound("Shoot");
 						break;
@@ -273,5 +338,7 @@ public class RobotBrain : MonoBehaviour
 				GetComponent<AudioSource>().Play();
 			}
 		}
+
+		trigger_triggered_this_frame = false;
 	}
 }

@@ -31,15 +31,19 @@ public class Main : MonoBehaviour
 	public GameObject start_display;
 	public GameObject end_display;
 
-	public Hub              hub_top;
-	public Hub              hub_bot;
-	public Hangar           hangar_blue;
-	public Hangar           hangar_red;
-	public GameObject[]     ordered_bases;
-	public PlayCamera       play_camera;
+	public Hub          hub_top;
+	public Hub          hub_bot;
+	public Hangar       hangar_blue;
+	public Hangar       hangar_red;
+	public GameObject[] ordered_bases;
+	public PlayCamera   play_camera;
+	public GameObject   blue_cargo_source;
+	public GameObject   red_cargo_source;
+	public GameObject   blue_zone;
+	public GameObject   red_zone;
 
-	public static bool           randomized_robot_spawn;
-	public static bool           use_dummy_robots;
+	public static bool           randomized_robot_spawn = true;
+	public static bool           use_dummy_robots = true;
 	public static int            assembler_base_index;
 	public static Assembler.Data assembler_data = new Assembler.Data();
 
@@ -67,7 +71,10 @@ public class Main : MonoBehaviour
 
 			GameObject focused_robot = player;
 			play_camera.robot_subject = focused_robot.GetComponent<Transform>();
-			focused_robot.GetComponent<RobotBrain>().enabled = true;
+			focused_robot.GetComponent<RobotBrain>().enabled      = true;
+			focused_robot.GetComponent<RobotBrain>().cargo_source = assembler_data.is_red_alliance ? red_cargo_source : blue_cargo_source;
+			red_zone .SetActive(assembler_data.curr_secondary == Assembler.Secondary.human_feed_intake &&  assembler_data.is_red_alliance);
+			blue_zone.SetActive(assembler_data.curr_secondary == Assembler.Secondary.human_feed_intake && !assembler_data.is_red_alliance);
 
 			if (assembler_data.is_red_alliance)
 			{

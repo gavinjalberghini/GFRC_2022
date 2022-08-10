@@ -269,6 +269,7 @@ MonoBehaviour:
   cargo_containers:
   - {fileID: 8384887979315882345}
   - {fileID: 7826180902103168040}
+  cargo_source: {fileID: 0}
 --- !u!54 &1873046560617781399
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -445,6 +446,11 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Pop
     clip: {fileID: 8300000, guid: 09c3c6c5e2e43f54f97df2f05bc630e8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Harsh Beep
+    clip: {fileID: 8300000, guid: d977a9e417a3f41418de31ecde064999, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

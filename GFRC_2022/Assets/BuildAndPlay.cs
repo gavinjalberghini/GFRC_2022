@@ -300,6 +300,13 @@ public class BuildAndPlay : MonoBehaviour
 				if (tgl_assistant.isOn) { gamepad_2 += str; }
 				else                    { gamepad_1 += str; }
 			}
+			else if (RobotBrain.subtype<Intake>(curr_build.GetComponent<RobotBrain>().secondary))
+			{
+				var str =
+					"Recieve cargo : (L2)\n";
+				if (tgl_assistant.isOn) { gamepad_2 += str; }
+				else                    { gamepad_1 += str; }
+			}
 
 			bindings_pop_up.transform.Find("Gamepad 1").Find("Description").GetComponent<TMP_Text>().text = gamepad_1;
 

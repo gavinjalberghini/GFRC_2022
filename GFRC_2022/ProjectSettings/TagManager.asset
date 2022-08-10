@@ -16,6 +16,9 @@ TagManager:
   - RedHangar0
   - RedHook
   - BlueHook
+  - Hook
+  - RedZone
+  - BlueZone
   layers:
   - Default
   - TransparentFX
