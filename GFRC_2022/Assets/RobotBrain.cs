@@ -100,6 +100,18 @@ public class RobotBrain : MonoBehaviour
 	{
 		GetComponent<Rigidbody>().centerOfMass = new Vector3(0.0f, 0.0f, 0.0f);
 		transform.Find("RoboCam").gameObject.SetActive(is_playing);
+
+		if (is_playing)
+		{
+			foreach (Transform trans in primary?.gameObject.GetComponentsInChildren<Transform>(true))
+			{
+				trans.gameObject.layer = 15;
+			}
+			foreach (Transform trans in secondary?.gameObject.GetComponentsInChildren<Transform>(true))
+			{
+				trans.gameObject.layer = 15;
+			}
+		}
 	}
 
 	void Update()

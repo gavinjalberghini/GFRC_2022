@@ -64,8 +64,9 @@ public class Main : MonoBehaviour
 		// Spawn robots.
 		//
 
-		assembler_data.curr_primary = Assembler.Primary.turret_mounted_shooter;
-		assembler_data.using_floor_intake = true;
+		//assembler_data.curr_primary = Assembler.Primary.turret_mounted_shooter;
+		//assembler_data.curr_secondary = Assembler.Secondary.grappling_hook;
+		//assembler_data.using_floor_intake = true;
 
 		{
 			GameObject player = Instantiate(ordered_bases[assembler_base_index]);
