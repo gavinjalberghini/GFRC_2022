@@ -52,6 +52,7 @@ public class Main : MonoBehaviour
 	GameObject       player;
 	bool             got_highscore;
 
+	int final_points;
 	int calc_points() =>
 		assembler_data.is_red_alliance
 			? hub_top.redScore  + hub_bot.redScore  + (player.GetComponent<RobotBrain>().touching_ground ? 0 : hangar_red .calc_score ())
@@ -223,6 +224,8 @@ public class Main : MonoBehaviour
 					txt_score.gameObject.SetActive(false);
 					GetComponent<AudioManager>().Sound("Air Horn");
 
+					final_points = calc_points();
+
 					if (db_currently_signed_in)
 					{
 						var entries = db_get_entries();
@@ -230,10 +233,10 @@ public class Main : MonoBehaviour
 						{
 							if (entries[i].username == db_curr_username)
 							{
-								if (entries[i].points < calc_points())
+								if (entries[i].points < final_points)
 								{
 									got_highscore = entries[i].points != -1;
-									entries[i].points = calc_points();
+									entries[i].points = final_points;
 
 									entries[i].build = "";
 									string[] base_names = { "Mecanum", "Swerve", "Tank", "Car", "Kiwi", "Forklift", "H" };
@@ -281,6 +284,10 @@ public class Main : MonoBehaviour
 					end_display.SetActive(true);
 
 					in_window(display_t, 0.0f, 0.05f, fade_in_t => end_display.GetComponent<CanvasGroup>().alpha = Mathf.Pow(fade_in_t, 3.0f));
+					if (display_t >= 0.05f)
+					{
+						end_display.GetComponent<CanvasGroup>().alpha = 1.0f;
+					}
 
 					end_display.transform.Find("Title").GetComponent<TMP_Text>().text = got_highscore ? "New High Score!" : "You Scored";
 
@@ -297,7 +304,7 @@ public class Main : MonoBehaviour
 									0.1f
 								);
 						}
-						end_display.transform.Find("Score").GetComponent<TMP_Text>().text  = Mathf.Round(calc_points() * (1.0f - Mathf.Pow(1.0f - score_t, 4.0f))).ToString();
+						end_display.transform.Find("Score").GetComponent<TMP_Text>().text  = Mathf.Round(final_points * (1.0f - Mathf.Pow(1.0f - score_t, 4.0f))).ToString();
 
 						if (any_key_now_down())
 						{

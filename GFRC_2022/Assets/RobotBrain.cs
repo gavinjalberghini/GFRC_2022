@@ -8,11 +8,11 @@ using static Global;
 public class RobotBrain : MonoBehaviour
 {
 	public bool is_playing = true;
-	[ConditionalHide("is_playing", true)] public DriveController      drive_controller;
-	[ConditionalHide("is_playing", true)] public PrimaryManipulator   primary;
-	[ConditionalHide("is_playing", true)] public SecondaryManipulator secondary;
-	[ConditionalHide("is_playing", true)] public Intake               floor_intake;
-	[ConditionalHide("is_playing", true)] public CargoContainer[]     cargo_containers;
+	public DriveController      drive_controller;
+	public PrimaryManipulator   primary;
+	public SecondaryManipulator secondary;
+	public Intake               floor_intake;
+	public CargoContainer[]     cargo_containers;
 	[HideInInspector] public bool touching_ground;
 
 	int selected_cargo_container_index;
@@ -271,8 +271,8 @@ public class RobotBrain : MonoBehaviour
 				{
 					(primary as BucketManipulator).control
 						(
-							pitch           : (!key_down(Key.LeftShift) ? arrow_keys().y : 0.0f) + (trigger_right(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f ?  1.0f : -1.0f),
-							length          : ( key_down(Key.LeftShift) ? arrow_keys().y : 0.0f) +               (GetComponent<Assembler>().data.is_using_assistant ? left_stick(1).y + dpad(1).y : dpad(0).y),
+							pitch           : arrow_keys().x != 0.0f ? 1.0f : (trigger_right(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f ?  1.0f : -1.0f),
+							length          : arrow_keys().y + (GetComponent<Assembler>().data.is_using_assistant ? left_stick(1).y + dpad(1).y : dpad(0).y),
 							store           : key_now_down(Key.Space) || right_stick_now_down(0),
 							cargo_container : cargo_containers[selected_cargo_container_index]
 						);

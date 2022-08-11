@@ -27,9 +27,9 @@ public class OmniArm : MonoBehaviour
 	[Header("Hand")]
 	public Transform  hand;
 	public bool       hand_rel_orientation;
-	[ConditionalHide("hand_rel_orientation", true)] public bool       hand_leveled;
-	[ConditionalHide("hand_rel_orientation", true)] public Quaternion hand_additional_rotation = Quaternion.identity;
-	[HideInInspector]                               public Quaternion target_hand_additional_rotation;
+	public bool       hand_leveled;
+	public Quaternion hand_additional_rotation = Quaternion.identity;
+	[HideInInspector] public Quaternion target_hand_additional_rotation;
 
 	public float target_length;
 	public float target_pitch;

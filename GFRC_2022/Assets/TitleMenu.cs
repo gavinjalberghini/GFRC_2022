@@ -16,6 +16,7 @@ public class TitleMenu : MonoBehaviour
 	public Button         build_and_play;
 	public Button         show_leaderboard;
 	public Button         exit;
+	public ClickDetector  logo;
 	public ClickDetector  user_icon;
 	public GameObject     user_pop_up;
 	public ClickDetector  user_pop_up_outside;
@@ -56,6 +57,10 @@ public class TitleMenu : MonoBehaviour
 			user_pop_up.SetActive(false);
 		};
 
+		logo.click_down = delegate {
+			Application.OpenURL("https://www.firstinspires.org/robotics/frc");
+		};
+
 		user_icon.click_down = delegate {
 			user_pop_up.SetActive(true);
 		};
@@ -74,26 +79,26 @@ public class TitleMenu : MonoBehaviour
 			SceneManager.LoadScene("Scenes/BuildAndPlay");
 		});
 
-		{ // @TEMP@ DEBUG!
-			var xs = db_get_entries();
-			if (xs.Count == 0)
-			{
-				print("No data.");
-			}
-			else
-			{
-				foreach (var x in xs)
-				{
-					print
-					(
-						" | username   : " + x.username   +
-						" | pin        : " + x.pin        +
-						" | teamnumber : " + x.teamnumber +
-						" | scored     : " + x.points
-					);
-				}
-			}
-		} // @TEMP@ DEBUG!
+		//{ // @TEMP@ DEBUG!
+		//	var xs = db_get_entries();
+		//	if (xs.Count == 0)
+		//	{
+		//		print("No data.");
+		//	}
+		//	else
+		//	{
+		//		foreach (var x in xs)
+		//		{
+		//			print
+		//			(
+		//				" | username   : " + x.username   +
+		//				" | pin        : " + x.pin        +
+		//				" | teamnumber : " + x.teamnumber +
+		//				" | scored     : " + x.points
+		//			);
+		//		}
+		//	}
+		//} // @TEMP@ DEBUG!
 
 		fld_username.onValidateInput += delegate(string str, int i, char c) {
 			if (c == ' ')
