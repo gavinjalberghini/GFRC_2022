@@ -6193,7 +6193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38cd7da82b2825459a2fd2d2b66ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game_time: 300
+  game_time: 30
   state: 0
   txt_countdown: {fileID: 158243683}
   txt_timer: {fileID: 490806646}

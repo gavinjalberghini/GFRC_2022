@@ -200,7 +200,10 @@ public class Main : MonoBehaviour
 				float old_game_time = game_time;
 
 				game_time = Mathf.Max(game_time - Time.deltaTime, 0.0f);
-				txt_timer.text = Mathf.Floor(game_time / 60.0f).ToString() + ":" + Mathf.Floor(game_time % 60.0f).ToString().PadLeft(2, '0');
+				txt_timer.text =
+					game_time <= 10.0f
+						? game_time.ToString("n2") + "s"
+						: Mathf.Floor(game_time / 60.0f).ToString() + ":" + Mathf.Floor(game_time % 60.0f).ToString().PadLeft(2, '0');
 				txt_score.text = calc_points().ToString();
 
 				if (game_time <= 10.0f && Mathf.Floor(old_game_time) != Mathf.Floor(game_time))

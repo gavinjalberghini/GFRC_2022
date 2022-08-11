@@ -40,6 +40,17 @@ public class Leaderboard : MonoBehaviour
 				set_local_rotation_z(columns_sort_arrow[i].transform, decending ? 180.0f : 0.0f);
 
 				var entries = db_get_entries();
+				{
+					entries.Sort((DB_Entry a, DB_Entry b) =>
+						a.points == b.points ? a.unixtime.CompareTo(b.unixtime) :
+						a.points ==       -1 ?  1 :
+						b.points ==       -1 ? -1 : -a.points.CompareTo(b.points)
+					);
+					for (int i = 0; i < entries.Count && entries[i].points != -1; i += 1)
+					{
+						entries[i].username = (i + 1) + ". " + entries[i].username;
+					}
+				}
 
 				switch (i)
 				{
