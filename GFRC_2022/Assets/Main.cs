@@ -80,6 +80,8 @@ public class Main : MonoBehaviour
 			red_zone .SetActive(assembler_data.curr_secondary == Assembler.Secondary.human_feed_intake &&  assembler_data.is_red_alliance);
 			blue_zone.SetActive(assembler_data.curr_secondary == Assembler.Secondary.human_feed_intake && !assembler_data.is_red_alliance);
 
+			hub_top.sfxForRed = assembler_data.is_red_alliance;
+			hub_bot.sfxForRed = assembler_data.is_red_alliance;
 			if (assembler_data.is_red_alliance)
 			{
 				RobotReds.Add(player);

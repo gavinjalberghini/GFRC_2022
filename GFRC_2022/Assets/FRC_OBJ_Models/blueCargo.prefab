@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1734481105786570353}
   - component: {fileID: 1117267560793675054}
   - component: {fileID: 3605035038142194504}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: blueCargo
   m_TagString: BlueCargo
   m_Icon: {fileID: 0}
@@ -127,3 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3981f10ad159c34591f7709fa892437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reset_point: {fileID: 0}

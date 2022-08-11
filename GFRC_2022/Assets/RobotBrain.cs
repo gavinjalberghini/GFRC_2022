@@ -103,13 +103,19 @@ public class RobotBrain : MonoBehaviour
 
 		if (is_playing)
 		{
-			foreach (Transform trans in primary?.gameObject.GetComponentsInChildren<Transform>(true))
+			if (primary)
 			{
-				trans.gameObject.layer = 15;
+				foreach (Transform trans in primary.gameObject.GetComponentsInChildren<Transform>(true))
+				{
+					trans.gameObject.layer = 15;
+				}
 			}
-			foreach (Transform trans in secondary?.gameObject.GetComponentsInChildren<Transform>(true))
+			if (secondary)
 			{
-				trans.gameObject.layer = 15;
+				foreach (Transform trans in secondary.gameObject.GetComponentsInChildren<Transform>(true))
+				{
+					trans.gameObject.layer = 15;
+				}
 			}
 		}
 	}

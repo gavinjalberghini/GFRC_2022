@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class Hub : MonoBehaviour
 {
-	public int scoreAddend;
+	public int  scoreAddend;
+	public bool sfxForRed;
 
 	[HideInInspector] public int blueScore;
 	[HideInInspector] public int redScore;
 
-	void Start()
-	{
-		
-	}
-
 	void OnTriggerEnter(Collider cargo)
 	{
-		if (cargo.gameObject.layer == 6)
+		if (cargo.gameObject.CompareTag("BlueCargo"))
 		{
+			if (!sfxForRed)
+			{
+				GetComponent<AudioManager>().Sound("Score");
+			}
 			blueScore += scoreAddend;
 		}
-		else if (cargo.gameObject.layer == 7)
+		else if (cargo.gameObject.CompareTag("RedCargo"))
 		{
+			if (sfxForRed)
+			{
+				GetComponent<AudioManager>().Sound("Score");
+			}
 			redScore += scoreAddend;
 		}
 	}

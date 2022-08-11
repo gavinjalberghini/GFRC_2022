@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1346525281074167043}
   - component: {fileID: 377343693203943004}
   - component: {fileID: 4338946635215691058}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: redCargo
   m_TagString: RedCargo
   m_Icon: {fileID: 0}
@@ -127,3 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3981f10ad159c34591f7709fa892437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reset_point: {fileID: 0}
