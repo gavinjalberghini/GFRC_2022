@@ -14,15 +14,13 @@ TagManager:
   - BlueHangar2
   - RedHangar3
   - RedHangar0
-  - RedHook
-  - BlueHook
   - Hook
   - RedZone
   - BlueZone
   - Floor
-  - RedDualCanes
-  - BlueDualCanes
   - ArenaFloor
+  - RedRobot
+  - BlueRobot
   layers:
   - Default
   - TransparentFX

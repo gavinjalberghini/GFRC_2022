@@ -271,7 +271,7 @@ public class RobotBrain : MonoBehaviour
 				{
 					(primary as BucketManipulator).control
 						(
-							pitch           : arrow_keys().x != 0.0f ? 1.0f : (trigger_right(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f ?  1.0f : -1.0f),
+							pitch           : key_down(Key.X) ? 1.0f : (trigger_right(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f ?  1.0f : -1.0f),
 							length          : arrow_keys().y + (GetComponent<Assembler>().data.is_using_assistant ? left_stick(1).y + dpad(1).y : dpad(0).y),
 							store           : key_now_down(Key.Space) || right_stick_now_down(0),
 							cargo_container : cargo_containers[selected_cargo_container_index]
@@ -286,7 +286,7 @@ public class RobotBrain : MonoBehaviour
 				{
 					(secondary as GrapplingHookManipulator).control
 						(
-							shoot : key_down(Key.Enter) || trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
+							shoot : key_now_down(Key.Enter) || trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
 						);
 				}
 				else if (subtype<DualCaneManipulator>(secondary))

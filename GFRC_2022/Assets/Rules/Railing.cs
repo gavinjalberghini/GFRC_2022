@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Railing : MonoBehaviour
 {
-	public bool robotHangingRed; // @TODO@ This doesn't say what robot is hanging, or how many. Could lead to ambigious cases.
+	public bool robotHangingRed;
 	public bool robotHangingBlue;
 	public bool isRed;
+	public bool isHooked;
+
+	List<GameObject> hanging_objs = new List<GameObject>(0);
 
 	void Start()
 	{
@@ -15,25 +18,35 @@ public class Railing : MonoBehaviour
 
 	void OnTriggerEnter(Collider robot)
 	{
-		if (robot.gameObject.CompareTag("RedDualCanes") && isRed)
+		if (robot.gameObject.CompareTag("RedRobot") && isRed)
 		{
 			robotHangingRed = true;
+			hanging_objs.Add(robot.gameObject);
 		}
-		else if (robot.gameObject.CompareTag("BlueDualCanes") && !isRed)
+		else if (robot.gameObject.CompareTag("BlueRobot") && !isRed)
 		{
 			robotHangingBlue = true;
+			hanging_objs.Add(robot.gameObject);
 		}
 	}
 
 	void OnTriggerExit(Collider robot)
 	{
-		if (robot.gameObject.CompareTag("RedDualCanes") && isRed)
+		for (int i = 0; i < hanging_objs.Count; i += 1)
 		{
-			robotHangingRed = false;
-		}
-		else if (robot.gameObject.CompareTag("BlueDualCanes") && !isRed)
-		{
-			robotHangingBlue = false;
+			if (hanging_objs[i] == robot.gameObject)
+			{
+				hanging_objs.RemoveAt(i);
+				if (isRed)
+				{
+					robotHangingRed = hanging_objs.Count != 0;
+				}
+				else
+				{
+					robotHangingBlue = hanging_objs.Count != 0;
+				}
+				break;
+			}
 		}
 	}
 }

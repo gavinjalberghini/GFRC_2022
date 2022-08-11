@@ -180,7 +180,7 @@ public class BuildAndPlay : MonoBehaviour
 
 				case 3:
 				{
-					txt_secondary.text = "A secondary intake where cargo can be collected from atop.";
+					txt_secondary.text = "A secondary intake where cargo can be collected from atop from the appropriate terminal.";
 					curr_build.GetComponent<Assembler>().pick(Assembler.Secondary.human_feed_intake);
 				} break;
 			}

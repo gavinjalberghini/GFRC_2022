@@ -66,8 +66,8 @@ public class Main : MonoBehaviour
 		// Spawn robots.
 		//
 
-		// assembler_data.curr_primary = Assembler.Primary.turret_mounted_shooter;
-		// assembler_data.curr_secondary = Assembler.Secondary.dual_canes;
+		// assembler_data.curr_primary = Assembler.Primary.fixed_point_shooter;
+		// assembler_data.curr_secondary = Assembler.Secondary.human_feed_intake;
 		// assembler_data.using_floor_intake = true;
 		// randomized_robot_spawn = false;
 		// use_dummy_robots = false;

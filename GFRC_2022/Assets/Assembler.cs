@@ -103,6 +103,7 @@ public class Assembler : MonoBehaviour
 		{
 			transform.gameObject.GetComponent<MeshRenderer>().material = is_red ? mat_red : mat_blue;
 		}
+		set_tags();
 	}
 
 	public void free()
@@ -124,6 +125,25 @@ public class Assembler : MonoBehaviour
 		data = new_data;
 	}
 
+	void set_tags()
+	{
+		Action<Transform> set = null;
+		set = (Transform t) => {
+			t.gameObject.tag = data.is_red_alliance ? "RedRobot" : "BlueRobot";
+			foreach (Transform u in t)
+			{
+				set(u);
+			}
+		};
+
+		set(transform);
+	}
+
+	void Start()
+	{
+		set_tags();
+	}
+
 	void Update()
 	{
 		if (data.curr_primary == Primary.turret_mounted_shooter)
@@ -135,24 +155,6 @@ public class Assembler : MonoBehaviour
 			curr_primary_obj.GetComponent<Shooter>().force = Mathf.Lerp(4.0f, 8.0f, data.shooter_power_t);
 			curr_primary_obj.GetComponent<OmniArm>().target_yaw   = curr_primary_obj.GetComponent<OmniArm>().yaw   = Mathf.Lerp(0.0f, 360.0f, data.shooter_yaw_t);
 			curr_primary_obj.GetComponent<OmniArm>().target_pitch = curr_primary_obj.GetComponent<OmniArm>().pitch = Mathf.Lerp(35.0f, 90.0f, data.shooter_pitch_t);
-		}
-
-		if (data.curr_secondary == Secondary.dual_canes)
-		{
-			Action<Transform> set = null;
-			set = (Transform t) => {
-				t.gameObject.tag = data.is_red_alliance ? "RedDualCanes" : "BlueDualCanes";
-				foreach (Transform u in t)
-				{
-					set(u);
-				}
-			};
-
-			set(GetComponent<RobotBrain>().secondary.transform);
-		}
-		if (data.curr_secondary == Secondary.grappling_hook)
-		{
-			GetComponent<RobotBrain>().secondary.transform.Find("Grapple").Find("Hook").tag = data.is_red_alliance ? "RedHook" : "BlueHook";
 		}
 	}
 }

@@ -71,14 +71,7 @@ public class Grapple : MonoBehaviour
 	{
 		if (state == GrappleState.hooked)
 		{
-			if (hook.CompareTag("RedHook"))
-			{
-				hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingRed = false;
-			}
-			else if (hook.CompareTag("BlueHook"))
-			{
-				hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingBlue = false;
-			}
+			hook.GetComponent<Hook>().contact.GetComponent<Railing>().isHooked = false;
 			hook.GetComponent<Hook>().contact = null;
 		}
 		state                                       = GrappleState.resetting;
@@ -132,15 +125,7 @@ public class Grapple : MonoBehaviour
 						)
 					)
 					{
-						if (hook.CompareTag("RedHook"))
-						{
-							hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingRed = true;
-						}
-						else if (hook.CompareTag("BlueHook"))
-						{
-							hook.GetComponent<Hook>().contact.GetComponent<Railing>().robotHangingBlue = true;
-						}
-
+						hook.GetComponent<Hook>().contact.GetComponent<Railing>().isHooked = true;
 						GetComponent<AudioManager>().Sound("Click");
 						state                                       = GrappleState.hooked;
 						hook.GetComponent<SphereCollider>().enabled = false;

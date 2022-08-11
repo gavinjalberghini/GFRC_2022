@@ -11,19 +11,19 @@ public class Hangar : MonoBehaviour
 	{
 		if (isRed)
 		{
-			if (railings_from_lowest_to_highest[0].robotHangingRed)
+			if (railings_from_lowest_to_highest[0].isHooked || railings_from_lowest_to_highest[0].robotHangingRed)
 			{
 				return 4;
 			}
-			else if (railings_from_lowest_to_highest[1].robotHangingRed)
+			else if (railings_from_lowest_to_highest[1].isHooked || railings_from_lowest_to_highest[1].robotHangingRed)
 			{
 				return 6;
 			}
-			else if (railings_from_lowest_to_highest[2].robotHangingRed)
+			else if (railings_from_lowest_to_highest[2].isHooked || railings_from_lowest_to_highest[2].robotHangingRed)
 			{
 				return 10;
 			}
-			else if (railings_from_lowest_to_highest[3].robotHangingRed)
+			else if (railings_from_lowest_to_highest[3].isHooked || railings_from_lowest_to_highest[3].robotHangingRed)
 			{
 				return 15;
 			}
@@ -34,19 +34,19 @@ public class Hangar : MonoBehaviour
 		}
 		else
 		{
-			if (railings_from_lowest_to_highest[0].robotHangingBlue)
+			if (railings_from_lowest_to_highest[0].isHooked || railings_from_lowest_to_highest[0].robotHangingBlue)
 			{
 				return 4;
 			}
-			else if (railings_from_lowest_to_highest[1].robotHangingBlue)
+			else if (railings_from_lowest_to_highest[1].isHooked || railings_from_lowest_to_highest[1].robotHangingBlue)
 			{
 				return 6;
 			}
-			else if (railings_from_lowest_to_highest[2].robotHangingBlue)
+			else if (railings_from_lowest_to_highest[2].isHooked || railings_from_lowest_to_highest[2].robotHangingBlue)
 			{
 				return 10;
 			}
-			else if (railings_from_lowest_to_highest[3].robotHangingBlue)
+			else if (railings_from_lowest_to_highest[3].isHooked || railings_from_lowest_to_highest[3].robotHangingBlue)
 			{
 				return 15;
 			}
