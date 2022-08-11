@@ -15,11 +15,11 @@ public class Railing : MonoBehaviour
 
 	void OnTriggerEnter(Collider robot)
 	{
-		if (robot.gameObject.layer == 8 && isRed)
+		if (robot.gameObject.CompareTag("RedDualCanes") && isRed)
 		{
 			robotHangingRed = true;
 		}
-		else if (robot.gameObject.layer == 9 && !isRed)
+		else if (robot.gameObject.CompareTag("BlueDualCanes") && !isRed)
 		{
 			robotHangingBlue = true;
 		}
@@ -27,11 +27,11 @@ public class Railing : MonoBehaviour
 
 	void OnTriggerExit(Collider robot)
 	{
-		if (robot.gameObject.layer == 8 && isRed)
+		if (robot.gameObject.CompareTag("RedDualCanes") && isRed)
 		{
 			robotHangingRed = false;
 		}
-		else if (robot.gameObject.layer == 9 && !isRed)
+		else if (robot.gameObject.CompareTag("BlueDualCanes") && !isRed)
 		{
 			robotHangingBlue = false;
 		}

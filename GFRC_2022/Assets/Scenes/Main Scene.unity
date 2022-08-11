@@ -5445,6 +5445,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2780950697704882585, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3328082207638063079, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -5685,9 +5689,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4433862090311946990, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_TagString
+      value: ArenaFloor
+      objectReference: {fileID: 0}
     - target: {fileID: 4433862090473049818, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513904870101208340, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4717438085657796355, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Layer
@@ -5853,9 +5865,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6936147461264209196, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7046992897715828368, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136947751286590217, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7172170123978863563, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Layer
@@ -5869,9 +5889,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8121561554370702977, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8253341954479747517, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8322449946371066922, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339635648920577682, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700433195509210535, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+      propertyPath: m_Radius
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9184704086183408667, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
       propertyPath: m_Layer
@@ -6157,7 +6193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38cd7da82b2825459a2fd2d2b66ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game_time: 30
+  game_time: 300
   state: 0
   txt_countdown: {fileID: 158243683}
   txt_timer: {fileID: 490806646}

@@ -49,12 +49,13 @@ public class Main : MonoBehaviour
 
 	List<GameObject> RobotReds  = new List<GameObject>();
 	List<GameObject> RobotBlues = new List<GameObject>();
+	GameObject       player;
 	bool             got_highscore;
 
 	int calc_points() =>
 		assembler_data.is_red_alliance
-			? hub_top.redScore + hub_bot.redScore + hangar_red.calc_score()
-			: hub_top.blueScore + hub_bot.blueScore + hangar_blue.calc_score();
+			? hub_top.redScore  + hub_bot.redScore  + (player.GetComponent<RobotBrain>().touching_ground ? 0 : hangar_red .calc_score ())
+			: hub_top.blueScore + hub_bot.blueScore + (player.GetComponent<RobotBrain>().touching_ground ? 0 : hangar_blue.calc_score());
 
 	void Start()
 	{
@@ -64,13 +65,14 @@ public class Main : MonoBehaviour
 		// Spawn robots.
 		//
 
-		//assembler_data.curr_primary = Assembler.Primary.turret_mounted_shooter;
-		//assembler_data.curr_secondary = Assembler.Secondary.grappling_hook;
-		//assembler_data.using_floor_intake = true;
+		// assembler_data.curr_primary = Assembler.Primary.turret_mounted_shooter;
+		// assembler_data.curr_secondary = Assembler.Secondary.dual_canes;
+		// assembler_data.using_floor_intake = true;
+		// randomized_robot_spawn = false;
+		// use_dummy_robots = false;
 
 		{
-			GameObject player = Instantiate(ordered_bases[assembler_base_index]);
-
+			player = Instantiate(ordered_bases[assembler_base_index]);
 			player.GetComponent<Assembler>().use_data(assembler_data);
 
 			GameObject focused_robot = player;

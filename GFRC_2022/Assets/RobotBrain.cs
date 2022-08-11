@@ -13,6 +13,7 @@ public class RobotBrain : MonoBehaviour
 	[ConditionalHide("is_playing", true)] public SecondaryManipulator secondary;
 	[ConditionalHide("is_playing", true)] public Intake               floor_intake;
 	[ConditionalHide("is_playing", true)] public CargoContainer[]     cargo_containers;
+	[HideInInspector] public bool touching_ground;
 
 	int selected_cargo_container_index;
 
@@ -37,9 +38,9 @@ public class RobotBrain : MonoBehaviour
 	bool  trigger_triggered_this_frame;
 	float human_feed_countdown;
 
-	void OnTriggerStay(Collider zone)
+	void OnTriggerStay(Collider collider)
 	{
-		if (!trigger_triggered_this_frame && is_playing && subtype<Intake>(secondary) && (key_now_down(Key.Enter) || trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)))
+		if (collider.CompareTag(GetComponent<Assembler>().data.is_red_alliance ? "RedZone" : "BlueZone") && !trigger_triggered_this_frame && is_playing && subtype<Intake>(secondary) && (key_now_down(Key.Enter) || trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)))
 		{
 			if (human_feed_countdown == 0.0f)
 			{
@@ -93,6 +94,22 @@ public class RobotBrain : MonoBehaviour
 			{
 				GetComponent<AudioManager>().Sound("Harsh Beep");
 			}
+		}
+	}
+
+	void OnTriggerEnter(Collider collider)
+	{
+		if (collider.CompareTag("ArenaFloor"))
+		{
+			touching_ground = true;
+		}
+	}
+
+	void OnTriggerExit(Collider collider)
+	{
+		if (collider.CompareTag("ArenaFloor"))
+		{
+			touching_ground = false;
 		}
 	}
 

@@ -141,7 +141,7 @@ public class Assembler : MonoBehaviour
 		{
 			Action<Transform> set = null;
 			set = (Transform t) => {
-				t.gameObject.layer = data.is_red_alliance ? 8 : 9;
+				t.gameObject.tag = data.is_red_alliance ? "RedDualCanes" : "BlueDualCanes";
 				foreach (Transform u in t)
 				{
 					set(u);
