@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1346525281074167042}
   - component: {fileID: 1346525281074167043}
   - component: {fileID: 377343693203943004}
+  - component: {fileID: 4338946635215691058}
   m_Layer: 7
   m_Name: redCargo
   m_TagString: RedCargo
@@ -114,3 +115,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4338946635215691058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346525281074167040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3981f10ad159c34591f7709fa892437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

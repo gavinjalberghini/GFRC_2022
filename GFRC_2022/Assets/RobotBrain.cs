@@ -39,7 +39,7 @@ public class RobotBrain : MonoBehaviour
 
 	void OnTriggerStay(Collider zone)
 	{
-		if (!trigger_triggered_this_frame && is_playing && subtype<Intake>(secondary) && trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0))
+		if (!trigger_triggered_this_frame && is_playing && subtype<Intake>(secondary) && (key_now_down(Key.Enter) || trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)))
 		{
 			if (human_feed_countdown == 0.0f)
 			{
@@ -157,7 +157,7 @@ public class RobotBrain : MonoBehaviour
 				if (key_now_down(Key.RightArrow) || dpad_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)) { selected_cargo_container_index -= 1; }
 				selected_cargo_container_index = mod(selected_cargo_container_index, cargo_containers.Length);
 
-				if (left_stick_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0))
+				if (key_now_down(Key.Z) || left_stick_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0))
 				{
 					if (cargo_containers[selected_cargo_container_index].try_unloading(true))
 					{
@@ -187,9 +187,9 @@ public class RobotBrain : MonoBehaviour
 				{
 					(primary as TurretMountedShooterManipulator).control
 						(
-							yaw             : right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
-							pitch           : right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
-							shoot           : trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
+							yaw             : arrow_keys().x          +  right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
+							pitch           : arrow_keys().y          +  right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
+							shoot           : key_now_down(Key.Space) || trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
 							cargo_container : cargo_containers[selected_cargo_container_index]
 						);
 				}
@@ -197,7 +197,7 @@ public class RobotBrain : MonoBehaviour
 				{
 					(primary as FixedPointShooterManipulator).control
 						(
-							shoot           : trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
+							shoot           : key_now_down(Key.Space) || trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
 							cargo_container : cargo_containers[selected_cargo_container_index]
 						);
 				}
@@ -205,30 +205,30 @@ public class RobotBrain : MonoBehaviour
 				{
 					(primary as ArmManipulator).control
 						(
-							yaw    : right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
-							pitch  : right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
-							toggle : trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
+							yaw    : arrow_keys().x          +  right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
+							pitch  : arrow_keys().y          +  right_stick           (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
+							toggle : key_now_down(Key.Space) || trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
 						);
 				}
 				else if (subtype<WristAndArmManipulator>(primary))
 				{
 					(primary as WristAndArmManipulator).control
 						(
-							yaw          : right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
-							pitch        : right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
-							joint_toggle : right_stick_now_down  (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
-							grab_toggle  : trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
+							yaw          : arrow_keys().x          + right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
+							pitch        : arrow_keys().y          + right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
+							joint_toggle : key_now_down(Key.X)     || right_stick_now_down  (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
+							grab_toggle  : key_now_down(Key.Space) || trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
 						);
 				}
 				else if (subtype<TelescopicArmManipulator>(primary))
 				{
 					(primary as TelescopicArmManipulator).control
 						(
-							yaw          : right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
-							pitch        : right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
-							length       : GetComponent<Assembler>().data.is_using_assistant ? left_stick(1).y + dpad(1).y : dpad(0).y,
-							joint_toggle : right_stick_now_down  (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
-							grab_toggle  : trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
+							yaw          :                             arrow_keys().x         + right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).x,
+							pitch        : (!key_down(Key.LeftShift) ? arrow_keys().y : 0.0f) + right_stick(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0).y,
+							length       : ( key_down(Key.LeftShift) ? arrow_keys().y : 0.0f) +            (GetComponent<Assembler>().data.is_using_assistant ? left_stick(1).y + dpad(1).y : dpad(0).y),
+							joint_toggle : key_now_down(Key.X)     || right_stick_now_down  (GetComponent<Assembler>().data.is_using_assistant ? 1 : 0),
+							grab_toggle  : key_now_down(Key.Space) || trigger_right_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
 						);
 
 				}
@@ -236,9 +236,9 @@ public class RobotBrain : MonoBehaviour
 				{
 					(primary as BucketManipulator).control
 						(
-							pitch           : trigger_right(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f ?  1.0f : -1.0f,
-							length          : GetComponent<Assembler>().data.is_using_assistant ? left_stick(1).y + dpad(1).y : dpad(0).y,
-							store           : right_stick_now_down(0),
+							pitch           : (!key_down(Key.LeftShift) ? arrow_keys().y : 0.0f) + (trigger_right(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f ?  1.0f : -1.0f),
+							length          : ( key_down(Key.LeftShift) ? arrow_keys().y : 0.0f) +               (GetComponent<Assembler>().data.is_using_assistant ? left_stick(1).y + dpad(1).y : dpad(0).y),
+							store           : key_now_down(Key.Space) || right_stick_now_down(0),
 							cargo_container : cargo_containers[selected_cargo_container_index]
 						);
 				}
@@ -251,14 +251,14 @@ public class RobotBrain : MonoBehaviour
 				{
 					(secondary as GrapplingHookManipulator).control
 						(
-							shoot : trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
+							shoot : key_down(Key.Enter) || trigger_left_now_down(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0)
 						);
 				}
 				else if (subtype<DualCaneManipulator>(secondary))
 				{
 					(secondary as DualCaneManipulator).control
 						(
-							extend : trigger_left(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f
+							extend : key_down(Key.Enter) || trigger_left(GetComponent<Assembler>().data.is_using_assistant ? 1 : 0) > 0.0f
 						);
 				}
 			}
