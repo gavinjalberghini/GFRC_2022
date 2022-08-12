@@ -129,7 +129,7 @@ public class Leaderboard : MonoBehaviour
 			entry.transform.Find("Build"      ).GetComponent<TMP_Text>().text = x.build == "" ? "N/A" : x.build;
 			entry.transform.Find("Date"       ).GetComponent<TMP_Text>().text = x.unixtime == 0 ? "N/A" : (new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).AddSeconds(x.unixtime).ToLocalTime().ToString();
 
-			if (db_currently_signed_in && db_curr_username == x.username)
+			if (db_currently_signed_in && db_curr_username == x.username.Substring(x.username.IndexOf(' ') + 1))
 			{
 				entry.GetComponent<Image>().enabled = true;
 			}
