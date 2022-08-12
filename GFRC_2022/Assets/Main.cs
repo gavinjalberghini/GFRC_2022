@@ -243,7 +243,7 @@ public class Main : MonoBehaviour
 
 					final_points = calc_points();
 
-					if (db_currently_signed_in)
+					if (db_currently_signed_in && randomized_robot_spawn && use_dummy_robots)
 					{
 						var entries = db_get_entries();
 						for (int i = 0; i < entries.Count; i += 1)

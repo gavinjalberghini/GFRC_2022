@@ -35,6 +35,7 @@ public class BuildAndPlay : MonoBehaviour
 	public GameObject   slider_yaw;
 	public GameObject   slider_pitch;
 	public GameObject[] ordered_bases;
+	public GameObject   score_saving_notice;
 
 	GameObject curr_build;
 	bool       zoomed = true;
@@ -194,6 +195,8 @@ public class BuildAndPlay : MonoBehaviour
 
 	void Update()
 	{
+		score_saving_notice.SetActive(db_currently_signed_in && (!tgl_dummy_robots.isOn || !tgl_randomized_spawn.isOn));
+
 		if (key_now_down(Key.Tab))
 		{
 			zoomed = !zoomed;
