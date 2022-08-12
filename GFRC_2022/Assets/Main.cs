@@ -41,6 +41,9 @@ public class Main : MonoBehaviour
 	public GameObject   red_cargo_source;
 	public GameObject   blue_zone;
 	public GameObject   red_zone;
+	public GameObject   forfeit_display;
+	public Button       forfeit_yes;
+	public Button       forfeit_no;
 
 	public static bool           randomized_robot_spawn = true;
 	public static bool           use_dummy_robots = true;
@@ -61,6 +64,14 @@ public class Main : MonoBehaviour
 	void Start()
 	{
 		Wheel.show_indicator = false;
+
+		forfeit_no.onClick.AddListener(delegate {
+			forfeit_display.SetActive(false);
+		});
+
+		forfeit_yes.onClick.AddListener(delegate {
+			SceneManager.LoadScene("Scenes/Title Menu Scene");
+		});
 
 		//
 		// Spawn robots.
@@ -198,6 +209,11 @@ public class Main : MonoBehaviour
 
 			case State.playing:
 			{
+				if (key_now_down(Key.Escape))
+				{
+					forfeit_display.SetActive(!forfeit_display.activeInHierarchy);
+				}
+
 				float old_game_time = game_time;
 
 				game_time = Mathf.Max(game_time - Time.deltaTime, 0.0f);
@@ -219,6 +235,7 @@ public class Main : MonoBehaviour
 
 				if (game_time == 0.0f)
 				{
+					forfeit_display.SetActive(false);
 					state = State.end;
 					txt_timer.gameObject.SetActive(false);
 					txt_score.gameObject.SetActive(false);
