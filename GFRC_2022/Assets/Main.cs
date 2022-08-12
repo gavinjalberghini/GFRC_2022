@@ -30,6 +30,7 @@ public class Main : MonoBehaviour
 	public TMP_Text   txt_score;
 	public GameObject start_display;
 	public GameObject end_display;
+	public GameObject ring;
 
 	public Hub          hub_top;
 	public Hub          hub_bot;
@@ -58,11 +59,16 @@ public class Main : MonoBehaviour
 	int final_points;
 	int calc_points() =>
 		assembler_data.is_red_alliance
-			? hub_top.redScore  + hub_bot.redScore  + (player.GetComponent<RobotBrain>().touching_ground ? 0 : hangar_red .calc_score ())
+			? hub_top.redScore  + hub_bot.redScore  + (player.GetComponent<RobotBrain>().touching_ground ? 0 : hangar_red .calc_score())
 			: hub_top.blueScore + hub_bot.blueScore + (player.GetComponent<RobotBrain>().touching_ground ? 0 : hangar_blue.calc_score());
 
 	void Start()
 	{
+		{
+			Color c = assembler_data.is_red_alliance ? RED : BLUE;
+			c.a = 0.5f;
+			ring.transform.Find("Ring").GetComponent<MeshRenderer>().material.color = c;
+		}
 		Wheel.show_indicator = false;
 
 		forfeit_no.onClick.AddListener(delegate {
@@ -162,6 +168,7 @@ public class Main : MonoBehaviour
 
 	void Update()
 	{
+		ring.transform.position = new Vector3(player.transform.position.x, 0.0f, player.transform.position.z);
 		switch (state)
 		{
 			case State.start:
