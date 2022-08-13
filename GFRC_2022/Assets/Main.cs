@@ -64,11 +64,6 @@ public class Main : MonoBehaviour
 
 	void Start()
 	{
-		{
-			Color c = assembler_data.is_red_alliance ? RED : BLUE;
-			c.a = 0.5f;
-			ring.transform.Find("Ring").GetComponent<MeshRenderer>().material.color = c;
-		}
 		Wheel.show_indicator = false;
 
 		forfeit_no.onClick.AddListener(delegate {
@@ -84,7 +79,7 @@ public class Main : MonoBehaviour
 		//
 
 		// assembler_data.curr_primary = Assembler.Primary.telescopic_arm;
-		// assembler_data.curr_secondary = Assembler.Secondary.human_feed_intake;
+		// assembler_data.curr_secondary = Assembler.Secondary.grappling_hook;
 		// assembler_data.using_floor_intake = true;
 		// randomized_robot_spawn = false;
 		// use_dummy_robots = false;
@@ -144,7 +139,7 @@ public class Main : MonoBehaviour
 					{
 						int spawn_index = randomized_robot_spawn ? UnityEngine.Random.Range(0, spawn_points.Count) : 0;
 						robots[i].transform.position = spawn_points[spawn_index].position;
-						robots[i].transform.rotation = spawn_points[spawn_index].rotation;
+						robots[i].transform.rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(0.0f, 360.0f), new Vector3(0.0f, 1.0f, 0.0f)) * spawn_points[spawn_index].rotation;
 						//robots[i].GetComponent<RobotBrain>().enabled = false;
 						spawn_points.RemoveAt(spawn_index);
 					}

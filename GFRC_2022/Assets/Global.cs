@@ -89,6 +89,7 @@ static class Global
 	static public bool    dpad_left_now_down     (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.left.wasPressedThisFrame;
 	static public bool    dpad_right_now_down    (int index) => index < Gamepad.all.Count && Gamepad.all[index] != null && Gamepad.all[index].dpad.right.wasPressedThisFrame;
 
+	static public Vector2 mouse_pos     () => Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.position.ReadValue();
 	static public Vector2 mouse_delta   () => Mouse.current == null ? new Vector2(0.0f, 0.0f) : Mouse.current.delta.ReadValue();
 	static public bool    mouse_now_down() => Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
 

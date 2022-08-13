@@ -21,6 +21,7 @@ TagManager:
   - ArenaFloor
   - RedRobot
   - BlueRobot
+  - Camera
   layers:
   - Default
   - TransparentFX
