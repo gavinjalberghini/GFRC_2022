@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2958909643912334055}
   - component: {fileID: 2314793933496759085}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Claw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,6 +117,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Intake
       objectReference: {fileID: 0}
+    - target: {fileID: 2375602430867787991, guid: 180fd771939699141b42cf26db2ca127, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 180fd771939699141b42cf26db2ca127, type: 3}
 --- !u!4 &65329691309772441 stripped
@@ -134,6 +138,10 @@ PrefabInstance:
     - target: {fileID: 3754733342287491190, guid: afe3542edf0e4be4195a801fd78aa712, type: 3}
       propertyPath: m_Name
       value: Cargo Container
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754733342287491190, guid: afe3542edf0e4be4195a801fd78aa712, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6598060484438465985, guid: afe3542edf0e4be4195a801fd78aa712, type: 3}
       propertyPath: m_RootOrder

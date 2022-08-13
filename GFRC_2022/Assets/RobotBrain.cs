@@ -124,14 +124,20 @@ public class RobotBrain : MonoBehaviour
 			{
 				foreach (Transform trans in primary.gameObject.GetComponentsInChildren<Transform>(true))
 				{
-					trans.gameObject.layer = 15;
+					if (trans.gameObject.layer != 16)
+					{
+						trans.gameObject.layer = 15;
+					}
 				}
 			}
 			if (secondary)
 			{
 				foreach (Transform trans in secondary.gameObject.GetComponentsInChildren<Transform>(true))
 				{
-					trans.gameObject.layer = 15;
+					if (trans.gameObject.layer != 16)
+					{
+						trans.gameObject.layer = 15;
+					}
 				}
 			}
 		}
