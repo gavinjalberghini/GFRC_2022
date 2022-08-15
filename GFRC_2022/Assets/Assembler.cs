@@ -31,7 +31,7 @@ public class Assembler : MonoBehaviour
 	{
 		public Primary   curr_primary;
 		public Secondary curr_secondary;
-		public bool      using_floor_intake;
+		public bool      using_floor_intake = true;
 		public bool      is_red_alliance = true;
 		public bool      is_using_assistant;
 		public float     shooter_power_t;
