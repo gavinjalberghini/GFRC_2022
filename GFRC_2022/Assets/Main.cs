@@ -216,6 +216,15 @@ public class Main : MonoBehaviour
 					forfeit_display.SetActive(!forfeit_display.activeInHierarchy);
 				}
 
+				if (forfeit_display.activeInHierarchy)
+				{
+					Time.timeScale = 0f;
+				}
+				else 
+				{
+					Time.timeScale = 1f;
+				}
+
 				float old_game_time = game_time;
 
 				game_time = Mathf.Max(game_time - Time.deltaTime, 0.0f);
