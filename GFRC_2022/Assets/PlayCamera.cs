@@ -21,6 +21,7 @@ public class PlayCamera : MonoBehaviour
 	public GameObject vantage_points_group;
 	public Vector3    third_person_delta_pos = new Vector3(0.0f, 4.0f, -1.0f);
 	public Vector3    birds_eye_pos          = new Vector3(0.0f, 8.0f, 0.0f);
+	public Transform  center;
 
 	Vector3 vantage_pos;
 	Vector3 tele_pos;
@@ -53,7 +54,7 @@ public class PlayCamera : MonoBehaviour
 				else
 				{
 					transform.position = dampen(transform.position, vantage_pos, GREASE);
-					transform.rotation = dampen(transform.rotation, Quaternion.LookRotation(robot_subject.position - vantage_pos, new Vector3(0.0f, 1.0f, 0.0f)), GREASE);
+					transform.rotation = dampen(transform.rotation, Quaternion.LookRotation((robot_subject.position + center.position) / 2 - vantage_pos, new Vector3(0.0f, 1.0f, 0.0f)), GREASE);
 				}
 			} break;
 

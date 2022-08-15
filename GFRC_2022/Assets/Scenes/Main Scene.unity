@@ -1053,6 +1053,7 @@ MonoBehaviour:
   vantage_points_group: {fileID: 2017019615}
   third_person_delta_pos: {x: 0, y: 3, z: -2}
   birds_eye_pos: {x: 0, y: 8, z: 0}
+  center: {fileID: 2016674347}
 --- !u!65 &231070406
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7399,6 +7400,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3641b058e3974cd4aa952a5abe20a150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2016674347 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6323820223288950380, guid: 2e626de2fa0c713438e3ecfacdcfebb1, type: 3}
+  m_PrefabInstance: {fileID: 2016674342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2017019615
 GameObject:
   m_ObjectHideFlags: 0
