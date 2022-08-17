@@ -1984,7 +1984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7345733690057796437, guid: 772f806700221704f89de01ab5e0ce89, type: 3}
       propertyPath: height_max
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7345733690057796442, guid: 772f806700221704f89de01ab5e0ce89, type: 3}
       propertyPath: m_RootOrder
