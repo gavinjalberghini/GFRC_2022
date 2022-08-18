@@ -83,8 +83,8 @@ public class Main : MonoBehaviour
 		// assembler_data.curr_primary = Assembler.Primary.telescopic_arm;
 		// assembler_data.curr_secondary = Assembler.Secondary.grappling_hook;
 		// assembler_data.using_floor_intake = true;
-		randomized_robot_spawn = false;
-		use_dummy_robots = false;
+		// randomized_robot_spawn = false;
+		// use_dummy_robots = false;
 
 		{
 			player = Instantiate(ordered_bases[assembler_base_index]);
