@@ -78,11 +78,13 @@ public class Main : MonoBehaviour
 		// Spawn robots.
 		//
 
-		// assembler_data.curr_primary = Assembler.Primary.telescopic_arm;
+		assembler_base_index =  1;
+		assembler_data.is_red_alliance = false;
+		assembler_data.curr_primary = Assembler.Primary.telescopic_arm;
 		// assembler_data.curr_secondary = Assembler.Secondary.grappling_hook;
 		// assembler_data.using_floor_intake = true;
-		// randomized_robot_spawn = false;
-		// use_dummy_robots = false;
+		randomized_robot_spawn = false;
+		use_dummy_robots = false;
 
 		{
 			player = Instantiate(ordered_bases[assembler_base_index]);
@@ -214,15 +216,6 @@ public class Main : MonoBehaviour
 				if (key_now_down(Key.Escape))
 				{
 					forfeit_display.SetActive(!forfeit_display.activeInHierarchy);
-				}
-
-				if (forfeit_display.activeInHierarchy)
-				{
-					Time.timeScale = 0f;
-				}
-				else 
-				{
-					Time.timeScale = 1f;
 				}
 
 				float old_game_time = game_time;

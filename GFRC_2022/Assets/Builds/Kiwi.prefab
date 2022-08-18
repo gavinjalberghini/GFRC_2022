@@ -918,7 +918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634350732718088533, guid: 1aa5b1511bab0a04abba08d063a8dc12, type: 3}
       propertyPath: length_speed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4634350732718088533, guid: 1aa5b1511bab0a04abba08d063a8dc12, type: 3}
       propertyPath: target_pitch
