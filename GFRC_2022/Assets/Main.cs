@@ -78,9 +78,9 @@ public class Main : MonoBehaviour
 		// Spawn robots.
 		//
 
-		assembler_base_index =  1;
-		assembler_data.is_red_alliance = false;
-		assembler_data.curr_primary = Assembler.Primary.telescopic_arm;
+		// assembler_base_index =  1;
+		// assembler_data.is_red_alliance = false;
+		// assembler_data.curr_primary = Assembler.Primary.telescopic_arm;
 		// assembler_data.curr_secondary = Assembler.Secondary.grappling_hook;
 		// assembler_data.using_floor_intake = true;
 		randomized_robot_spawn = false;
