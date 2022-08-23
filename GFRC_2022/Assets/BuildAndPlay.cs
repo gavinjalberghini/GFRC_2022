@@ -17,6 +17,7 @@ public class BuildAndPlay : MonoBehaviour
 	public Button       btn_play_simulation;
 	public Button       btn_view_bindings;
 	public Button       btn_zoom;
+	public Button       btn_back;
 	public GameObject   bindings_pop_up;
 	public TMP_Dropdown drp_drive;
 	public TMP_Text     txt_drive;
@@ -43,6 +44,10 @@ public class BuildAndPlay : MonoBehaviour
 
 	void Start()
 	{
+		btn_back.onClick.AddListener(delegate {
+			SceneManager.LoadScene("Scenes/Title Menu Scene");
+		});
+
 		btn_play_simulation.onClick.AddListener(delegate {
 			Main.randomized_robot_spawn = false;
 			Main.assembler_base_index   = drp_drive.value;
