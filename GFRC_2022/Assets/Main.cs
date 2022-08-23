@@ -122,11 +122,11 @@ public class Main : MonoBehaviour
 
 			if (use_dummy_robots)
 			{
-				while (RobotReds.Count < 4)
+				while (RobotReds.Count < 3)
 				{
 					make_random_dummy(RobotReds);
 				}
-				while (RobotBlues.Count < 4)
+				while (RobotBlues.Count < 3)
 				{
 					make_random_dummy(RobotBlues);
 				}
@@ -247,7 +247,7 @@ public class Main : MonoBehaviour
 
 					final_points = calc_points();
 
-					if (db_currently_signed_in && randomized_robot_spawn && use_dummy_robots)
+					if (db_currently_signed_in && use_dummy_robots)
 					{
 						var entries = db_get_entries();
 						for (int i = 0; i < entries.Count; i += 1)

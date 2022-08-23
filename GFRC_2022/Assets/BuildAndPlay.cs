@@ -200,7 +200,7 @@ public class BuildAndPlay : MonoBehaviour
 
 	void Update()
 	{
-		score_saving_notice.SetActive(db_currently_signed_in && (!tgl_dummy_robots.isOn || !tgl_randomized_spawn.isOn));
+		score_saving_notice.SetActive(!db_currently_signed_in || !tgl_dummy_robots.isOn);
 
 		if (key_now_down(Key.Tab))
 		{

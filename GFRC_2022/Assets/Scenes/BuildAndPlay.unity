@@ -13082,8 +13082,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Scores will only be saved to the leaderboard when using dummy robots and
-    randomized spawn.
+  m_text: Scores will only be saved to the leaderboard when signed in and using dummy
+    robots.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5d0f00f8744dd6847a95a724a5732c86, type: 2}
   m_sharedMaterial: {fileID: 3677746732852056962, guid: 5d0f00f8744dd6847a95a724a5732c86, type: 2}
