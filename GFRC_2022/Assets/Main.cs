@@ -55,6 +55,7 @@ public class Main : MonoBehaviour
 	List<GameObject> RobotBlues = new List<GameObject>();
 	GameObject       player;
 	bool             got_highscore;
+	float            start_auto_countdown = 15.0f;
 
 	int final_points;
 	int calc_points() =>
@@ -170,12 +171,17 @@ public class Main : MonoBehaviour
 		{
 			case State.start:
 			{
-				if (any_key_now_down() && !key_now_down(Key.Tab))
+				start_auto_countdown -= Time.deltaTime;
+				if (any_key_now_down() && !key_now_down(Key.Tab) || start_auto_countdown <= 3.0f)
 				{
 					state     = State.counting_down;
 					countdown = 3.0f;
 					txt_countdown.gameObject.SetActive(true);
 					start_display.SetActive(false);
+				}
+				else
+				{
+					start_display.GetComponent<TMP_Text>().text = "[press any key to start]\ngame will begin in " + Mathf.Ceil(start_auto_countdown) + "s";
 				}
 			} break;
 

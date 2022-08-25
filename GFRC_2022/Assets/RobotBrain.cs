@@ -320,11 +320,11 @@ public class RobotBrain : MonoBehaviour
 				}
 				else if (random_state == RandomState.turning_left || random_state == RandomState.turning_right)
 				{
-					random_state_countdown = UnityEngine.Random.Range(1.0f, 2.0f);
+					random_state_countdown = UnityEngine.Random.Range(0.5f, 1.0f);
 				}
 				else
 				{
-					random_state_countdown = UnityEngine.Random.Range(1.0f, 4.0f);
+					random_state_countdown = UnityEngine.Random.Range(0.5f, 2.0f);
 				}
 			}
 

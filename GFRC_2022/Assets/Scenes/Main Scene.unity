@@ -2301,7 +2301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: press any key to begin
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 79a61635c8d65284ba2abe3fb5efcfcd, type: 2}
   m_sharedMaterial: {fileID: 3677746732852056962, guid: 79a61635c8d65284ba2abe3fb5efcfcd, type: 2}
@@ -7873,12 +7873,12 @@ MonoBehaviour:
   sounds:
   - name: Music
     clip: {fileID: 8300000, guid: 077c1b4bf010c1643a53b263e97c0872, type: 3}
-    volume: 0.17
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: Beep
     clip: {fileID: 8300000, guid: 4c712738b1dd05346b354f90fb59b046, type: 3}
-    volume: 1
+    volume: 0.8
     pitch: 1
     source: {fileID: 0}
   - name: Time
@@ -7888,7 +7888,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Air Horn
     clip: {fileID: 8300000, guid: f54d5a8d00f625948a71703730d55b27, type: 3}
-    volume: 0.5
+    volume: 0.75
     pitch: 0.6
     source: {fileID: 0}
 --- !u!1 &2136786855

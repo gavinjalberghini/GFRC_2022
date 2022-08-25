@@ -232,8 +232,8 @@ public class BuildAndPlay : MonoBehaviour
 			if (tgl_assistant.isOn)
 			{
 				gamepad_1 +=
-					"Drive/Strafe : (L)\n" +
-					"Steer : (R)\n";
+					"Steer : (R)\n" +
+					"Drive/Strafe : (L)\n";
 				gamepad_2 +=
 					"Cycle cargo containers : (Left) / (Right)\n" +
 					"Dismount current cargo container : (L3)\n";
@@ -241,7 +241,7 @@ public class BuildAndPlay : MonoBehaviour
 			else
 			{
 				gamepad_1 +=
-					"Drive/Steer : (L)\n" +
+					"Drive/Strafe : (L)\n" +
 					"Cycle cargo containers : (Left) / (Right)\n" +
 					"Dismount current cargo container : (L3)\n";
 			}

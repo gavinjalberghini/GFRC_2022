@@ -127,18 +127,24 @@ public class TitleMenu : MonoBehaviour
 			}
 			else
 			{
-				bool found_username = false;
-				var  entries        = db_get_entries();
+				bool unique  = true;
+				var  entries = db_get_entries();
 				foreach (var entry in entries)
 				{
 					if (entry.username == fld_username.text)
 					{
-						found_username = true;
+						unique = false;
 						report_red("Username taken!");
 						break;
 					}
+					if (entry.teamnumber == fld_teamnumber.text)
+					{
+						unique = false;
+						report_red("Team number taken!");
+						break;
+					}
 				}
-				if (!found_username)
+				if (unique)
 				{
 					entries.Add
 					(
