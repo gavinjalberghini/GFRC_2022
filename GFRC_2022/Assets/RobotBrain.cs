@@ -159,12 +159,15 @@ public class RobotBrain : MonoBehaviour
 				if (in_control && key_down(Key.E)) { qe += 1.0f; }
 				Vector2 translation =
 					in_control
-						? (GetComponent<Assembler>().data.is_using_assistant ? left_stick(0) : new Vector2(0.0f, left_stick(0).y)) + wasd()
+						? left_stick(0) + wasd()
 						: new Vector2(0.0f, 0.0f);
 
 				float steering =
 					in_control
-						? (GetComponent<Assembler>().data.is_using_assistant ? right_stick(0).x : left_stick(0).x) + qe
+						?
+							(shoulder_left_down(0) ? -1.0f : 0.0f) + (shoulder_right_down(0) ? 1.0f : 0.0f) +
+							(GetComponent<Assembler>().data.is_using_assistant ? right_stick(0).x : 0.0f)
+								+ qe
 						: 0.0f;
 
 				drive_controller.control(translation, steering);

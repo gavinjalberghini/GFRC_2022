@@ -225,6 +225,10 @@ public class BuildAndPlay : MonoBehaviour
 			String gamepad_1 = "";
 			String gamepad_2 = "";
 
+			gamepad_1 +=
+				"Steer left : (L1)\n" +
+				"Steer right : (R1)\n";
+
 			if (tgl_assistant.isOn)
 			{
 				gamepad_1 +=

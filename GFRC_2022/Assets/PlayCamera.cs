@@ -49,7 +49,14 @@ public class PlayCamera : MonoBehaviour
 			{
 				if (mouse_now_down())
 				{
-					mode = Mode.robo_cam;
+					if (mouse_pos().y < Screen.height / 3.0f)
+					{
+						mode = Mode.robo_cam;
+					}
+					else
+					{
+						mode = Mode.birds_eye;
+					}
 				}
 				else
 				{
@@ -60,8 +67,15 @@ public class PlayCamera : MonoBehaviour
 
 			case Mode.third_person:
 			{
-				transform.position = dampen(transform.position, robot_subject.position + third_person_delta_pos, GREASE);
-				transform.rotation = dampen(transform.rotation, Quaternion.LookRotation(-third_person_delta_pos, new Vector3(0.0f, 1.0f, 0.0f)), GREASE);
+				if (mouse_now_down())
+				{
+					mode = Mode.birds_eye;
+				}
+				else
+				{
+					transform.position = dampen(transform.position, robot_subject.position + third_person_delta_pos, GREASE);
+					transform.rotation = dampen(transform.rotation, Quaternion.LookRotation(-third_person_delta_pos, new Vector3(0.0f, 1.0f, 0.0f)), GREASE);
+				}
 			} break;
 
 			case Mode.birds_eye:
